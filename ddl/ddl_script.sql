@@ -258,6 +258,7 @@ CREATE TABLE `Career_Info_Post` (
   `member_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `status` ENUM('NONE','PENDING','APPROVED','REJECTED') NOT NULL DEFAULT 'NONE',
+  `reject_reason` VARCHAR(255) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `content` TEXT NULL,
   `image_url` VARCHAR(255) NULL,
