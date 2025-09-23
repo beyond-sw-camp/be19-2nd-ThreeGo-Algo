@@ -1,90 +1,92 @@
 -- 스터디 참여자 조회
 SELECT 
-       sm.id 		  AS 'study_member_id'
-     , mem.nickname AS 'study_member_nickname'
-     , mr.name      AS 'study_member_rank'
-     , sm.role      AS 'stduy_member_role'
-  FROM Study_Member sm
-  JOIN Member mem      ON sm.member_id = mem.id
-  JOIN Member_Rank mr  ON mem.rank_id = mr.id
- WHERE sm.study_id = 1 --  #{studyId}        
+       A.ID         AS STUDY_MEMBER_ID
+     , B.NICKNAME   AS STUDY_MEMBER_NICKNAME
+     , C.NAME       AS STUDY_MEMBER_RANK
+     , A.ROLE       AS STUDY_MEMBER_ROLE
+  FROM STUDY_MEMBER A
+  JOIN MEMBER B      ON A.MEMBER_ID = B.ID
+  JOIN MEMBER_RANK C ON B.RANK_ID   = C.ID
+ WHERE A.STUDY_ID = 1 --  #{studyId}        
 ORDER BY 
-    CASE WHEN sm.role = 'LEADER' 
+    CASE WHEN A.ROLE = 'LEADER' 
 	      THEN 0 ELSE 1 END,
-    mem.nickname ASC;
+    B.NICKNAME ASC;
     
     
 -- 스터디 게시물 전체 조회
 SELECT 
-       sp.id             AS 'post_id'
-     , mem.nickname      AS 'author_nickname'
-     , sp.title          AS 'title'
-     , sp.created_at     AS 'created_at'
-  FROM Study_Post sp
-  JOIN Study_Member sm  ON sp.member_id = sm.id
-  JOIN Member mem       ON sm.member_id = mem.id
- WHERE sp.study_id = 1        -- #{studyId}
-   AND sp.visibility = 'Y'
-ORDER BY sp.created_at DESC;
+       A.ID         AS POST_ID
+     , C.NICKNAME   AS AUTHOR_NICKNAME
+     , A.TITLE      AS TITLE
+     , A.CREATED_AT AS CREATED_AT
+  FROM STUDY_POST A
+  JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER C       ON B.MEMBER_ID = C.ID
+ WHERE A.STUDY_ID = 1        -- #{studyId}
+   AND A.VISIBILITY = 'Y'
+ORDER BY A.CREATED_AT DESC;
 
 -- 스터디 게시물 상세 조회
 SELECT 
-       sp.id           AS 'post_id'
-     , mem.nickname    AS 'author_nickname'
-     , mr.name         AS 'author_rank'
-     , sp.title        AS 'title'  
-     , sp.created_at   AS 'created_at'
-     , sp.updated_at   AS 'updated_at'
-     , sp.content      AS 'content' 
-     , img.image_url   AS 'image'
-  FROM Study_Post sp
-  JOIN Study_Member sm ON sp.member_id = sm.id
-  JOIN Member mem      ON sm.member_id = mem.id
-  JOIN Member_Rank mr   ON mem.rank_id = mr.id
-  LEFT JOIN Study_Post_Image img ON sp.id = img.post_id
- WHERE sp.id = 7              -- #{postId}
-   AND sp.visibility = 'Y';
+       A.ID         AS POST_ID
+     , C.NICKNAME   AS AUTHOR_NICKNAME
+     , D.NAME       AS AUTHOR_RANK
+     , A.TITLE      AS TITLE  
+     , A.CREATED_AT AS CREATED_AT
+     , A.UPDATED_AT AS UPDATED_AT
+     , A.CONTENT    AS CONTENT 
+     , E.IMAGE_URL  AS IMAGE
+  FROM STUDY_POST A
+  JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER C       ON B.MEMBER_ID = C.ID
+  JOIN MEMBER_RANK D  ON C.RANK_ID   = D.ID
+  LEFT JOIN STUDY_POST_IMAGE E ON A.ID = E.POST_ID
+ WHERE A.ID = 7              -- #{postId}
+   AND A.VISIBILITY = 'Y';
 
 -- 스터디 게시물 댓글 조회
 SELECT 
-    sc.id              AS 'comment_id'
-   , mem.nickname      AS 'author_nickname'
-   , mr.name           AS 'author_rank'
-   , sc.content        AS 'content'
-   , sc.created_at     AS 'created_at' 
-   , sc.updated_at     AS 'updated_at'
-  FROM Study_Comment sc
-  JOIN Study_Member sm ON sc.member_id = sm.id
-  JOIN Member mem      ON sm.member_id = mem.id
-  JOIN Member_Rank mr   ON mem.rank_id = mr.id
- WHERE sc.post_id = 2    -- #{postId}
-   AND sc.visibility = 'Y'
-ORDER BY sc.created_at ASC;
+       A.POST_ID     AS POST_ID
+     , C.NICKNAME    AS AUTHOR_NICKNAME
+     , D.NAME        AS AUTHOR_RANK
+     , A.CONTENT     AS CONTENT
+     , A.CREATED_AT  AS CREATED_AT 
+     , A.UPDATED_AT  AS UPDATED_AT
+  FROM STUDY_COMMENT A
+  JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER C       ON B.MEMBER_ID = C.ID
+  JOIN MEMBER_RANK D  ON C.RANK_ID   = D.ID
+ WHERE A.POST_ID = 2    -- #{postId}
+   AND A.VISIBILITY = 'Y'
+ORDER BY A.CREATED_AT ASC;
 
 
 -- 게시물 로드맵 전체 조회
 SELECT 
-       sr.title     AS 'roadmap_title'
-  FROM Study_Roadmap sr
- WHERE sr.study_id = 1   -- #{studyId}
-ORDER BY sr.`order`;
+       A.STUDY_ID  AS STUDY_ID
+     , A.TITLE     AS ROADMAP_TITLE
+  FROM STUDY_ROADMAP A
+ WHERE A.STUDY_ID = 1   -- #{studyId}
+ORDER BY A.`ORDER`;
 
 
 -- 게시물 로드맵 상세 조회
 SELECT 
-       sr.title         AS 'roadmap_title'
-     , sr.description   AS 'roadmap_description'
-     , ms.title         AS 'milestone_title'
-  FROM Study_Roadmap sr
-  LEFT JOIN Study_Milestone ms ON sr.id = ms.roadmap_id
- WHERE sr.id = 1      -- #{roadmapId}
-ORDER BY ms.`order`;
+       A.ID          AS ROADMAP_ID
+     , A.TITLE       AS ROADMAP_TITLE
+     , A.DESCRIPTION AS ROADMAP_DESCRIPTION
+     , B.TITLE       AS MILESTONE_TITLE
+  FROM STUDY_ROADMAP A
+  LEFT JOIN STUDY_MILESTONE B ON A.ID = B.ROADMAP_ID
+ WHERE A.ID = 1      -- #{roadmapId}
+ORDER BY B.`ORDER`;
 
 
 -- 로드맵 마일스톤 상세 조회
-    SELECT 
-           ms.id           AS 'milestone_id'
-         , ms.title        AS 'milestone_title'
-         , ms.description  AS 'milestone_description'
-    FROM Study_Milestone ms
-    WHERE ms.id = 2;   -- #{milestoneId}
+SELECT 
+       A.ID          AS MILESTONE_ID
+     , A.TITLE       AS MILESTONE_TITLE
+     , A.DESCRIPTION AS MILESTONE_DESCRIPTION
+  FROM STUDY_MILESTONE A
+ WHERE A.ID = 2;   -- #{milestoneId}
