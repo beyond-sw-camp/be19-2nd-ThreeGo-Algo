@@ -83,3 +83,11 @@ INSERT INTO Career_Info_Comment (parent_id, post_id, member_id, content, visibil
 (NULL, 28, 3, 'DevOps의 중요성을 느낍니다.', 'Y', '2025-09-28 22:25:35', '2025-09-28 22:25:35'),
 (NULL, 29, 4, '프론트엔드 개발이 재미있어요.', 'Y', '2025-09-29 23:35:40', '2025-09-29 23:35:40'),
 (NULL, 30, 5, '백엔드 개발의 기초를 배우고 싶어요.', 'Y', '2025-09-30 00:45:45', '2025-09-30 00:45:45');
+
+UPDATE Career_Info_Post p
+SET comment_count = (
+    SELECT COUNT(*)
+    FROM Career_Info_Comment c
+    WHERE c.post_id = p.id
+)
+WHERE p.id IS NOT NULL;
