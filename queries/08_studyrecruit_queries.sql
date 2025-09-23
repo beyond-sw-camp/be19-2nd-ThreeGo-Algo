@@ -84,16 +84,18 @@ SELECT
      , A.PARENT_ID AS PARENT_ID
      , B.ID AS MEMBER_ID
      , B.NICKNAME AS COMMENTER_NICKNAME
-     , C.NAME AS RANK_NAME
+     , C.NAME AS MEMBER_RANK
      , A.CONTENT AS COMMENT_CONTENT
      , A.CREATED_AT AS CREATED_AT
      , A.UPDATED_AT AS UPDATED_AT
      , A.POST_ID AS POST_ID
      , A.VISIBILITY AS COMMENT_VISIBILITY
- FROM  STUDY_COMMENT A JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID 
- WHERE A.POST_ID = 10 								-- 특정 스터디 모집글 ID로 필터링 #{postId}
- ORDER BY A.CREATED_AT ASC;
+  FROM STUDY_COMMENT A JOIN member B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID  	-- 회원 등급 테이블 조인
+ WHERE A.POST_ID = 1
+ ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
+               ELSE A.PARENT_ID END ASC,
+                    A.ID ASC; 			
     
 -- -----------------------------------------------------------------------------------------------------------------
 -- 스터디 모집 신청 리스트 조회 기능	
@@ -102,7 +104,7 @@ SELECT
        A.ID AS RECRUIT_MEMBER_ID
      , B.ID AS MEMBER_ID
      , B.NICKNAME AS NICKNAME
-     , D.NAME AS RANK_NAME
+     , D.NAME AS MEMBER_RANK
      , B.EMAIL AS MEMBER_EMAIL
      , C.ID AS POST_ID
      , C.TITLE AS POST_TITLE
