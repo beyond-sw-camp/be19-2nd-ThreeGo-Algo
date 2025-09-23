@@ -18,7 +18,8 @@ CREATE TABLE `Algo_Post` (
   `content` LONGTEXT NOT NULL,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
-  `likes` INT NOT NULL DEFAULT 0,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT `FK_Member_TO_Algo_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
   CONSTRAINT `FK_Algo_Roadmap_TO_Algo_Post` FOREIGN KEY (`roadmap_id`) REFERENCES `Algo_Roadmap`(`id`)
@@ -49,6 +50,15 @@ CREATE TABLE `Algo_Quiz_Option` (
   `option_text` VARCHAR(255) NOT NULL,
   `is_correct` TINYINT(1) NOT NULL,
   CONSTRAINT `FK_Algo_Quiz_Question_TO_Algo_Quiz_Option` FOREIGN KEY (`question_id`) REFERENCES `Algo_Quiz_Question`(`id`)
+);
+
+-- 회원별 퀴즈 맞춘 이력
+CREATE TABLE `Member_Algo_Correct_Quiz_History` (
+	`member_id` INT NOT NULL,
+	`algo_quiz_question_id` INT NOT NULL,
+	PRIMARY KEY (`member_id`, `algo_quiz_question_id`),
+	CONSTRAINT `FK_Member_TO_Member_Algo_Correct_Quiz_History` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
+	CONSTRAINT `FK_Algo_Quiz_TO_Member_Algo_Correct_Quiz_History` FOREIGN KEY (`algo_quiz_question_id`) REFERENCES `Algo_Quiz_Question`(`id`)
 );
 
 -- 알고리즘 학습 게시물 댓글

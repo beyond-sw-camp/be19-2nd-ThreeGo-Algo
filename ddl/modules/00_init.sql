@@ -4,6 +4,7 @@ USE algo;
 
 -- 1. 자식 테이블부터 DROP
 DROP TABLE IF EXISTS `Likes`;
+DROP TABLE IF EXISTS `Member_Algo_Correct_Quiz_History`; 
 DROP TABLE IF EXISTS `Algo_Post_Image`;
 DROP TABLE IF EXISTS `Algo_Quiz_Option`;
 DROP TABLE IF EXISTS `Algo_Comment`;
