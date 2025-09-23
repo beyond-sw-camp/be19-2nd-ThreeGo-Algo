@@ -4,6 +4,7 @@ USE algo;
 
 -- 1. 자식 테이블부터 DROP
 DROP TABLE IF EXISTS `Likes`;
+DROP TABLE IF EXISTS `Member_Algo_Correct_Quiz_History`; 
 DROP TABLE IF EXISTS `Algo_Post_Image`;
 DROP TABLE IF EXISTS `Algo_Quiz_Option`;
 DROP TABLE IF EXISTS `Algo_Comment`;
@@ -137,7 +138,8 @@ CREATE TABLE `Algo_Post` (
   `content` LONGTEXT NOT NULL,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
-  `likes` INT NOT NULL DEFAULT 0,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT `FK_Member_TO_Algo_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
   CONSTRAINT `FK_Algo_Roadmap_TO_Algo_Post` FOREIGN KEY (`roadmap_id`) REFERENCES `Algo_Roadmap`(`id`)
@@ -168,6 +170,15 @@ CREATE TABLE `Algo_Quiz_Option` (
   `option_text` VARCHAR(255) NOT NULL,
   `is_correct` TINYINT(1) NOT NULL,
   CONSTRAINT `FK_Algo_Quiz_Question_TO_Algo_Quiz_Option` FOREIGN KEY (`question_id`) REFERENCES `Algo_Quiz_Question`(`id`)
+);
+
+-- 회원별 퀴즈 맞춘 이력
+CREATE TABLE `Member_Algo_Correct_Quiz_History` (
+	`member_id` INT NOT NULL,
+	`algo_quiz_question_id` INT NOT NULL,
+	PRIMARY KEY (`member_id`, `algo_quiz_question_id`),
+	CONSTRAINT `FK_Member_TO_Member_Algo_Correct_Quiz_History` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
+	CONSTRAINT `FK_Algo_Quiz_TO_Member_Algo_Correct_Quiz_History` FOREIGN KEY (`algo_quiz_question_id`) REFERENCES `Algo_Quiz_Question`(`id`)
 );
 
 -- 알고리즘 학습 게시물 댓글
@@ -207,6 +218,7 @@ CREATE TABLE `Coding_Problem` (
   `output` TEXT NULL,
   `problem_url` VARCHAR(255) NOT NULL,
   `constraints` TEXT NULL,
+  `post_count` INT NOT NULL DEFAULT 0,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `created_at` VARCHAR(20) NOT NULL,
   CONSTRAINT `FK_Member_TO_Coding_Problem` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
@@ -224,6 +236,8 @@ CREATE TABLE `Coding_Post` (
   `ai_good` VARCHAR(255) NULL,
   `ai_bad` VARCHAR(255) NULL,
   `ai_plan` VARCHAR(255) NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   CONSTRAINT `FK_Member_TO_Coding_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
@@ -262,6 +276,8 @@ CREATE TABLE `Career_Info_Post` (
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `content` TEXT NULL,
   `image_url` VARCHAR(255) NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   CONSTRAINT `FK_Member_TO_Career_Info_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
@@ -271,12 +287,14 @@ CREATE TABLE `Career_Info_Comment` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `parent_id` INT NULL,
   `post_id` INT NOT NULL,
+  `member_id` INT NOT NULL,
   `content` VARCHAR(500) NOT NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   CONSTRAINT `FK_Career_Info_Comment_TO_Career_Info_Comment` FOREIGN KEY (`parent_id`) REFERENCES `Career_Info_Comment`(`id`),
-  CONSTRAINT `FK_Career_Info_Post_TO_Career_Info_Comment` FOREIGN KEY (`post_id`) REFERENCES `Career_Info_Post`(`id`)
+  CONSTRAINT `FK_Career_Info_Post_TO_Career_Info_Comment` FOREIGN KEY (`post_id`) REFERENCES `Career_Info_Post`(`id`),
+  CONSTRAINT `FK_Member_TO_Career_Info_Comment` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
 
 -- 추천 (공통: 알고리즘/코딩/커리어 게시물에 사용)
@@ -303,6 +321,7 @@ CREATE TABLE `Study_Recruit_Post` (
   `expires_at` VARCHAR(20) NOT NULL COMMENT '모집 마감 시각',
   `status` ENUM('OPEN','CLOSED','CANCELLED') NOT NULL DEFAULT 'OPEN',
   `capacity` INT NOT NULL DEFAULT 2 COMMENT '스터디장 포함 인원',
+  `comment_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
@@ -362,6 +381,7 @@ CREATE TABLE `Study_Post` (
   `member_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
