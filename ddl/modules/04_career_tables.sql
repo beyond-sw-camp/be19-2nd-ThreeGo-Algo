@@ -8,6 +8,8 @@ CREATE TABLE `Career_Info_Post` (
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `content` TEXT NULL,
   `image_url` VARCHAR(255) NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   CONSTRAINT `FK_Member_TO_Career_Info_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
