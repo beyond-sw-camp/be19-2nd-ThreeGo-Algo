@@ -1,44 +1,33 @@
 -- [회원] 기업 정보 공유 게시물 목록 조회
 SELECT
-      A.ID                    AS postId
-    , A.TITLE                 AS title
-    , A.MEMBER_ID             AS writerId
-    , B.NICKNAME              AS writerNickname
-    , A.CREATED_AT            AS createdAt
-    , A.STATUS                AS postStatus
-    , COUNT(DISTINCT C.ID)    AS likeCount
-    , COUNT(DISTINCT D.ID)    AS commentCount
+      A.ID
+    , A.TITLE
+    , A.MEMBER_ID
+    , B.NICKNAME
+    , A.CREATED_AT
+    , A.STATUS
+    , A.LIKE_COUNT
+    , A.COMMENT_COUNT
  FROM CAREER_INFO_POST A
  JOIN MEMBER B
    ON A.MEMBER_ID = B.ID
- LEFT JOIN LIKES C
-   ON C.CAREER_INFO_POST_ID = A.ID
- LEFT JOIN CAREER_INFO_COMMENT D
-   ON D.POST_ID = A.ID
 WHERE A.VISIBILITY = 'Y'
-GROUP BY A.ID, A.TITLE, A.MEMBER_ID, B.NICKNAME, A.CREATED_AT, A.STATUS
 ORDER BY A.CREATED_AT DESC;
 
 -- [회원] 기업별 정보 공유 게시물 상세 조회
 SELECT
-      A.ID                    AS postId
-    , A.TITLE                 AS title
-    , A.CONTENT               AS content
-    , A.MEMBER_ID             AS writerId
-    , B.NICKNAME              AS writerNickname
-    , A.CREATED_AT            AS createdAt
-    , A.VISIBILITY            AS visibility
-    , A.STATUS                AS postStatus   -- 서비스 단에서 내 글일 때만 노출
-    , A.REJECT_REASON         AS rejectReason -- 서비스 단에서 내 글일 때만 노출
-    , A.IMAGE_URL             AS imageUrl     -- 서비스 단에서 내 글일 때만 노출
-    , (SELECT COUNT(*)
-         FROM LIKES C
-        WHERE C.CAREER_INFO_POST_ID = A.ID) 
-                              AS likeCount
-    , (SELECT COUNT(*)
-         FROM CAREER_INFO_COMMENT D
-        WHERE D.POST_ID = A.ID) 
-                              AS commentCount
+      A.ID
+    , A.TITLE
+    , A.CONTENT
+    , A.MEMBER_ID
+    , B.NICKNAME
+    , A.CREATED_AT
+    , A.VISIBILITY
+    , A.STATUS         -- 서비스 단에서 내 글일 때만 노출
+    , A.REJECT_REASON  -- 서비스 단에서 내 글일 때만 노출
+    , A.IMAGE_URL      -- 서비스 단에서 내 글일 때만 노출
+    , A.LIKE_COUNT
+    , A.COMMENT_COUNT
  FROM CAREER_INFO_POST A
  JOIN MEMBER B
    ON A.MEMBER_ID = B.ID
@@ -73,6 +62,8 @@ SELECT
      , B.NICKNAME
      , A.CREATED_AT
      , A.STATUS
+     , A.LIKE_COUNT
+     , A.COMMENT_COUNT
   FROM CAREER_INFO_POST A
   JOIN MEMBER B
     ON A.MEMBER_ID = B.ID
@@ -91,14 +82,8 @@ SELECT
     , A.VISIBILITY
     , A.STATUS
     , A.REJECT_REASON
-    , (SELECT COUNT(*)
-         FROM LIKES C
-        WHERE C.CAREER_INFO_POST_ID = A.ID) 
-                              AS likeCount
-    , (SELECT COUNT(*)
-         FROM CAREER_INFO_COMMENT D
-        WHERE D.POST_ID = A.ID) 
-                              AS commentCount
+    , A.LIKE_COUNT
+    , A.COMMENT_COUNT
  FROM CAREER_INFO_POST A
  JOIN MEMBER B
    ON A.MEMBER_ID = B.ID
