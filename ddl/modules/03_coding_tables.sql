@@ -10,6 +10,7 @@ CREATE TABLE `Coding_Problem` (
   `output` TEXT NULL,
   `problem_url` VARCHAR(255) NOT NULL,
   `constraints` TEXT NULL,
+  `post_count` INT NOT NULL DEFAULT 0,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   `created_at` VARCHAR(20) NOT NULL,
   CONSTRAINT `FK_Member_TO_Coding_Problem` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
@@ -27,6 +28,8 @@ CREATE TABLE `Coding_Post` (
   `ai_good` VARCHAR(255) NULL,
   `ai_bad` VARCHAR(255) NULL,
   `ai_plan` VARCHAR(255) NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
+  `like_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   CONSTRAINT `FK_Member_TO_Coding_Post` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
