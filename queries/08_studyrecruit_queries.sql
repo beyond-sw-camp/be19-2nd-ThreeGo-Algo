@@ -1,127 +1,117 @@
 -- 스터디 모집 게시물 전체 목록 조회 기능
 
 SELECT 
-    srp.id AS post_id
-  , m.id AS member_id
-  , m.nickname AS member_nickname 
-  , srp.title AS post_title
-  , srp.start_date AS start_date
-  , srp.end_date AS end_date
-  , srp.expires_at AS expires_at
-  , srp.status AS status
-  , srp.capacity AS capacity
-  , CONCAT(srp.capacity, '/', COUNT(srm.id)) AS 'people_recruited /participant_count' -- 모집인원/참여인원 형식
-  , srp.created_at AS created_at
-  , srp.updated_at AS updated_at
-  , srp.visibility AS visibility
-  , mr.name AS rank_name
-	FROM Study_Recruit_Post srp
-	JOIN Member m ON srp.member_id = m.id
-	JOIN Member_Rank mr ON m.rank_id = mr.id
-	LEFT JOIN Study_Recruit_Member srm ON srp.id = srm.post_id AND srm.status = 'APPROVED'
-	GROUP BY 
-    srp.id, m.nickname, srp.title, srp.start_date, srp.end_date, srp.expires_at, 
-    srp.status, srp.capacity, srp.created_at, srp.updated_at, srp.visibility, mr.name
-	ORDER BY srp.id DESC;
+    A.ID AS POST_ID
+  , B.ID AS MEMBER_ID
+  , B.NICKNAME AS MEMBER_NICKNAME
+  , A.TITLE AS POST_TITLE
+  , A.START_DATE AS START_DATE
+  , A.END_DATE AS END_DATE
+  , A.EXPIRES_AT AS EXPIRES_AT
+  , A.STATUS AS STATUS
+  , A.CAPACITY AS CAPACITY
+  , CONCAT(A.CAPACITY, '/', COUNT(D.ID)) AS 'PEOPLE_RECRUITED /PARTICIPANT_COUNT' -- 모집인원/참여인원 형식
+  , A.CREATED_AT AS CREATED_AT
+  , A.UPDATED_AT AS UPDATED_AT
+  , A.VISIBILITY AS VISIBILITY
+  , C.NAME AS RANK_NAME
+	 FROM  STUDY_RECRUIT_POST A
+	 JOIN  MEMBER B ON A.MEMBER_ID = B.ID
+	 JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+	 LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
+	 GROUP BY A.ID, B.NICKNAME, A.TITLE, A.START_DATE, A.END_DATE, A.EXPIRES_AT, 
+    			 A.STATUS, A.CAPACITY, A.CREATED_AT, A.UPDATED_AT, A.VISIBILITY, C.NAME
+	 ORDER BY A.ID DESC;
 
 -- --------------------------------------------------------------------------------------------------------
 -- 스터디 모집 게시물 목록 모집 중인 글만 조회 기능
 
 SELECT 
-    srp.id AS post_id
-  , m.id AS member_id
-  , m.nickname AS member_nickname 
-  , srp.title AS post_title
-  , srp.start_date AS start_date
-  , srp.end_date AS end_date
-  , srp.expires_at AS expires_at
-  , srp.status AS status
-  , srp.capacity AS capacity
-  , CONCAT(srp.capacity, '/', COUNT(srm.id)) AS 'people_recruited /participant_count' -- 모집인원/참여인원 형식
-  , srp.created_at AS created_at
-  , srp.updated_at AS updated_at
-  , srp.visibility AS visibility
-  , mr.name AS rank_name
-	FROM Study_Recruit_Post srp
-	JOIN Member m ON srp.member_id = m.id
-	JOIN Member_Rank mr ON m.rank_id = mr.id
-	LEFT JOIN Study_Recruit_Member srm ON srp.id = srm.post_id AND srm.status = 'APPROVED'
-	WHERE srp.status = 'OPEN'
-	GROUP BY 
-    srp.id, m.nickname, srp.title, srp.start_date, srp.end_date, srp.expires_at, 
-    srp.status, srp.capacity, srp.created_at, srp.updated_at, srp.visibility, mr.name
-	ORDER BY srp.id DESC;
+    A.ID AS POST_ID
+  , B.ID AS MEMBER_ID
+  , B.NICKNAME AS MEMBER_NICKNAME
+  , A.TITLE AS POST_TITLE
+  , A.START_DATE AS START_DATE
+  , A.END_DATE AS END_DATE
+  , A.EXPIRES_AT AS EXPIRES_AT
+  , A.STATUS AS STATUS
+  , A.CAPACITY AS CAPACITY
+  , CONCAT(A.CAPACITY, '/', COUNT(D.ID)) AS 'PEOPLE_RECRUITED /PARTICIPANT_COUNT' -- 모집인원/참여인원 형식
+  , A.CREATED_AT AS CREATED_AT
+  , A.UPDATED_AT AS UPDATED_AT
+  , A.VISIBILITY AS VISIBILITY
+  , C.NAME AS RANK_NAME
+	 FROM STUDY_RECRUIT_POST A
+	 JOIN MEMBER B ON A.MEMBER_ID = B.ID
+	 JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+	 LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
+	 WHERE A.STATUS = 'OPEN'
+	 GROUP BY A.ID, B.NICKNAME, A.TITLE, A.START_DATE, A.END_DATE, A.EXPIRES_AT, 
+    	    	 A.STATUS, A.CAPACITY, A.CREATED_AT, A.UPDATED_AT, A.VISIBILITY, C.NAME
+	 ORDER BY A.ID DESC;
 
 -- --------------------------------------------------------------------------------------------------------------------------------------
 -- 스터디모집 게시물 상세 조회 기능
 
 SELECT 
-    srp.id AS post_id
-  , m.id AS member_id
-  , m.nickname AS writer
-  , srp.title AS post_title
-  , srp.content AS post_content
-  , srp.start_date AS start_date
-  , srp.end_date AS end_date
-  , srp.expires_at AS expires_at
-  , srp.status AS status
-  , srp.capacity AS people_recruited
-  , COUNT(srm.id) AS participant_count -- 참여자 수 계산
-  , CONCAT(srp.capacity, '/', COUNT(srm.id)) AS `people_recruited / participant_count` -- 모집인원/참여인원 형식
-  , srp.created_at 
-  , srp.updated_at 
-  , srp.visibility
-FROM 
-    Study_Recruit_Post srp
-JOIN 
-    Member m ON srp.member_id = m.id
-LEFT JOIN 
-    Study_Recruit_Member srm ON srp.id = srm.post_id AND srm.status = 'APPROVED' -- 승인된 신청자만 세기
-WHERE 
-    srp.id = 11 -- 특정 게시물 ID로 필터링 #{postId}
-GROUP BY 
-    srp.id, m.nickname, srp.title, srp.content, srp.start_date, srp.end_date, 
-    srp.expires_at, srp.status, srp.capacity, srp.created_at, srp.updated_at, srp.visibility;
+    A.ID AS POST_ID
+  , B.ID AS MEMBER_ID
+  , B.NICKNAME AS WRITER
+  , A.TITLE AS POST_TITLE
+  , A.CONTENT AS POST_CONTENT
+  , A.START_DATE AS START_DATE
+  , A.END_DATE AS END_DATE
+  , A.EXPIRES_AT AS EXPIRES_AT
+  , A.STATUS AS STATUS
+  , A.CAPACITY AS PEOPLE_RECRUITED
+  , COUNT(C.ID) AS PARTICIPANT_COUNT -- 참여자 수 계산
+  , CONCAT(A.CAPACITY, '/', COUNT(C.ID)) AS 'PEOPLE_RECRUITED / PARTICIPANT_COUNT' -- 모집인원/참여인원 형식
+  , A.CREATED_AT
+  , A.UPDATED_AT
+  , A.VISIBILITY
+	 FROM STUDY_RECRUIT_POST A
+	 JOIN MEMBER B ON A.MEMBER_ID = B.ID
+	 LEFT JOIN STUDY_RECRUIT_MEMBER C ON A.ID = C.POST_ID AND C.STATUS = 'APPROVED' -- 승인된 신청자만 세기
+	 WHERE A.ID = 11 -- 특정 게시물 ID로 필터링 #{postId}
+	 GROUP BY A.ID, B.NICKNAME, A.TITLE, A.CONTENT, A.START_DATE, A.END_DATE, 
+    			 A.EXPIRES_AT, A.STATUS, A.CAPACITY, A.CREATED_AT, A.UPDATED_AT, A.VISIBILITY;
 
     
 -- -------------------------------------------------------------------------------------------------------------------
 -- 스터디댓글 조회 기능
 
 SELECT 
-	 scm.id AS comment_id
-  , scm.parent_id AS parent_id
-  , m.id AS member_id
-  , m.nickname AS commenter_nickname
-  , mr.name AS member_rank
-  , scm.content AS comment_content
-  , scm.created_at AS created_at
-  , scm.updated_at AS updated_at
-  , scm.post_id AS post_id
-  , scm.visibility AS comment_visibility
-	 FROM Study_Comment scm
-	 JOIN Member m ON scm.member_id = m.id
-	 JOIN Member_Rank mr ON m.rank_id = mr.id  -- 회원 등급 테이블 조인
-	 WHERE scm.post_id = 10 -- 특정 스터디 모집글 ID로 필터링 #{postId}
-	 ORDER BY scm.created_at ASC;
+    A.ID AS COMMENT_ID
+  , A.PARENT_ID AS PARENT_ID
+  , B.ID AS MEMBER_ID
+  , B.NICKNAME AS COMMENTER_NICKNAME
+  , C.NAME AS MEMBER_RANK
+  , A.CONTENT AS COMMENT_CONTENT
+  , A.CREATED_AT AS CREATED_AT
+  , A.UPDATED_AT AS UPDATED_AT
+  , A.POST_ID AS POST_ID
+  , A.VISIBILITY AS COMMENT_VISIBILITY
+	 FROM STUDY_COMMENT A
+	 JOIN MEMBER B ON A.MEMBER_ID = B.ID
+	 JOIN MEMBER_RANK C ON B.RANK_ID = C.ID  -- 회원 등급 테이블 조인
+	 WHERE A.POST_ID = 10 -- 특정 스터디 모집글 ID로 필터링 #{postId}
+	 ORDER BY A.CREATED_AT ASC;
     
 -- -----------------------------------------------------------------------------------------------------------------
 -- 스터디 모집 신청 리스트 조회 기능
 
 SELECT 
-	 srm.id AS recruit_member_id
-  , m.id AS member_id
-  , srp.id AS post_id
-  , m.nickname AS nickname
-  , mr.name AS member_rank     
-  , m.email AS member_email          
-  , srp.title AS post_title                                
-  , srm.status AS recruit_member_status
-FROM 
-    Study_Recruit_Member srm
-JOIN 
-    Member m ON srm.member_id = m.id
-JOIN  Study_Recruit_Post srp ON srm.post_id = srp.id
-JOIN Member_Rank mr ON m.rank_id = mr.id
-    WHERE post_id = 1
-ORDER BY 
-    srp.start_date ASC;
+    A.ID AS RECRUIT_MEMBER_ID
+  , B.ID AS MEMBER_ID
+  , C.ID AS POST_ID
+  , B.NICKNAME AS NICKNAME
+  , D.NAME AS MEMBER_RANK
+  , B.EMAIL AS MEMBER_EMAIL
+  , C.TITLE AS POST_TITLE
+  , A.STATUS AS RECRUIT_MEMBER_STATUS
+	 FROM STUDY_RECRUIT_MEMBER A
+	 JOIN MEMBER B ON A.MEMBER_ID = B.ID
+	 JOIN STUDY_RECRUIT_POST C ON A.POST_ID = C.ID
+	 JOIN MEMBER_RANK D ON B.RANK_ID = D.ID
+	 WHERE C.ID = 1
+	 ORDER BY C.START_DATE ASC;
