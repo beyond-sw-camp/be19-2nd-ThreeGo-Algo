@@ -51,7 +51,7 @@ SELECT
  WHERE A.POST_ID = 1
    AND A.VISIBILITY = 'Y'
  ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
-               ELSE A.PARENT_ID END DESC,
+               ELSE A.PARENT_ID END ASC,
           A.ID ASC;
 
 -- [관리자] 인증 대기 상태인 게시물 목록 조회
