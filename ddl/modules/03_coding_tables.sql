@@ -48,6 +48,7 @@ CREATE TABLE `Coding_Post_Image` (
 -- 코딩 풀이 댓글
 CREATE TABLE `Coding_Comment` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `member_id`  INT NOT NULL,
   `post_id` INT NOT NULL,
   `parent_id` INT NULL,
   `content` VARCHAR(500) NOT NULL,
@@ -55,5 +56,6 @@ CREATE TABLE `Coding_Comment` (
   `updated_at` VARCHAR(20) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT `FK_Coding_Post_TO_Coding_Comment` FOREIGN KEY (`post_id`) REFERENCES `Coding_Post`(`id`),
-  CONSTRAINT `FK_Coding_Comment_TO_Coding_Comment` FOREIGN KEY (`parent_id`) REFERENCES `Coding_Comment`(`id`)
+  CONSTRAINT `FK_Coding_Comment_TO_Coding_Comment` FOREIGN KEY (`parent_id`) REFERENCES `Coding_Comment`(`id`),
+  CONSTRAINT `FK_MEMBER_TO_Coding_Comment` FOREIGN KEY (`member_id`) REFERENCES `Coding_Comment`(`id`)
 );
