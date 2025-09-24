@@ -65,7 +65,7 @@ SELECT
      , A.EXPIRES_AT
      , A.STATUS
      , A.CAPACITY
-     , COUNT(D.ID) AS PARTICIPANT_COUNT -- 참여자 수 계산
+     , COUNT(B.ID) AS PARTICIPANT_COUNT -- 참여자 수 계산
      , A.COMMENT_COUNT
      , A.CREATED_AT
      , A.UPDATED_AT
