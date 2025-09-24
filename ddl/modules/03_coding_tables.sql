@@ -57,5 +57,5 @@ CREATE TABLE `Coding_Comment` (
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT `FK_Coding_Post_TO_Coding_Comment` FOREIGN KEY (`post_id`) REFERENCES `Coding_Post`(`id`),
   CONSTRAINT `FK_Coding_Comment_TO_Coding_Comment` FOREIGN KEY (`parent_id`) REFERENCES `Coding_Comment`(`id`),
-  CONSTRAINT `FK_MEMBER_TO_Coding_Comment` FOREIGN KEY (`member_id`) REFERENCES `Coding_Comment`(`id`)
+  CONSTRAINT `FK_MEMBER_TO_Coding_Comment` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );

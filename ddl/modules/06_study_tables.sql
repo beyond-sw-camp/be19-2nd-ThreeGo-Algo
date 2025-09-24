@@ -57,7 +57,7 @@ CREATE TABLE `Study_Member` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `study_id` INT NOT NULL,
   `member_id` INT NOT NULL,
-  `role` ENUM('LEADER','MEMBER') NOT NULL,
+  `role` ENUM('LEADER','MEMBER','NOT_MEMBER') NOT NULL,
   CONSTRAINT `FK_Study_TO_Study_Member` FOREIGN KEY (`study_id`) REFERENCES `Study`(`id`),
   CONSTRAINT `FK_Member_TO_Study_Member` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );

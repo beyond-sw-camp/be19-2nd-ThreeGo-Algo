@@ -265,7 +265,7 @@ CREATE TABLE `Coding_Comment` (
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
   CONSTRAINT `FK_Coding_Post_TO_Coding_Comment` FOREIGN KEY (`post_id`) REFERENCES `Coding_Post`(`id`),
   CONSTRAINT `FK_Coding_Comment_TO_Coding_Comment` FOREIGN KEY (`parent_id`) REFERENCES `Coding_Comment`(`id`),
-  CONSTRAINT `FK_MEMBER_TO_Coding_Comment` FOREIGN KEY (`member_id`) REFERENCES `Coding_Comment`(`id`)
+  CONSTRAINT `FK_MEMBER_TO_Coding_Comment` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
 
 -- 기업별 정보 공유 게시물
@@ -371,7 +371,7 @@ CREATE TABLE `Study_Member` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `study_id` INT NOT NULL,
   `member_id` INT NOT NULL,
-  `role` ENUM('LEADER','MEMBER') NOT NULL,
+  `role` ENUM('LEADER','MEMBER','NOT_MEMBER') NOT NULL,
   CONSTRAINT `FK_Study_TO_Study_Member` FOREIGN KEY (`study_id`) REFERENCES `Study`(`id`),
   CONSTRAINT `FK_Member_TO_Study_Member` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
@@ -454,12 +454,14 @@ CREATE TABLE `Report_Type` (
 CREATE TABLE `Report` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `member_id` INT NOT NULL,
+  `reported_member_id` INT NOT NULL,
   `category_id` INT NOT NULL,
   `type_id` INT NOT NULL,
   `target_id` INT NOT NULL COMMENT '신고 대상 엔티티 PK',
   `content` VARCHAR(500) NULL,
   `created_at` VARCHAR(20) NOT NULL,
   CONSTRAINT `FK_Member_TO_Report` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`),
+  CONSTRAINT `FK_Reported_Member_TO_Report` FOREIGN KEY (`reported_member_id`) REFERENCES `Member`(`id`),
   CONSTRAINT `FK_Report_Category_TO_Report` FOREIGN KEY (`category_id`) REFERENCES `Report_Category`(`id`),
   CONSTRAINT `FK_Report_Type_TO_Report` FOREIGN KEY (`type_id`) REFERENCES `Report_Type`(`id`)
 );
