@@ -12,30 +12,30 @@ VALUES
 ('그래프', '정점과 간선으로 이루어진 구조를 다루며, 네트워크와 경로 탐색 문제 해결에 필수적입니다.', 9, '2025-09-27 20:10:00', NULL, 0);
 
 -- 알고리즘 학습 로드맵 게시글
-INSERT INTO Algo_Post (member_id, roadmap_id, title, content, created_at, updated_at, likes, visibility) 
+INSERT INTO Algo_Post (member_id, roadmap_id, title, content, created_at, updated_at, visibility) 
 VALUES
-(29, 1, '스택', '스택은 LIFO 구조로, 마지막에 넣은 데이터를 가장 먼저 꺼낼 수 있는 자료구조입니다. 주요 연산으로는 push, pop, peek 등이 있습니다.\n\n```java\nStack<Integer> stack = new Stack<>();\nstack.push(1);\nint top = stack.pop();\n```', '2025-03-18 11:20:40', NULL, 0, 'Y'),
-(30, 1, '큐', '큐는 FIFO 구조로, 먼저 넣은 데이터가 먼저 나오는 자료구조입니다. 주로 대기열이나 작업 스케줄링에 사용됩니다.\n\n```java\nQueue<Integer> queue = new LinkedList<>();\nqueue.add(1);\nint first = queue.poll();\n```', '2025-03-20 15:45:12', NULL, 0, 'Y'),
-(29, 1, '연결 리스트', '연결 리스트는 각 노드가 다음 노드의 주소를 가리키는 선형 자료구조입니다. 삽입과 삭제가 배열보다 효율적입니다.\n\n```java\nLinkedList<Integer> list = new LinkedList<>();\nlist.add(1);\nlist.remove(0);\n```', '2025-03-22 19:12:01', '2025-03-23 09:14:33', 0, 'Y'),
-(29, 2, '버블 정렬', '버블 정렬은 인접한 원소를 반복적으로 비교하여 정렬하는 단순 알고리즘입니다.\n\n```java\nfor(int i=0;i<n-1;i++){\n  for(int j=0;j<n-i-1;j++){\n    if(arr[j]>arr[j+1]) swap(arr,j,j+1);\n  }\n}\n```', '2025-01-10 14:20:11', NULL, 0, 'Y'),
-(30, 2, '선택 정렬', '선택 정렬은 매번 가장 작은 값을 찾아 앞으로 이동시키는 방식으로 배열을 정렬합니다.\n\n```java\nfor(int i=0;i<n-1;i++){\n  int minIdx=i;\n  for(int j=i+1;j<n;j++) if(arr[j]<arr[minIdx]) minIdx=j;\n  swap(arr,i,minIdx);\n}\n```', '2025-01-15 09:15:44', '2025-01-18 10:12:20', 0, 'Y'),
-(29, 2, '퀵 정렬', '퀵 정렬은 분할 정복 기법을 사용하여 배열을 빠르게 정렬하는 알고리즘입니다.\n\n```java\nint pivot = arr[end];\npartition(arr,start,end,pivot);\n```', '2025-01-22 11:33:05', NULL, 0, 'Y'),
-(30, 2, '합병 정렬', '합병 정렬은 배열을 반으로 나눈 뒤 정렬하고 병합하는 안정적인 정렬 알고리즘입니다.\n\n```java\nmergeSort(arr,left,right);\n```', '2025-01-25 13:45:12', NULL, 0, 'Y'),
-(30, 3, '선형 탐색', '선형 탐색은 배열을 처음부터 끝까지 순차적으로 확인하는 탐색 방법입니다. 정렬 여부와 관계없이 사용 가능합니다.\n\n```java\nfor(int i=0;i<n;i++){\n  if(arr[i]==target) return i;\n}\n```', '2025-02-01 17:40:33', NULL, 0, 'Y'),
-(29, 3, '이진 탐색', '이진 탐색은 정렬된 배열에서 중간값을 기준으로 탐색 범위를 절반씩 줄여가며 찾는 효율적인 알고리즘입니다.\n\n```java\nwhile(start<=end){\n  int mid=(start+end)/2;\n  if(arr[mid]==target) return mid;\n  else if(arr[mid]<target) start=mid+1;\n  else end=mid-1;\n}\n```', '2025-02-05 13:22:12', '2025-02-07 08:14:55', 0, 'Y'),
-(30, 4, '재귀 기초', '재귀는 함수가 자기 자신을 호출하는 구조로, 반복적 문제를 간단하게 표현할 수 있습니다.\n\n```java\nvoid recur(){ recur(); }\n```', '2025-02-12 10:30:00', NULL, 0, 'Y'),
-(29, 4, '팩토리얼 계산', '재귀를 사용하여 팩토리얼을 계산할 수 있습니다.\n\n```java\nint fact(int n){ return n<=1 ? 1 : n*fact(n-1); }\n```', '2025-02-14 09:20:05', NULL, 0, 'Y'),
-(30, 4, '피보나치 재귀', '재귀로 피보나치 수열을 구현하면 직관적으로 표현할 수 있습니다.\n\n```java\nint fib(int n){ return n<=1 ? n : fib(n-1)+fib(n-2); }\n```', '2025-02-16 15:15:15', NULL, 0, 'Y'),
-(29, 5, '피보나치 DP', 'DP를 사용하면 재귀보다 훨씬 효율적으로 피보나치 수열을 계산할 수 있습니다.\n\n```java\nint[] dp = new int[n+1];\ndp[0]=0; dp[1]=1;\nfor(int i=2;i<=n;i++) dp[i]=dp[i-1]+dp[i-2];\n```', '2025-03-01 09:55:20', NULL, 0, 'Y'),
-(30, 5, '최장 증가 부분 수열(LIS)', '주어진 수열에서 가장 긴 증가하는 부분 수열을 찾는 DP 문제입니다.\n\n```java\nfor(int i=0;i<n;i++){\n  for(int j=0;j<i;j++){\n    if(arr[i]>arr[j]) dp[i]=Math.max(dp[i],dp[j]+1);\n  }\n}\n```', '2025-03-05 16:42:10', NULL, 0, 'Y'),
-(30, 6, '활동 선택 문제', '탐욕 알고리즘의 대표 예시로, 가장 많은 활동을 선택하는 문제를 다룹니다.\n\n```java\nArrays.sort(activities, (a,b)->a.end-b.end);\nint count=0,last=0;\nfor(Activity act:activities){\n  if(act.start>=last){ count++; last=act.end; }\n}\n```', '2025-05-01 09:20:01', NULL, 0, 'Y'),
-(29, 7, '문자열 패턴 매칭', '문자열에서 특정 패턴을 찾는 알고리즘으로, KMP 등이 대표적입니다.\n\n```java\nint[] lps = computeLPS(pattern);\n```', '2025-04-12 14:44:11', '2025-04-13 09:20:05', 0, 'Y'),
-(30, 7, '아나그램 판별', '두 문자열이 동일한 문자 구성으로 이루어졌는지 확인하는 문제입니다.\n\n```java\nArrays.sort(str1);\nArrays.sort(str2);\nreturn Arrays.equals(str1,str2);\n```', '2025-04-15 18:33:44', NULL, 0, 'Y'),
-(29, 8, '이진 탐색 트리(BST)', 'BST는 각 노드가 왼쪽 자식보다 크고 오른쪽 자식보다 작은 트리 구조를 갖습니다.\n\n```java\nclass Node{ int val; Node left,right; }\n```', '2025-03-28 14:15:15', NULL, 0, 'Y'),
-(30, 9, 'DFS', 'DFS는 그래프를 깊게 탐색하는 알고리즘으로, 재귀나 스택으로 구현할 수 있습니다.\n\n```java\nvoid dfs(int v){ visited[v]=true;\n for(int u:adj[v]) if(!visited[u]) dfs(u);\n}\n```', '2025-04-01 08:33:44', NULL, 0, 'Y'),
-(29, 9, 'BFS', 'BFS는 그래프를 넓게 탐색하는 알고리즘으로, 큐를 사용하여 구현합니다.\n\n```java\nQueue<Integer> q = new LinkedList<>();\nq.add(start); visited[start]=true;\nwhile(!q.isEmpty()){\n  int v=q.poll();\n  for(int u:adj[v]) if(!visited[u]){ q.add(u); visited[u]=true; }\n}\n```', '2025-04-03 10:14:55', NULL, 0, 'Y'),
-(30, 9, '다익스트라', '가중치가 있는 그래프에서 최단 경로를 찾는 알고리즘입니다.\n\n```java\nPriorityQueue<Node> pq=new PriorityQueue<>();\ndist[start]=0; pq.add(new Node(start,0));\n```', '2025-07-01 10:30:44', NULL, 0, 'Y'),
-(29, 9, '플로이드-워셜', '모든 정점 간 최단 경로를 구하는 DP 기반 알고리즘입니다.\n\n```java\nfor(int k=0;k<n;k++) for(int i=0;i<n;i++) for(int j=0;j<n;j++)\n  dist[i][j]=Math.min(dist[i][j],dist[i][k]+dist[k][j]);\n```', '2025-07-05 13:14:22', '2025-07-06 09:02:40', 0, 'Y');
+(29, 1, '스택', '스택은 LIFO 구조로, 마지막에 넣은 데이터를 가장 먼저 꺼낼 수 있는 자료구조입니다. 주요 연산으로는 push, pop, peek 등이 있습니다.\n\n```java\nStack<Integer> stack = new Stack<>();\nstack.push(1);\nint top = stack.pop();\n```', '2025-03-18 11:20:40', NULL, 'Y'),
+(30, 1, '큐', '큐는 FIFO 구조로, 먼저 넣은 데이터가 먼저 나오는 자료구조입니다. 주로 대기열이나 작업 스케줄링에 사용됩니다.\n\n```java\nQueue<Integer> queue = new LinkedList<>();\nqueue.add(1);\nint first = queue.poll();\n```', '2025-03-20 15:45:12', NULL, 'Y'),
+(29, 1, '연결 리스트', '연결 리스트는 각 노드가 다음 노드의 주소를 가리키는 선형 자료구조입니다. 삽입과 삭제가 배열보다 효율적입니다.\n\n```java\nLinkedList<Integer> list = new LinkedList<>();\nlist.add(1);\nlist.remove(0);\n```', '2025-03-22 19:12:01', '2025-03-23 09:14:33', 'Y'),
+(29, 2, '버블 정렬', '버블 정렬은 인접한 원소를 반복적으로 비교하여 정렬하는 단순 알고리즘입니다.\n\n```java\nfor(int i=0;i<n-1;i++){\n  for(int j=0;j<n-i-1;j++){\n    if(arr[j]>arr[j+1]) swap(arr,j,j+1);\n  }\n}\n```', '2025-01-10 14:20:11', NULL, 'Y'),
+(30, 2, '선택 정렬', '선택 정렬은 매번 가장 작은 값을 찾아 앞으로 이동시키는 방식으로 배열을 정렬합니다.\n\n```java\nfor(int i=0;i<n-1;i++){\n  int minIdx=i;\n  for(int j=i+1;j<n;j++) if(arr[j]<arr[minIdx]) minIdx=j;\n  swap(arr,i,minIdx);\n}\n```', '2025-01-15 09:15:44', '2025-01-18 10:12:20', 'Y'),
+(29, 2, '퀵 정렬', '퀵 정렬은 분할 정복 기법을 사용하여 배열을 빠르게 정렬하는 알고리즘입니다.\n\n```java\nint pivot = arr[end];\npartition(arr,start,end,pivot);\n```', '2025-01-22 11:33:05', NULL, 'Y'),
+(30, 2, '합병 정렬', '합병 정렬은 배열을 반으로 나눈 뒤 정렬하고 병합하는 안정적인 정렬 알고리즘입니다.\n\n```java\nmergeSort(arr,left,right);\n```', '2025-01-25 13:45:12', NULL, 'Y'),
+(30, 3, '선형 탐색', '선형 탐색은 배열을 처음부터 끝까지 순차적으로 확인하는 탐색 방법입니다. 정렬 여부와 관계없이 사용 가능합니다.\n\n```java\nfor(int i=0;i<n;i++){\n  if(arr[i]==target) return i;\n}\n```', '2025-02-01 17:40:33', NULL, 'Y'),
+(29, 3, '이진 탐색', '이진 탐색은 정렬된 배열에서 중간값을 기준으로 탐색 범위를 절반씩 줄여가며 찾는 효율적인 알고리즘입니다.\n\n```java\nwhile(start<=end){\n  int mid=(start+end)/2;\n  if(arr[mid]==target) return mid;\n  else if(arr[mid]<target) start=mid+1;\n  else end=mid-1;\n}\n```', '2025-02-05 13:22:12', '2025-02-07 08:14:55', 'Y'),
+(30, 4, '재귀 기초', '재귀는 함수가 자기 자신을 호출하는 구조로, 반복적 문제를 간단하게 표현할 수 있습니다.\n\n```java\nvoid recur(){ recur(); }\n```', '2025-02-12 10:30:00', NULL, 'Y'),
+(29, 4, '팩토리얼 계산', '재귀를 사용하여 팩토리얼을 계산할 수 있습니다.\n\n```java\nint fact(int n){ return n<=1 ? 1 : n*fact(n-1); }\n```', '2025-02-14 09:20:05', NULL, 'Y'),
+(30, 4, '피보나치 재귀', '재귀로 피보나치 수열을 구현하면 직관적으로 표현할 수 있습니다.\n\n```java\nint fib(int n){ return n<=1 ? n : fib(n-1)+fib(n-2); }\n```', '2025-02-16 15:15:15', NULL, 'Y'),
+(29, 5, '피보나치 DP', 'DP를 사용하면 재귀보다 훨씬 효율적으로 피보나치 수열을 계산할 수 있습니다.\n\n```java\nint[] dp = new int[n+1];\ndp[0]=0; dp[1]=1;\nfor(int i=2;i<=n;i++) dp[i]=dp[i-1]+dp[i-2];\n```', '2025-03-01 09:55:20', NULL, 'Y'),
+(30, 5, '최장 증가 부분 수열(LIS)', '주어진 수열에서 가장 긴 증가하는 부분 수열을 찾는 DP 문제입니다.\n\n```java\nfor(int i=0;i<n;i++){\n  for(int j=0;j<i;j++){\n    if(arr[i]>arr[j]) dp[i]=Math.max(dp[i],dp[j]+1);\n  }\n}\n```', '2025-03-05 16:42:10', NULL, 'Y'),
+(30, 6, '활동 선택 문제', '탐욕 알고리즘의 대표 예시로, 가장 많은 활동을 선택하는 문제를 다룹니다.\n\n```java\nArrays.sort(activities, (a,b)->a.end-b.end);\nint count=0,last=0;\nfor(Activity act:activities){\n  if(act.start>=last){ count++; last=act.end; }\n}\n```', '2025-05-01 09:20:01', NULL, 'Y'),
+(29, 7, '문자열 패턴 매칭', '문자열에서 특정 패턴을 찾는 알고리즘으로, KMP 등이 대표적입니다.\n\n```java\nint[] lps = computeLPS(pattern);\n```', '2025-04-12 14:44:11', '2025-04-13 09:20:05', 'Y'),
+(30, 7, '아나그램 판별', '두 문자열이 동일한 문자 구성으로 이루어졌는지 확인하는 문제입니다.\n\n```java\nArrays.sort(str1);\nArrays.sort(str2);\nreturn Arrays.equals(str1,str2);\n```', '2025-04-15 18:33:44', NULL, 'Y'),
+(29, 8, '이진 탐색 트리(BST)', 'BST는 각 노드가 왼쪽 자식보다 크고 오른쪽 자식보다 작은 트리 구조를 갖습니다.\n\n```java\nclass Node{ int val; Node left,right; }\n```', '2025-03-28 14:15:15', NULL, 'Y'),
+(30, 9, 'DFS', 'DFS는 그래프를 깊게 탐색하는 알고리즘으로, 재귀나 스택으로 구현할 수 있습니다.\n\n```java\nvoid dfs(int v){ visited[v]=true;\n for(int u:adj[v]) if(!visited[u]) dfs(u);\n}\n```', '2025-04-01 08:33:44', NULL, 'Y'),
+(29, 9, 'BFS', 'BFS는 그래프를 넓게 탐색하는 알고리즘으로, 큐를 사용하여 구현합니다.\n\n```java\nQueue<Integer> q = new LinkedList<>();\nq.add(start); visited[start]=true;\nwhile(!q.isEmpty()){\n  int v=q.poll();\n  for(int u:adj[v]) if(!visited[u]){ q.add(u); visited[u]=true; }\n}\n```', '2025-04-03 10:14:55', NULL, 'Y'),
+(30, 9, '다익스트라', '가중치가 있는 그래프에서 최단 경로를 찾는 알고리즘입니다.\n\n```java\nPriorityQueue<Node> pq=new PriorityQueue<>();\ndist[start]=0; pq.add(new Node(start,0));\n```', '2025-07-01 10:30:44', NULL, 'Y'),
+(29, 9, '플로이드-워셜', '모든 정점 간 최단 경로를 구하는 DP 기반 알고리즘입니다.\n\n```java\nfor(int k=0;k<n;k++) for(int i=0;i<n;i++) for(int j=0;j<n;j++)\n  dist[i][j]=Math.min(dist[i][j],dist[i][k]+dist[k][j]);\n```', '2025-07-05 13:14:22', '2025-07-06 09:02:40', 'Y');
 
 -- 알고리즘 학습 게시물 이미지
 INSERT INTO Algo_Post_Image (post_id, image_url, created_at) 
@@ -66,7 +66,6 @@ VALUES
 (20, 'https://fastly.picsum.photos/id/1001/200/300.jpg?hmac=nQhEVl6C7qyfiRmcIe41BohR4WBcN1yhONnlCJryahU', '2025-04-03 10:20:00'),
 (21, 'https://fastly.picsum.photos/id/1001/200/300.jpg?hmac=nQhEVl6C7qyfiRmcIe41BohR4WBcN1yhONnlCJryahU', '2025-07-01 10:30:44'),
 (22, 'https://fastly.picsum.photos/id/1001/200/300.jpg?hmac=nQhEVl6C7qyfiRmcIe41BohR4WBcN1yhONnlCJryahU', '2025-07-05 13:14:22');
-
 
 -- 개념 확인 문제
 INSERT INTO Algo_Quiz_Question (algo_post_id, question, type) 
@@ -252,3 +251,33 @@ VALUES
 (23,1,1),(23,5,2),
 (26,2,4),(26,4,3),(26,9,3),
 (27,1,2),(27,3,1),(27,5,2),(27,9,4);
+
+-- 회원별 퀴즈 정답 이력 더미 데이터
+INSERT INTO Member_Algo_Correct_Quiz_History (member_id, algo_quiz_question_id) 
+VALUES
+(1,1),(1,2),(1,3),(1,4),(1,7),
+(2,1),(2,2),(2,3),(2,4),(2,9),(2,10),(2,11),(2,13),(2,14),
+(3,3),(3,4),(3,11),(3,16),
+(4,1),(4,2),(4,7),(4,8),(4,13),(4,14),(4,17),
+(6,1),(6,2),(6,9),(6,10),(6,11),
+(7,3),(7,4),(7,11),
+(9,1),(9,2),(9,3),(9,4),(9,7),(9,8),(9,9),(9,13),(9,14),
+(10,1),(10,2),(10,7),(10,8),(10,15),
+(12,1),(12,2),(12,9),(12,10),(12,11),(12,14),
+(14,3),(14,4),(14,11),
+(16,1),(16,2),(16,7),(16,8),(16,14),
+(17,3),(17,4),(17,9),(17,10),
+(19,1),(19,2),(19,7),(19,8),(19,9),(19,10),(19,13),(19,14),
+(21,3),(21,4),(21,11),(21,14),
+(23,1),(23,2),(23,9),(23,10),
+(26,3),(26,4),(26,7),(26,8),(26,14),
+(27,1),(27,2),(27,9),(27,10),(27,13),(27,14);
+
+-- 알고리즘 로드맵 총 문제 수 갱신 쿼리
+UPDATE 
+       ALGO_ROADMAP A
+   SET A.QUESTION_COUNT = (SELECT COUNT(C.ID)
+                             FROM ALGO_POST B
+                            RIGHT JOIN ALGO_QUIZ_QUESTION C ON C.ALGO_POST_ID = B.ID
+                            WHERE B.ROADMAP_ID = A.ID
+                          ); 

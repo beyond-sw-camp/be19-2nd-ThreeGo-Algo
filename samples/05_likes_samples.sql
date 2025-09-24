@@ -46,3 +46,30 @@ VALUES
 (26, NULL, NULL, 20),
 (26, NULL, 30, NULL),
 (27, NULL, 1, NULL);
+
+-- Career_Info_Post 좋아요 반영
+UPDATE Career_Info_Post p
+SET like_count = (
+    SELECT COUNT(*)
+    FROM Likes l
+    WHERE l.career_info_post_id = p.id
+)
+WHERE p.id IS NOT NULL;
+
+-- Algo_Post 좋아요 반영
+UPDATE Algo_Post a
+SET like_count = (
+    SELECT COUNT(*)
+    FROM Likes l
+    WHERE l.algo_post_id = a.id
+)
+WHERE a.id IS NOT NULL;
+
+-- Coding_Post 좋아요 반영
+UPDATE Coding_Post c
+SET like_count = (
+    SELECT COUNT(*)
+    FROM Likes l
+    WHERE l.coding_post_id = c.id
+)
+WHERE c.id IS NOT NULL;

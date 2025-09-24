@@ -9,6 +9,7 @@ CREATE TABLE `Study_Recruit_Post` (
   `expires_at` VARCHAR(20) NOT NULL COMMENT '모집 마감 시각',
   `status` ENUM('OPEN','CLOSED','CANCELLED') NOT NULL DEFAULT 'OPEN',
   `capacity` INT NOT NULL DEFAULT 2 COMMENT '스터디장 포함 인원',
+  `comment_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
@@ -56,7 +57,7 @@ CREATE TABLE `Study_Member` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `study_id` INT NOT NULL,
   `member_id` INT NOT NULL,
-  `role` ENUM('LEADER','MEMBER') NOT NULL,
+  `role` ENUM('LEADER','MEMBER','NOT_MEMBER') NOT NULL,
   CONSTRAINT `FK_Study_TO_Study_Member` FOREIGN KEY (`study_id`) REFERENCES `Study`(`id`),
   CONSTRAINT `FK_Member_TO_Study_Member` FOREIGN KEY (`member_id`) REFERENCES `Member`(`id`)
 );
@@ -68,6 +69,7 @@ CREATE TABLE `Study_Post` (
   `member_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
+  `comment_count` INT NOT NULL DEFAULT 0,
   `created_at` VARCHAR(20) NOT NULL,
   `updated_at` VARCHAR(20) NULL,
   `visibility` CHAR(1) NOT NULL DEFAULT 'Y',
