@@ -37,7 +37,7 @@ SELECT
    AND A.ROADMAP_ID = 2
  ORDER BY A.ID;
 
- -- [회원] 특정 회원이 맞힌 문제의 게시물 ID 및 문제 인덱스 조회
+-- [회원] 특정 회원이 맞힌 문제의 게시물 ID 및 문제 인덱스 조회
 SELECT 
        B.ALGO_POST_ID
      , A.ALGO_QUIZ_QUESTION_ID
@@ -45,7 +45,7 @@ SELECT
   LEFT JOIN ALGO_QUIZ_QUESTION B 
     ON B.ID = A.ALGO_QUIZ_QUESTION_ID
  WHERE A.MEMBER_ID = 2
- ORDER BY B.ALGO_POST_ID; 
+ ORDER BY B.ALGO_POST_ID;
 
 -- [회원] 알고리즘 학습 게시물 상세 조회
 SELECT
@@ -58,7 +58,7 @@ SELECT
      , A.COMMENT_COUNT
      , A.LIKE_COUNT
      , C.TITLE AS ROADMAP_TITLE
-	   , EXISTS (SELECT 1
+     , EXISTS (SELECT 1
                  FROM LIKES B
                 WHERE B.ALGO_POST_ID = A.ID
                   AND B.MEMBER_ID = 1
@@ -155,3 +155,24 @@ SELECT
   LEFT JOIN ALGO_ROADMAP C 
     ON A.ROADMAP_ID = C.ID
  WHERE A.ID = 1;
+
+-- [관리자] 모든 게시물의 문제 목록 조회
+SELECT
+       A.ID
+     , A.ALGO_POST_ID
+     , B.TITLE AS ALGO_POST_TITLE
+     , A.question
+     , A.TYPE 
+  FROM ALGO_QUIZ_QUESTION A
+  LEFT JOIN ALGO_POST B
+    ON A.ALGO_POST_ID = B.ID;
+
+-- [관리자] 문제에 대한 보기 목록 조회
+SELECT
+       A.ID
+     , A.QUESTION_ID
+     , A.OPTION_TEXT
+     , A.IS_CORRECT
+  FROM ALGO_QUIZ_OPTION A
+ WHERE A.QUESTION_ID = 1
+ ORDER BY A.QUESTION_ID;
