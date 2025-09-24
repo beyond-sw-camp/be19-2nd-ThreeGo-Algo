@@ -6,7 +6,7 @@ SELECT
   	 , A.STATUS
   	 , A.CREATED_AT
   FROM MEMBER A
- WHERE ID = 1;
+ WHERE A.ID = 1;
 
 -- [회원] 등급 조회
 SELECT 
