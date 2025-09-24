@@ -1,29 +1,26 @@
 -- [회원] 정보 조회
 SELECT 
-  	   A.EMAIL
+	   A.ID
+  	 , A.EMAIL
   	 , A.NICKNAME
-  	 , A.REPORTED_COUNT
-  	 , A.STATUS
+  	 , B.NAME
+  	 , A.POINT
+  	 , COUNT(C.ATTEND_AT)
   	 , A.CREATED_AT
   FROM MEMBER A
- WHERE A.ID = 1;
-
--- [회원] 등급 조회
-SELECT 
-  	   A.NAME
-  FROM MEMBER_RANK A
-  LEFT JOIN MEMBER B ON A.ID = B.RANK_ID
- WHERE B.ID = 1;
-
--- [회원] 출석 일수 조회
- SELECT 
- 		COUNT(A.ATTEND_AT)
-   FROM MEMBER_ATTENDANCE_HISTORY A
-  WHERE A.MEMBER_ID = 1;
+  JOIN MEMBER_RANK B ON A.RANK_ID = B.ID
+  JOIN MEMBER_ATTENDANCE_HISTORY C ON A.ID = C.MEMBER_ID
+ WHERE A.ID = 2;
 
 -- [회원] 추천 게시물 조회 (알고리즘 학습, 문제 풀이, 취업 정보 공유 )
 SELECT
 	   A.ID,
+	   CASE 
+		   WHEN A.ALGO_POST_ID IS NOT NULL THEN 'ALGO' 
+		   WHEN A.CODING_POST_ID IS NOT NULL THEN 'CODING' 
+		   WHEN A.CAREER_INFO_POST_ID IS NOT NULL THEN 'CAREER' 
+	   END AS BOARD_TYPE, 
+	   COALESCE(A.ALGO_POST_ID, A.CODING_POST_ID, A.CAREER_INFO_POST_ID) AS post_id,
 	   CASE 
 	       WHEN A.ALGO_POST_ID IS NOT NULL THEN B.TITLE
 	       WHEN A.CODING_POST_ID IS NOT NULL THEN C.TITLE
@@ -37,45 +34,13 @@ SELECT
 
 -- [관리자] 전체 회원 조회
 SELECT 
-  	   A.EMAIL
+       A.ID
+  	 , A.EMAIL
   	 , A.NICKNAME
   	 , B.NAME
+  	 , A.POINT
   	 , A.REPORTED_COUNT
   	 , A.STATUS
   	 , A.CREATED_AT
   FROM MEMBER A
   JOIN MEMBER_RANK B ON A.RANK_ID = B.ID;
-
--- [관리자] 전체 신고 이력 조회
-SELECT 
-       A.MEMBER_ID
-     , C.NAME
-     , B.TYPE
-     , A.CONTENT
-     , A.TARGET_ID
-     , A.CREATED_AT
- FROM REPORT A
- JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
- JOIN REPORT_CATEGORY C ON A.CATEGORY_ID = C.ID;
- 
-
--- [관리자] 특정 회원의 신고 누적 횟수 조회
-SELECT 
-       A.REPORTED_COUNT
-  FROM MEMBER A
- WHERE A.ID = 1;
- 
-
--- [관리자] 특정 회원의 신고 이력 조회
-SELECT 
-       A.ID
-     , C.NAME
-     , B.TYPE
-     , A.CONTENT
-     , A.TARGET_ID
-     , A.CREATED_AT
- FROM REPORT A
- JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
- JOIN Report_Category C ON A.CATEGORY_ID = C.ID
-WHERE A.MEMBER_ID = 1;
- 
