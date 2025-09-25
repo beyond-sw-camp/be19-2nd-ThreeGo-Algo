@@ -2,6 +2,7 @@ package com.threego.algo.algorithm.query.service;
 
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import com.threego.algo.algorithm.query.dao.AlgoMapper;
+import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,13 @@ public class AlgoServiceImpl implements AlgoService {
         this.algoMapper = algoMapper;
     }
 
+    @Override
     public List<AlgoRoadmap> findAllAlgoRoadmaps() {
-        return algoMapper.findAllAlgoRoadmaps();
+        return algoMapper.selectAllAlgoRoadmaps();
+    }
+
+    @Override
+    public List<AlgoPostSummaryResponseDTO> findAllAlgoPosts(final String keyword) {
+        return algoMapper.selectAllAlgoPosts(keyword);
     }
 }

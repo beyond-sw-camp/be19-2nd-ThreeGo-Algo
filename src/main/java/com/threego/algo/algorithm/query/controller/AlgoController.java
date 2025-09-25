@@ -27,7 +27,7 @@ public class AlgoController {
     @Operation(summary = "전체 알고리즘 학습 로드맵 조회", description = "회원이 전체 알고리즘 학습 로드맵을 확인할 수 있는 API입니다.")
     @GetMapping("/roadmaps")
     public ResponseEntity<List<AlgoRoadmapResponseDTO>> findAllAlgoRoadMaps() {
-        List<AlgoRoadmapResponseDTO> response = algoService.findAllAlgoRoadmaps().stream()
+        final List<AlgoRoadmapResponseDTO> response = algoService.findAllAlgoRoadmaps().stream()
                 .map(AlgoRoadmapResponseDTO::of)
                 .collect(Collectors.toList());
 

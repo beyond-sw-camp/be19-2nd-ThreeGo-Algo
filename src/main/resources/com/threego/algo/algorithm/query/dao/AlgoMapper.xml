@@ -13,7 +13,7 @@
         <result property="questionCount" column="QUESTION_COUNT"/>
     </resultMap>
 
-    <select id="findAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
+    <select id="selectAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
         SELECT
                A.ID
              , A.TITLE
@@ -24,5 +24,27 @@
              , A.QUESTION_COUNT
           FROM ALGO_ROADMAP A
          ORDER BY A.`ORDER`;
+    </select>
+
+    <select id="selectAllAlgoPosts" parameterType="string"
+            resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
+        SELECT
+               A.ID              AS id
+             , A.MEMBER_ID       AS memberId
+             , B.NICKNAME        AS nickname
+             , A.TITLE           AS title
+             , A.CREATED_AT      AS createdAt
+             , A.UPDATED_AT      AS updatedAt
+             , A.LIKE_COUNT      AS likeCount
+             , A.COMMENT_COUNT   AS commentCount
+         FROM ALGO_POST A
+         LEFT JOIN MEMBER B
+           ON A.MEMBER_ID = B.ID
+        <where>
+            <if test="keyword != null and keyword != ''">
+                A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+         ORDER BY A.ID DESC;
     </select>
 </mapper>

@@ -29,7 +29,7 @@ class AlgoServiceTest {
                 new AlgoRoadmap("DP", "DP입니다.", 3, "2025-09-04 09:00:00")
         );
 
-        Mockito.when(algoMapper.findAllAlgoRoadmaps()).thenReturn(algoRoadmaps);
+        Mockito.when(algoMapper.selectAllAlgoRoadmaps()).thenReturn(algoRoadmaps);
 
         // when
         List<AlgoRoadmap> result = algoService.findAllAlgoRoadmaps();
