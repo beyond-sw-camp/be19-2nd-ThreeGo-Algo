@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "Admin Algorithm", description = "회원용 알고리즘 학습 API")
+@Tag(name = "Algorithm", description = "회원용 알고리즘 학습 API")
 @RequestMapping("/algo")
 @RestController
 public class AlgoController {
