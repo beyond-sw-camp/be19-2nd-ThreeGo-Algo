@@ -28,10 +28,10 @@ public class CareerInfoController {
             description = "회원은 공개된 게시물만 최신순으로 조회합니다."
     )
     @GetMapping("/posts")
-    public ResponseEntity<List<PostSummaryResponseDto>> findPosts(
+    public ResponseEntity<List<PostSummaryResponseDto>> findPostList(
             @RequestParam(required = false) String keyword
     ) {
-        return ResponseEntity.ok(careerInfoService.findPosts("Y", null, keyword));
+        return ResponseEntity.ok(careerInfoService.findPostList("Y", null, keyword));
     }
 
     @Operation(

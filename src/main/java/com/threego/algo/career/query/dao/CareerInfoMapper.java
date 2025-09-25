@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface CareerInfoMapper {
-    List<PostSummaryResponseDto> findPosts(
+    List<PostSummaryResponseDto> selectPostList(
             @Param("visibility") String visibility,
             @Param("status") Status status,
             @Param("keyword") String keyword

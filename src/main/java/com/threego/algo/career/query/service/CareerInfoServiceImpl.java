@@ -19,8 +19,8 @@ public class CareerInfoServiceImpl implements CareerInfoService{
     }
 
     @Override
-    public List<PostSummaryResponseDto> findPosts(String visibility, Status status, String keyword) {
-        return careerInfoMapper.findPosts(visibility, status, keyword);
+    public List<PostSummaryResponseDto> findPostList(String visibility, Status status, String keyword) {
+        return careerInfoMapper.selectPostList(visibility, status, keyword);
     }
 
     @Override

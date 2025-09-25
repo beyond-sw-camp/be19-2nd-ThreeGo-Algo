@@ -28,11 +28,11 @@ public class AdminCareerInfoController {
             description = "관리자는 전체 게시물을 조회할 수 있으며, status, keyword 조건을 추가할 수 있습니다."
     )
     @GetMapping("/posts")
-    public ResponseEntity<List<PostSummaryResponseDto>> findPosts(
+    public ResponseEntity<List<PostSummaryResponseDto>> findPostList(
             @RequestParam(required = false) Status status,
             @RequestParam(required = false) String keyword
     ) {
-        return ResponseEntity.ok(careerInfoService.findPosts(null, status, keyword));
+        return ResponseEntity.ok(careerInfoService.findPostList(null, status, keyword));
     }
 
     @Operation(
