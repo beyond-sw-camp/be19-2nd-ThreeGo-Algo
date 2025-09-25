@@ -31,11 +31,30 @@ public class StudyRecruitPostService {
         return studyRecruitCommentMapper.selectStudyRecruitComments(postId);
     }
 
+    /* 설명. 스터디 모집 참여 멤버 목록 조회 */
     public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Long postId) {
         return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
     }
 
-    /* 설명. 스터디 모집 신청 멤버 리스트 조회 */
+    /* 설명. 관리자: 숨김 처리된 게시물 목록 조회 */
+    public List<StudyRecruitPostDTO> findStudyRecruitListIncludeHidden(StudyRecruitSearchDTO searchDto) {
+        return studyRecruitPostMapper.selectStudyRecruitListIncludeHidden(searchDto);
+    }
 
+    /* 설명. 관리자: 숨김 처리된 게시물 상세 조회 */
+    public StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(Long postId) {
+        return studyRecruitPostMapper.selectStudyRecruitDetailIncludeHidden(postId);
+    }
+
+
+    /* 설명. 관리자: 숨김 처리된 댓글 리스트 조회 */
+    public List<StudyRecruitCommentDTO> findAllStudyRecruitCommentsIncludeHidden(StudyRecruitSearchDTO searchDto) {
+        return studyRecruitCommentMapper.selectAllStudyRecruitCommentsIncludeHidden(searchDto);
+    }
+
+    /* 설명. 관리자: 숨김 처리된 댓글 조회 */
+    public List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(Long postId) {
+        return studyRecruitCommentMapper.selectStudyRecruitCommentsIncludeHidden(postId);
+    }
 
 }

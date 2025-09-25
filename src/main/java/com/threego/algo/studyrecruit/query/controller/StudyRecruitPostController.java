@@ -67,4 +67,5 @@ public class StudyRecruitPostController {
         return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitMembers(postId));
     }
 
+
 }

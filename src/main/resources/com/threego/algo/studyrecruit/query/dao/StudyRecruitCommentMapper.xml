@@ -36,4 +36,49 @@
          ORDER BY A.PARENT_ID ASC, A.ID ASC
     </select>
 
+    <!-- 관리자용 - 전체 숨김 처리 댓글 목록 조회  -->
+    <select id="selectAllStudyRecruitCommentsIncludeHidden"
+            resultMap="StudyRecruitCommentMap">
+        SELECT
+               A.ID AS COMMENT_ID
+             , A.POST_ID AS POST_ID
+             , A.PARENT_ID AS PARENT_ID
+             , A.CONTENT AS COMMENT_CONTENT
+             , B.NICKNAME AS MEMBER_NICKNAME
+             , C.NAME AS RANK_NAME
+             , A.CREATED_AT AS CREATED_AT
+             , A.UPDATED_AT AS UPDATED_AT
+          FROM STUDY_RECRUIT_COMMENT A
+          JOIN MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+           AND A.VISIBILITY = 'N'
+         ORDER BY A.ID DESC
+        <if test="size != null and size > 0">
+            LIMIT #{size}
+            <if test="offset != null and offset >= 0">
+                OFFSET #{offset}
+            </if>
+        </if>
+    </select>
+
+    <!-- 관리자용 - 숨김 처리 댓글 조회 -->
+    <select id="selectStudyRecruitCommentsIncludeHidden"
+            parameterType="long"
+            resultMap="StudyRecruitCommentMap">
+        SELECT
+               A.ID AS COMMENT_ID
+             , A.POST_ID AS POST_ID
+             , A.PARENT_ID AS PARENT_ID
+             , A.CONTENT AS COMMENT_CONTENT
+             , B.NICKNAME AS MEMBER_NICKNAME
+             , C.NAME AS RANK_NAME
+             , A.CREATED_AT AS CREATED_AT
+             , A.UPDATED_AT AS UPDATED_AT
+          FROM STUDY_RECRUIT_COMMENT A
+          JOIN MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+         WHERE A.POST_ID = #{postId}
+         ORDER BY A.PARENT_ID ASC, A.ID ASC
+    </select>
+
 </mapper>
