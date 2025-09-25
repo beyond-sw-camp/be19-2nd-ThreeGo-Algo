@@ -171,7 +171,27 @@ SELECT
  WHERE A.ID = 11 -- 특정 게시물 ID로 필터링 #{postId}
  GROUP BY A.ID; 
 -- -------------------------------------------------------------------------------------------------------------------
--- 스터디댓글 조회 기능(VISIBILITY 조건 무시)
+-- 전체 게시물의 스터디댓글 조회 기능(VISIBILITY 조건 무시)
+
+SELECT 
+       A.ID AS COMMENT_ID
+     , A.PARENT_ID AS PARENT_ID
+     , B.ID AS MEMBER_ID
+     , B.NICKNAME AS COMMENTER_NICKNAME
+     , C.NAME AS MEMBER_RANK
+     , A.CONTENT AS COMMENT_CONTENT
+     , A.CREATED_AT AS CREATED_AT
+     , A.UPDATED_AT AS UPDATED_AT
+     , A.POST_ID AS POST_ID
+     , A.VISIBILITY AS COMMENT_VISIBILITY
+  FROM STUDY_COMMENT A JOIN MEMBER B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID  	-- 회원 등급 테이블 조인
+ ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
+               ELSE A.PARENT_ID END ASC,
+                    A.ID ASC; 
+
+-- ------------------------------------------------------------------------
+-- 특정 게시물의 스터디댓글 조회 기능(VISIBILITY 조건 무시)
 
 SELECT 
        A.ID AS COMMENT_ID
