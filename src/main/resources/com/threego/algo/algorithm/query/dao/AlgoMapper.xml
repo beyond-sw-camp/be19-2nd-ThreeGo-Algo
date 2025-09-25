@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.threego.algo.algorithm.query.dao.AlgoMapper">
+    <resultMap id="AlgoRoadmapResultMap" type="com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap">
+        <id property="id" column="ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="order" column="ORDER"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="questionCount" column="QUESTION_COUNT"/>
+    </resultMap>
+
+    <select id="findAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
+        SELECT
+               A.ID
+             , A.TITLE
+             , A.DESCRIPTION
+             , A.`ORDER`
+             , A.CREATED_AT
+             , A.UPDATED_AT
+             , A.QUESTION_COUNT
+          FROM ALGO_ROADMAP A
+         ORDER BY A.`ORDER`;
+    </select>
+</mapper>
