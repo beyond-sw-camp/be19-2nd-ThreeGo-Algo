@@ -19,7 +19,17 @@
           FROM CAREER_INFO_POST A
           JOIN MEMBER B ON A.MEMBER_ID = B.ID
           JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
-         WHERE A.VISIBILITY = 'Y'
+        <where>
+            <if test="visibility != null">
+                A.VISIBILITY = #{visibility}
+            </if>
+            <if test="status != null">
+                AND A.STATUS = #{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND A.TITLE LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
          ORDER BY A.ID DESC
     </select>
 

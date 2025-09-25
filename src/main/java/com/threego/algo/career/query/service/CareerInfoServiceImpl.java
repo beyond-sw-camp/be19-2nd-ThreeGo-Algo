@@ -1,5 +1,6 @@
 package com.threego.algo.career.query.service;
 
+import com.threego.algo.career.command.domain.aggregate.enums.Status;
 import com.threego.algo.career.query.dao.CareerInfoMapper;
 import com.threego.algo.career.query.dto.PostSummaryResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CareerInfoServiceImpl implements CareerInfoService{
     }
 
     @Override
-    public List<PostSummaryResponseDto> findPosts() {
-        return careerInfoMapper.findPosts();
+    public List<PostSummaryResponseDto> findPosts(String visibility, Status status, String keyword) {
+        return careerInfoMapper.findPosts(visibility, status, keyword);
     }
 }
