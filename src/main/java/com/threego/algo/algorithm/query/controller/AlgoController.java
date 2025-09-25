@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "Admin Algorithm", description = "관리자용 알고리즘 학습 관리 API")
-@RequestMapping("/admin/algo")
+@Tag(name = "Admin Algorithm", description = "회원용 알고리즘 학습 API")
+@RequestMapping("/algo")
 @RestController
-public class AdminAlgoController {
+public class AlgoController {
     private final AlgoService algoService;
 
     @Autowired
-    public AdminAlgoController(AlgoService algoService) {
+    public AlgoController(AlgoService algoService) {
         this.algoService = algoService;
     }
 
-    @Operation(summary = "전체 알고리즘 학습 로드맵 조회", description = "관리자가 전체 알고리즘 학습 로드맵을 확인할 수 있는 API입니다.")
+    @Operation(summary = "전체 알고리즘 학습 로드맵 조회", description = "회원이 전체 알고리즘 학습 로드맵을 확인할 수 있는 API입니다.")
     @GetMapping("/roadmaps")
     public ResponseEntity<List<AlgoRoadmapResponseDTO>> findAllAlgoRoadMaps() {
         List<AlgoRoadmapResponseDTO> response = algoService.findAllAlgoRoadmaps().stream()
