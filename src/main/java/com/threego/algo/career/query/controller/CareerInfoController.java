@@ -1,15 +1,13 @@
 package com.threego.algo.career.query.controller;
 
+import com.threego.algo.career.query.dto.PostDetailResponseDto;
 import com.threego.algo.career.query.dto.PostSummaryResponseDto;
 import com.threego.algo.career.query.service.CareerInfoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +32,16 @@ public class CareerInfoController {
             @RequestParam(required = false) String keyword
     ) {
         return ResponseEntity.ok(careerInfoService.findPosts("Y", null, keyword));
+    }
+
+    @Operation(
+            summary = "회원용 기업별 정보 공유 게시물 상세 조회",
+            description = "회원은 공개된 게시물만 상세 조회할 수 있습니다."
+    )
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<PostDetailResponseDto> findPost(
+            @PathVariable int postId
+    ){
+        return ResponseEntity.ok(careerInfoService.findPostForMember(postId));
     }
 }

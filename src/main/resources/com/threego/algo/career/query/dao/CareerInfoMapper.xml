@@ -32,5 +32,31 @@
         </where>
          ORDER BY A.ID DESC
     </select>
+    
+    <select id="selectPost" resultType="com.threego.algo.career.query.dto.PostDetailResponseDto">
+        SELECT
+               A.ID            AS id
+             , A.TITLE         AS title
+             , A.CONTENT       AS content
+             , A.IMAGE_URL     AS imageUrl
+             , A.MEMBER_ID     AS memberId
+             , B.NICKNAME      AS nickname
+             , C.NAME          AS rankName
+             , A.CREATED_AT    AS createdAt
+             , A.VISIBILITY    AS visibility
+             , A.STATUS        AS status
+             , A.REJECT_REASON AS rejectReason
+             , A.LIKE_COUNT    AS likeCount
+             , A.COMMENT_COUNT AS commentCount
+          FROM CAREER_INFO_POST A
+          JOIN MEMBER B
+            ON A.MEMBER_ID = B.ID
+          JOIN MEMBER_RANK C
+            ON B.RANK_ID = C.ID
+         WHERE A.ID = #{postId}
+        <if test="visibility != null">
+            AND A.VISIBILITY = #{visibility}
+        </if>
+    </select>
 
 </mapper>
