@@ -12,15 +12,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class AlgoServiceTest {
     @Mock
     AlgoMapper algoMapper;
 
     @InjectMocks
-    AlgoService algoService;
+    AlgoServiceImpl algoService;
 
     @Test
     void 전체_알고리즘_학습_로드맵_조회_테스트() {
