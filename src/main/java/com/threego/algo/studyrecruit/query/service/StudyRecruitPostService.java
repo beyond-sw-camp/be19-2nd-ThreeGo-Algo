@@ -2,10 +2,7 @@ package com.threego.algo.studyrecruit.query.service;
 
 import com.threego.algo.studyrecruit.query.dao.StudyRecruitCommentMapper;
 import com.threego.algo.studyrecruit.query.dao.StudyRecruitPostMapper;
-import com.threego.algo.studyrecruit.query.dto.StudyRecruitCommentDTO;
-import com.threego.algo.studyrecruit.query.dto.StudyRecruitDetailDTO;
-import com.threego.algo.studyrecruit.query.dto.StudyRecruitPostDTO;
-import com.threego.algo.studyrecruit.query.dto.StudyRecruitSearchDTO;
+import com.threego.algo.studyrecruit.query.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +30,12 @@ public class StudyRecruitPostService {
     public List<StudyRecruitCommentDTO> findStudyRecruitComments(Long postId) {
         return studyRecruitCommentMapper.selectStudyRecruitComments(postId);
     }
+
+    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Long postId) {
+        return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
+    }
+
+    /* 설명. 스터디 모집 신청 멤버 리스트 조회 */
+
 
 }
