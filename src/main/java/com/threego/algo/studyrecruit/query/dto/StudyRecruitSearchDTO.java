@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudyRecruitSearchDto {
+public class StudyRecruitSearchDTO {
 
     private String keyword;             // 검색 키워드 (제목, 내용)
     private String status;              // 모집 상태 필터 (OPEN, CLOSED, CANCELLED)
