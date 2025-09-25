@@ -5,6 +5,7 @@ SELECT
        A.ID AS POST_ID
      , A.TITLE AS POST_TITLE
      , A.CONTENT AS POST_CONTENT
+     , B.ID AS MEMBER_ID
      , B.NICKNAME        
      , C.NAME AS MEMBER_RANK
      , D.TITLE AS PROBLEM_TITLE
@@ -17,7 +18,7 @@ SELECT
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
   JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
   JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
- WHERE A.VISIBILITY = 'Y'
+ WHERE A.VISIBILITY = 'Y' AND PROBLEM_ID = 3
  ORDER BY A.ID DESC;
 
 -- ------------------------------------------------------
@@ -26,6 +27,7 @@ SELECT
        A.ID AS POST_ID
      , A.TITLE AS POST_TITLE
      , A.CONTENT AS POST_CONTENT
+     , B.ID AS MEMBER_ID
      , B.NICKNAME        
      , C.NAME AS MEMBER_RANK
      , D.TITLE AS PROBLEM_TITLE
@@ -38,7 +40,7 @@ SELECT
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
   JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
   JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
- WHERE A.VISIBILITY = 'Y'
+ WHERE A.VISIBILITY = 'Y' AND PROBLEM_ID = 3
  ORDER BY A.LIKE_COUNT DESC;
 
 -- --------------------------------------------------------------
@@ -55,7 +57,8 @@ SELECT
      , A.AI_BAD
      , A.AI_PLAN
      , A.COMMENT_COUNT  
-     , A.LIKE_COUNT    
+     , A.LIKE_COUNT
+     , B.ID AS MEMBER_ID
      , B.NICKNAME       
      , C.NAME AS MEMBER_RANK
      , A.CREATED_AT    
@@ -65,7 +68,7 @@ SELECT
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
   JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
   JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
- WHERE A.ID = 1 AND A.VISIBILITY = 'Y';	   	-- #{POSTID}
+ WHERE A.ID = 1;	   	-- #{POSTID}
 
 -- ----------------------------------------------------------
 -- 특정 게시물 댓글 목록 조회
@@ -86,15 +89,26 @@ SELECT
   JOIN CODING_POST D ON A.POST_ID = D.ID
  WHERE A.POST_ID = 1 AND A.VISIBILITY = 'Y'
  ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
-              ELSE A.PARENT_ID END ASC,
-                   A.ID ASC;
+               ELSE A.PARENT_ID END ASC,
+                    A.ID ASC;
 
 -- ---------------------------------------------------------------
+-- Coding_Problem에 post 수 동기화
+UPDATE Coding_Problem p
+SET post_count = (
+    SELECT COUNT(*)
+    FROM Coding_Post c
+    WHERE c.problem_id = p.id
+      AND c.visibility = 'Y'
+)
+WHERE p.id IS NOT NULL; 
+
+-- --------------------------------------------------------------------
 -- 알고리즘 문제 목록 조회
 SELECT
        A.ID AS PROBLEM_ID
+     , B.ID AS MEMBER_ID
      , B.NICKNAME        
-     , C.NAME AS MEMBER_RANK
      , A.TITLE AS PROBLEM_TITLE
      , A.PLATFORM AS PLATFORM
      , A.DIFFICULTY AS DIFFICULTY
@@ -103,7 +117,6 @@ SELECT
      , A.VISIBILITY
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
  WHERE A.VISIBILITY = 'Y'
  ORDER BY A.ID ASC;
 
@@ -111,8 +124,8 @@ SELECT
 -- 난이도 순(플랫폼별 정렬 후 난이도 쉬운것부터 정렬)
 SELECT
        A.ID AS PROBLEM_ID
+     , B.ID AS MEMBER_ID
      , B.NICKNAME
-     , C.NAME AS MEMBER_RANK
      , A.TITLE AS PROBLEM_TITLE
      , A.PLATFORM
      , A.DIFFICULTY
@@ -121,7 +134,6 @@ SELECT
      , A.VISIBILITY
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C  ON B.RANK_ID  = C.ID
  WHERE A.VISIBILITY = 'Y'
  ORDER BY
   /* 1) 플랫폼 우선순위: PROGRAMMERS < BAEKJOON < LEETCODE */
@@ -174,8 +186,8 @@ SELECT
 -- 난이도 순(난이도 별로 가중치 두어 쉬운 것부터 정렬)
 SELECT
        A.ID AS PROBLEM_ID
+     , B.ID AS MEMBER_ID
      , B.NICKNAME
-     , C.NAME AS MEMBER_RANK
      , A.TITLE AS PROBLEM_TITLE
      , A.PLATFORM
      , A.DIFFICULTY
@@ -220,7 +232,6 @@ SELECT
        END AS NORM_SCORE
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN member_rank C ON B.RANK_ID   = C.ID
  WHERE A.VISIBILITY = 'Y'
  ORDER BY NORM_SCORE ASC, A.TITLE ASC;
 -- --------------------------------------------------------
@@ -236,13 +247,12 @@ SELECT
      , A.PROBLEM_URL     
      , A.CONSTRAINTS     
      , A.POST_COUNT      
-     , A.CREATED_AT      
-     , B.NICKNAME      
-     , C.NAME AS MEMBER_RANK
+     , A.CREATED_AT
+     , B.ID AS MEMBER_ID     
+     , B.NICKNAME
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
- WHERE A.ID = 2 AND A.VISIBILITY = 'Y';
+ WHERE A.ID = 2;
 
 -- ------------------------------------------------
 -- 🛠 관리자
@@ -252,6 +262,7 @@ SELECT
        A.ID AS POST_ID
      , A.TITLE AS POST_TITLE
      , A.CONTENT AS POST_CONTENT
+     , B.ID AS MEMBER_ID
      , B.NICKNAME        
      , C.NAME AS MEMBER_RANK
      , D.TITLE AS PROBLEM_TITLE
@@ -264,6 +275,7 @@ SELECT
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
   JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
   JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
+ WHERE PROBLEM_ID = 3
  ORDER BY A.ID DESC;
 
 -- --------------------------------------------------
@@ -280,7 +292,8 @@ SELECT
      , A.AI_BAD
      , A.AI_PLAN
      , A.COMMENT_COUNT  
-     , A.LIKE_COUNT    
+     , A.LIKE_COUNT
+     , B.ID AS MEMBER_ID    
      , B.NICKNAME       
      , C.NAME AS MEMBER_RANK
      , A.CREATED_AT    
@@ -338,8 +351,8 @@ SELECT
 -- 알고리즘 문제 목록 조회 (VISIBILITY 제외)
 SELECT
        A.ID AS PROBLEM_ID
+     , B.ID AS MEMBER_ID
      , B.NICKNAME        
-     , C.NAME AS MEMBER_RANK
      , A.TITLE AS PROBLEM_TITLE
      , A.PLATFORM AS PLATFORM
      , A.DIFFICULTY AS DIFFICULTY
@@ -348,7 +361,6 @@ SELECT
      , A.VISIBILITY
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
  ORDER BY A.ID ASC;
 
 -- ----------------------------------------------------------
@@ -364,10 +376,9 @@ SELECT
      , A.PROBLEM_URL     
      , A.CONSTRAINTS     
      , A.POST_COUNT      
-     , A.CREATED_AT      
+     , A.CREATED_AT
+     , B.ID AS MEMBER_ID      
      , B.NICKNAME      
-     , C.NAME AS MEMBER_RANK
   FROM CODING_PROBLEM A
   JOIN MEMBER B ON A.MEMBER_ID = B.ID
-  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
  WHERE A.ID = 2;
