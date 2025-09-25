@@ -293,7 +293,28 @@ SELECT
  WHERE A.ID = 1;	   	-- #{POSTID}
 
 -- ------------------------------------------------------------
--- 전체 풀이 댓글 목록 조회
+-- 전체 풀이 게시물 댓글 목록 조회
+SELECT
+	     A.POST_ID
+     , A.ID AS COMMENT_ID
+     , A.PARENT_ID       
+     , B.ID AS MEMBER_ID
+     , B.NICKNAME 
+     , C.NAME AS MEMBER_RANK
+     , A.CONTENT       
+     , A.CREATED_AT     
+     , A.UPDATED_AT     
+     , A.VISIBILITY 
+  FROM CODING_COMMENT A
+  JOIN MEMBER B ON A.MEMBER_ID = B.ID
+  JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+  JOIN CODING_POST D ON A.POST_ID = D.ID
+ ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
+              ELSE A.PARENT_ID END ASC,
+                   A.ID ASC;
+                  
+-- ------------------------------------------------------------
+-- 해당 풀이 게시물 댓글 목록 조회
 SELECT
 	     A.POST_ID
      , A.ID AS COMMENT_ID
@@ -313,7 +334,6 @@ SELECT
  ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
               ELSE A.PARENT_ID END ASC,
                    A.ID ASC;
-                  
 -- ---------------------------------------------------------
 -- 알고리즘 문제 목록 조회 (VISIBILITY 제외)
 SELECT
