@@ -26,34 +26,7 @@
          ORDER BY A.`ORDER`;
     </select>
 
-    <select id="selectAllAlgoPosts" parameterType="string"
-            resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
-        SELECT
-               A.ID              AS postId
-             , A.ROADMAP_ID      AS roadmapId
-             , A.MEMBER_ID       AS memberId
-             , B.NICKNAME        AS nickname
-             , A.TITLE           AS title
-             , A.CREATED_AT      AS createdAt
-             , A.UPDATED_AT      AS updatedAt
-             , A.LIKE_COUNT      AS likeCount
-             , A.COMMENT_COUNT   AS commentCount
-             , A.VISIBILITY      AS visibility
-        , (SELECT COUNT(C.ID)
-        FROM ALGO_QUIZ_QUESTION C
-        WHERE C.ALGO_POST_ID = A.ID) AS quizCount
-         FROM ALGO_POST A
-         LEFT JOIN MEMBER B
-           ON A.MEMBER_ID = B.ID
-        <where>
-            <if test="keyword != null and keyword != ''">
-                A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%')
-            </if>
-        </where>
-         ORDER BY A.ID DESC;
-    </select>
-
-    <select id="selectAlgoPostByRoadmapId" resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
+    <select id="selectAlgoPosts" resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
         SELECT
                A.ID              AS postId
              , A.ROADMAP_ID      AS roadmapId
@@ -70,17 +43,31 @@
                         WHERE B.ALGO_POST_ID = A.ID
                           AND B.MEMBER_ID = #{memberId}
                       ) AS isLiked
-             , (SELECT COUNT(C.ID)
-                  FROM ALGO_QUIZ_QUESTION C
-                 WHERE C.ALGO_POST_ID = A.ID) AS quizCount
+        <if test="memberId != null and memberId != ''">
+            , D.QUIZ_COUNT AS quizCount
+        </if>
           FROM ALGO_POST A
           LEFT JOIN MEMBER B
             ON A.MEMBER_ID = B.ID
-         WHERE A.VISIBILITY = 'Y'
-           AND A.ROADMAP_ID = #{roadmapId}
-        <if test="keyword != null and keyword != ''">
-           AND A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%')
+        <if test="memberId != null and memberId != ''">
+            LEFT JOIN (SELECT
+                              C.ALGO_POST_ID
+                            , COUNT(C.ID) AS QUIZ_COUNT
+                         FROM ALGO_QUIZ_QUESTION C
+                        GROUP BY C.ALGO_POST_ID) AS D
+              ON D.ALGO_POST_ID = A.ID
         </if>
+        <where>
+            <if test="keyword != null and keyword != ''">
+                (A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="roadmapId != null">
+                AND A.ROADMAP_ID = #{roadmapId}
+            </if>
+            <if test="visibility != null and visibility != ''">
+                AND A.VISIBILITY = #{visibility}
+            </if>
+        </where>
          ORDER BY A.ID ASC;
     </select>
 </mapper>

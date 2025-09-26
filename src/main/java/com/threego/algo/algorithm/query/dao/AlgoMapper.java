@@ -11,9 +11,8 @@ import java.util.List;
 public interface AlgoMapper {
     List<AlgoRoadmap> selectAllAlgoRoadmaps();
 
-    List<AlgoPostSummaryResponseDTO> selectAlgoPostByRoadmapId(@Param("memberId") final int memberId,
-                                                               @Param("roadmapId") final int roadmapId,
-                                                               @Param("keyword") final String keyword);
-
-    List<AlgoPostSummaryResponseDTO> selectAllAlgoPosts(final String keyword);
+    List<AlgoPostSummaryResponseDTO> selectAlgoPosts(@Param("memberId") final Integer memberId,
+                                                     @Param("roadmapId") final Integer roadmapId,
+                                                     @Param("keyword") final String keyword,
+                                                     @Param("visibility") final String visibility);
 }

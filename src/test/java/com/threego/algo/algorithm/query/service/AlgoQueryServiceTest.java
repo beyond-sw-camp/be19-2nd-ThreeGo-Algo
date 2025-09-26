@@ -13,12 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-class AlgoServiceTest {
+class AlgoQueryServiceTest {
     @Mock
     AlgoMapper algoMapper;
 
     @InjectMocks
-    AlgoServiceImpl algoService;
+    AlgoQueryServiceImpl algoService;
 
     @Test
     void 전체_알고리즘_학습_로드맵_조회_테스트() {
