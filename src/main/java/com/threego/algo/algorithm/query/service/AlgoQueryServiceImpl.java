@@ -2,10 +2,7 @@ package com.threego.algo.algorithm.query.service;
 
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import com.threego.algo.algorithm.query.dao.AlgoMapper;
-import com.threego.algo.algorithm.query.dto.AlgoMemberSolvedQuizResponseDTO;
-import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
-import com.threego.algo.algorithm.query.dto.AlgoPostDetailResponseDTO;
-import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
+import com.threego.algo.algorithm.query.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +79,11 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
         postResponse.setImageUrls(imageResponse);
 
         return postResponse;
+    }
+
+    @Override
+    public List<AlgoQuizResponseDTO> findQuizQuestionAndOptionByPostId(int postId) {
+        return algoMapper.selectQuizQuestionAndOptionByPostId(postId);
     }
 
     private void findSolvedQuizzesByMemberIdAndRoadmapIds(final int memberId, final int roadmapId,

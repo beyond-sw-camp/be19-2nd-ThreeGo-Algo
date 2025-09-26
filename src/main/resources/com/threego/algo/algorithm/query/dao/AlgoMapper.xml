@@ -50,6 +50,18 @@
         </collection>
     </resultMap>
 
+    <resultMap id="AlgoQuizResultMap" type="com.threego.algo.algorithm.query.dto.AlgoQuizResponseDTO">
+        <id property="id" column="QUESTION_ID"/>
+        <result property="question" column="QUESTION"/>
+        <result property="type" column="TYPE"/>
+
+        <collection property="options" ofType="com.threego.algo.algorithm.query.dto.AlgoQuizOptionResponseDTO">
+            <id property="id" column="OPTION_ID"/>
+            <result property="optionText" column="OPTION_TEXT"/>
+            <result property="isCorrect" column="IS_CORRECT"/>
+        </collection>
+    </resultMap>
+
     <select id="selectAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
         SELECT
                A.ID
@@ -177,6 +189,22 @@
                 A.IMAGE_URL
            FROM ALGO_POST_IMAGE A
           WHERE A.POST_ID = #{postId}
+          ORDER BY A.ID;
+    </select>
+
+    <select id="selectQuizQuestionAndOptionByPostId" parameterType="_int"
+            resultMap="AlgoQuizResultMap">
+        SELECT
+                A.ID AS QUESTION_ID
+              , A.QUESTION
+              , A.TYPE
+              , B.ID AS OPTION_ID
+              , B.OPTION_TEXT
+              , B.IS_CORRECT
+           FROM ALGO_QUIZ_QUESTION A
+           LEFT JOIN ALGO_QUIZ_OPTION B
+             ON A.ID = B.QUESTION_ID
+          WHERE A.ALGO_POST_ID = #{postId}
           ORDER BY A.ID;
     </select>
 </mapper>
