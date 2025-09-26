@@ -67,5 +67,9 @@ public class CareerInfoServiceImpl implements CareerInfoService{
         return roots;
     }
 
+    @Override
+    public List<PostDetailResponseDto> findCommentsForAdmin() {
+        return careerInfoMapper.selectComments();
+    }
 
 }

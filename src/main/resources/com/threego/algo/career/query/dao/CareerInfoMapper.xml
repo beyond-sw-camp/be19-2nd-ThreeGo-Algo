@@ -81,4 +81,24 @@
                        ELSE A.PARENT_ID END ASC,
                   A.ID ASC
     </select>
+
+    <select id="selectComments" resultType="com.threego.algo.career.query.dto.CommentResponseDto">
+        SELECT
+               A.ID          AS commentId
+               , A.PARENT_ID   AS parentId
+               , A.POST_ID     AS postId
+               , A.MEMBER_ID   AS memberId
+               , B.NICKNAME    AS nickname
+               , C.NAME        AS rankName
+               , A.CONTENT     AS content
+               , A.CREATED_AT  AS createdAt
+               , A.UPDATED_AT  AS updatedAt
+               , A.VISIBILITY  AS visibility
+            FROM CAREER_INFO_COMMENT A
+            JOIN MEMBER B
+              ON A.MEMBER_ID = B.ID
+            JOIN MEMBER_RANK C
+              ON B.RANK_ID = C.ID
+           ORDER BY A.ID DESC;
+    </select>
 </mapper>

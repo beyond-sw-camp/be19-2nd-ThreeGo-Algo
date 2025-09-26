@@ -25,4 +25,6 @@ public interface CareerInfoMapper {
     List<CommentResponseDto> selectCommentsByPostId(
             @Param("postId") int postId
     );
+
+    List<PostDetailResponseDto> selectComments();
 }

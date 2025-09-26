@@ -45,4 +45,13 @@ public class AdminCareerInfoController {
     ){
         return ResponseEntity.ok(careerInfoService.findPostForAdmin(postId));
     }
+
+    @Operation(
+            summary = "관리자용 기업별 정보 공유 게시물의 댓글 전체 조회",
+            description = "관리자는 모든 댓글을 조회할 수 있습니다."
+    )
+    @GetMapping("/comments")
+    public ResponseEntity<List<PostDetailResponseDto>> findComments(){
+        return ResponseEntity.ok(careerInfoService.findCommentsForAdmin());
+    }
 }
