@@ -98,4 +98,27 @@
            AND C.ROADMAP_ID = #{roadmapId}
         ORDER BY B.ALGO_POST_ID, A.ALGO_QUIZ_QUESTION_ID;
     </select>
+
+    <select id="selectCommentsByPostId" parameterType="_int"
+            resultType="com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO">
+        SELECT
+                A.ID                    AS id
+              , A.PARENT_ID             AS parentCommentId
+              , A.MEMBER_ID             AS memberId
+              , B.NICKNAME              AS memberNickname
+              , C.NAME                  AS memberRank
+              , A.CONTENT               AS content
+              , A.CREATED_AT            AS createdAt
+              , A.UPDATED_AT            AS updatedAt
+              , A.VISIBILITY            AS visibility
+           FROM ALGO_COMMENT A
+           JOIN MEMBER B
+             ON A.MEMBER_ID = B.ID
+           JOIN MEMBER_RANK C
+             ON B.RANK_ID = C.ID
+          WHERE A.POST_ID = #{postId}
+          ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
+                        ELSE A.PARENT_ID END ASC,
+                   A.ID;
+    </select>
 </mapper>

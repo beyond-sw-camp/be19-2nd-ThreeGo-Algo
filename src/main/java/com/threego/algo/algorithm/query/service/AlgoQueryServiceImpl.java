@@ -3,14 +3,13 @@ package com.threego.algo.algorithm.query.service;
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import com.threego.algo.algorithm.query.dao.AlgoMapper;
 import com.threego.algo.algorithm.query.dto.AlgoMemberSolvedQuizResponseDTO;
+import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AlgoQueryServiceImpl implements AlgoQueryService {
@@ -46,6 +45,31 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
                                                                              final String keyword,
                                                                              final String visibility) {
         return algoMapper.selectAlgoPosts(null, roadmapId, keyword, visibility);
+    }
+
+    @Override
+    public List<AlgoPostCommentDTO> findCommentsByPostId(final int postId) {
+        final List<AlgoPostCommentDTO> comments = algoMapper.selectCommentsByPostId(postId);
+
+        final List<AlgoPostCommentDTO> commentResponse = comments.stream()
+                .filter((comment) -> comment.getParentCommentId() == null)
+                .collect(Collectors.toList());
+
+        final Map<Integer, List<AlgoPostCommentDTO>> commentMap = new LinkedHashMap<>();
+
+        comments.forEach((comment) -> {
+            if (comment.getParentCommentId() == null) {
+                commentMap.put(comment.getId(), new ArrayList<>());
+            } else {
+                commentMap.get(comment.getParentCommentId()).add(comment);
+            }
+        });
+
+        commentResponse.forEach((comment) -> {
+            comment.setChildComments(commentMap.get(comment.getId()));
+        });
+
+        return commentResponse;
     }
 
     private void findSolvedQuizzesByMemberIdAndRoadmapIds(final int memberId, final int roadmapId,

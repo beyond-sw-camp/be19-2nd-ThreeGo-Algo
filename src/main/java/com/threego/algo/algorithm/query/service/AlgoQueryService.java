@@ -1,6 +1,7 @@
 package com.threego.algo.algorithm.query.service;
 
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
+import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface AlgoQueryService {
 
     List<AlgoPostSummaryResponseDTO> findAlgoPostsByRoadmapIdForAdmin(final int roadmapId, final String keyword,
                                                                       final String visibility);
+
+    List<AlgoPostCommentDTO> findCommentsByPostId(final int postId);
 }

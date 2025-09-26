@@ -1,5 +1,6 @@
 package com.threego.algo.algorithm.query.controller;
 
+import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 import com.threego.algo.algorithm.query.dto.AlgoRoadmapResponseDTO;
 import com.threego.algo.algorithm.query.service.AlgoQueryService;
@@ -40,6 +41,15 @@ public class AlgoQueryController {
                                                                                      @RequestParam(required = false) final String keyword) {
         // TODO. memberID는 Authentication에서 받아오도록 수정 필요
         final List<AlgoPostSummaryResponseDTO> response = algoQueryService.findAlgoPostsByRoadmapId(1, roadmapId, keyword);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "알고리즘 학습 로드맵의 게시물 댓글 목록 조회",
+            description ="회원이 알고리즘 학습 로드맵의 게시물 댓글 목록을 조회할 수 있는 API입니다.")
+    @GetMapping("/posts/{postId}/comments")
+    public ResponseEntity<List<AlgoPostCommentDTO>> findCommentsByPostId(@PathVariable("postId") final int postId) {
+        List<AlgoPostCommentDTO> response = algoQueryService.findCommentsByPostId(postId);
 
         return ResponseEntity.ok(response);
     }
