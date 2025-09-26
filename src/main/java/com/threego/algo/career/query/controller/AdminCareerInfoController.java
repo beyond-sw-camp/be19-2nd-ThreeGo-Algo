@@ -29,10 +29,11 @@ public class AdminCareerInfoController {
     )
     @GetMapping("/posts")
     public ResponseEntity<List<PostSummaryResponseDto>> findPostList(
+            @RequestParam(required = false) String visibility,
             @RequestParam(required = false) Status status,
             @RequestParam(required = false) String keyword
     ) {
-        return ResponseEntity.ok(careerInfoService.findPostList(null, status, keyword));
+        return ResponseEntity.ok(careerInfoService.findPostList(visibility, status, keyword));
     }
 
     @Operation(
