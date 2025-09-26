@@ -16,15 +16,15 @@ public interface AlgoMapper {
                                                      @Param("keyword") final String keyword,
                                                      @Param("visibility") final String visibility);
 
-    List<AlgoMemberSolvedQuizResponseDTO> selectSolvedQuizzesByMemberIdAndRoadmapIds(@Param("memberId") final int memberId,
-                                                                                     @Param("roadmapId") final int roadmapId);
+    List<AlgoMemberSolvedQuizResponseDTO> selectSolvedQuizzesByMemberIdAndRoadmapIds(@Param("memberId") final Integer memberId,
+                                                                                     @Param("roadmapId") final Integer roadmapId);
 
     List<AlgoPostCommentDTO> selectCommentsByPostId(final int postId);
 
-    AlgoPostDetailResponseDTO selectAlgoPostByPostId(@Param("memberId") final int memberId,
-                                                     @Param("postId") final int postId);
+    AlgoPostDetailResponseDTO selectAlgoPostByPostId(@Param("memberId") final Integer memberId,
+                                                     @Param("postId") final Integer postId);
 
-    List<String> selectAlgoImagesByPostId(@Param("postId") int postId);
+    List<String> selectAlgoImagesByPostId(@Param("postId") Integer postId);
 
-    List<AlgoQuizResponseDTO> selectQuizQuestionAndOptionByPostId(@Param("postId") final int postId);
+    List<AlgoQuizResponseDTO> selectQuizQuestionAndOptionByPostId(@Param("postId") final Integer postId);
 }

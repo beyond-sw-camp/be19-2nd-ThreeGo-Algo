@@ -82,8 +82,19 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
     }
 
     @Override
-    public List<AlgoQuizResponseDTO> findQuizQuestionAndOptionByPostId(int postId) {
+    public List<AlgoQuizResponseDTO> findQuizQuestionAndOptionByPostId(final int postId) {
         return algoMapper.selectQuizQuestionAndOptionByPostId(postId);
+    }
+
+    @Override
+    public AlgoPostDetailResponseDTO findAlgoPostByPostIdForAdmin(final int postId) {
+        final AlgoPostDetailResponseDTO response = algoMapper.selectAlgoPostByPostId(null, postId);
+
+        if (response != null) {
+            List<String> imageResponse = algoMapper.selectAlgoImagesByPostId(postId);
+            response.setImageUrls(imageResponse);
+        }
+        return response;
     }
 
     private void findSolvedQuizzesByMemberIdAndRoadmapIds(final int memberId, final int roadmapId,

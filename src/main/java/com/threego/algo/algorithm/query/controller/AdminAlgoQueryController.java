@@ -1,6 +1,7 @@
 package com.threego.algo.algorithm.query.controller;
 
 import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
+import com.threego.algo.algorithm.query.dto.AlgoPostDetailResponseDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 import com.threego.algo.algorithm.query.dto.AlgoRoadmapResponseDTO;
 import com.threego.algo.algorithm.query.service.AlgoQueryService;
@@ -51,6 +52,15 @@ public class AdminAlgoQueryController {
                                                                                      @RequestParam(required = false) final String keyword,
                                                                                      @RequestParam(required = false) final String visibility) {
         final List<AlgoPostSummaryResponseDTO> response = algoQueryService.findAlgoPostsByRoadmapIdForAdmin(roadmapId, keyword, visibility);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "알고리즘 학습 로드맵의 게시물 세부 조회",
+            description = "관리자가 알고리즘 학습 로드맵의 게시물을 세부 조회할 수 있는 API입니다.")
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<AlgoPostDetailResponseDTO> findAlgoPostsByPostId(@PathVariable("postId") final int postId) {
+        final AlgoPostDetailResponseDTO response = algoQueryService.findAlgoPostByPostIdForAdmin(postId);
 
         return ResponseEntity.ok(response);
     }
