@@ -33,5 +33,20 @@ public class StudyPostQueryServiceImpl implements StudyPostQueryService {
         return studyPostMapper.selectStudyPostComments(postId);
     }
 
+    @Override
+    public List<StudyPostDTO> findAllHiddenStudyPosts(StudyPostSearchDTO searchDto) {
+        return studyPostMapper.selectAllHiddenStudyPosts(searchDto);
+    }
+
+    @Override
+    public StudyPostDetailDTO findHiddenStudyPostDetail(Integer postId) {
+        return studyPostMapper.selectHiddenStudyPostDetail(postId);
+    }
+
+    @Override
+    public List<StudyCommentDTO> findAllHiddenStudyComments(StudyPostSearchDTO searchDto) {
+        return studyPostMapper.selectAllHiddenStudyComments(searchDto);
+    }
+
 
 }
