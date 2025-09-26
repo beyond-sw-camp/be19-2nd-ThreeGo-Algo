@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class StudyPostServiceImpl implements StudyPostService {
+public class StudyPostQueryServiceImpl implements StudyPostQueryService {
 
     private final StudyPostMapper studyPostMapper;
 

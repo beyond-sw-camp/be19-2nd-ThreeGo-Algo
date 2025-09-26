@@ -5,7 +5,7 @@ import com.threego.algo.study.query.dto.StudyRoadmapDetailDTO;
 
 import java.util.List;
 
-public interface StudyRoadmapService {
+public interface StudyRoadmapQueryService {
 
     List<StudyRoadmapDTO> findAllStudyRoadmap(Integer studyId);
 

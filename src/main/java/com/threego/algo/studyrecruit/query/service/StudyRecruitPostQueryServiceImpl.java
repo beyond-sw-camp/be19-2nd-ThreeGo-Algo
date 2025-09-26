@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
+public class StudyRecruitPostQueryServiceImpl implements StudyRecruitPostQueryService {
     private final StudyRecruitPostMapper studyRecruitPostMapper;
     private final StudyRecruitCommentMapper studyRecruitCommentMapper;
 

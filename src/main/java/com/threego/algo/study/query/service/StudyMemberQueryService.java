@@ -5,7 +5,7 @@ import com.threego.algo.study.query.dto.StudyMemberDTO;
 import java.util.List;
 
 
-public interface StudyMemberService {
+public interface StudyMemberQueryService {
 
     List<StudyMemberDTO> findAllStudyMember(Integer studyId);
 

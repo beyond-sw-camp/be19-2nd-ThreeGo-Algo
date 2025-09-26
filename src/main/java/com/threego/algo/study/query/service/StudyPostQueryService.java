@@ -7,7 +7,7 @@ import com.threego.algo.study.query.dto.StudyPostSearchDTO;
 
 import java.util.List;
 
-public interface StudyPostService {
+public interface StudyPostQueryService {
 
     List<StudyPostDTO> findAllStudyPosts(StudyPostSearchDTO searchDto);
 

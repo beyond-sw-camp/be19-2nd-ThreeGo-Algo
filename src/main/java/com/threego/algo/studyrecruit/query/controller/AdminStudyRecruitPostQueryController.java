@@ -4,7 +4,7 @@ import com.threego.algo.studyrecruit.query.dto.StudyRecruitCommentDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitDetailDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitPostDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitSearchDTO;
-import com.threego.algo.studyrecruit.query.service.StudyRecruitPostServiceImpl;
+import com.threego.algo.studyrecruit.query.service.StudyRecruitPostQueryServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Admin Study Recruit Posts", description = "관리자용 스터디 모집글 조회 API")
+@Tag(name = "[Admin] Study Recruit API", description = "관리자용 스터디 모집글 조회 API")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/study-recruit")
-public class AdminStudyRecruitPostController {
+public class AdminStudyRecruitPostQueryController {
 
-    private final StudyRecruitPostServiceImpl studyRecruitPostServiceImpl;
+    private final StudyRecruitPostQueryServiceImpl studyRecruitPostServiceImpl;
 
     @Operation(
             summary = "관리자용 숨김 처리된 스터디 모집글 목록 조회",

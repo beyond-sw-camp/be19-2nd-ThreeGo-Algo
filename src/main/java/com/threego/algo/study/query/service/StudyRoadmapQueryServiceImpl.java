@@ -1,7 +1,6 @@
 package com.threego.algo.study.query.service;
 
 import com.threego.algo.study.query.dao.StudyRoadmapMapper;
-import com.threego.algo.study.query.dto.StudyMemberDTO;
 import com.threego.algo.study.query.dto.StudyRoadmapDTO;
 import com.threego.algo.study.query.dto.StudyRoadmapDetailDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class StudyRoadmapServiceImpl implements StudyRoadmapService {
+public class StudyRoadmapQueryServiceImpl implements StudyRoadmapQueryService {
     private final StudyRoadmapMapper studyRoadmapMapper;
 
     @Override

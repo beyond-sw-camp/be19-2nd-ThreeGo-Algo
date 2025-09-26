@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class StudyMemberServiceImpl implements StudyMemberService {
+public class StudyMemberQueryServiceImpl implements StudyMemberQueryService {
     private final StudyMemberMapper studyMemberMapper;
 
     @Override

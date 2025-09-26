@@ -1,7 +1,7 @@
 package com.threego.algo.studyrecruit.query.controller;
 
 import com.threego.algo.studyrecruit.query.dto.*;
-import com.threego.algo.studyrecruit.query.service.StudyRecruitPostServiceImpl;
+import com.threego.algo.studyrecruit.query.service.StudyRecruitPostQueryServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name = "Study Recruit Posts", description = "스터디 모집글 조회 API")
+@Tag(name = "Study Recruit API", description = "스터디 모집글 조회 API")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/study-recruit")
-public class StudyRecruitPostController {
+public class StudyRecruitPostQueryController {
 
-    private final StudyRecruitPostServiceImpl studyRecruitPostServiceImpl;
+    private final StudyRecruitPostQueryServiceImpl studyRecruitPostServiceImpl;
 
     @Operation(
             summary = "스터디 모집글 목록 조회",
