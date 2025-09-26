@@ -31,6 +31,25 @@
         </collection>
     </resultMap>
 
+    <resultMap id="AlgoPostDetailResultMap" type="com.threego.algo.algorithm.query.dto.AlgoPostDetailResponseDTO">
+        <id property="postId" column="ID"/>
+        <result property="roadmapId" column="ROADMAP_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="title" column="TITLE"/>
+        <result property="content" column="CONTENT"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="likeCount" column="LIKE_COUNT"/>
+        <result property="commentCount" column="COMMENT_COUNT"/>
+        <result property="visibility" column="VISIBILITY"/>
+        <result property="isLiked" column="IS_LIKED"/>
+
+        <collection property="quizIds" ofType="java.lang.Integer">
+            <id column="ALGO_QUIZ_QUESTION_ID"/>
+        </collection>
+    </resultMap>
+
     <select id="selectAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
         SELECT
                A.ID
@@ -83,6 +102,37 @@
          ORDER BY A.ID ASC;
     </select>
 
+    <select id="selectAlgoPostByPostId" parameterType="_int"
+            resultMap="AlgoPostDetailResultMap">
+        SELECT
+               A.ID
+             , A.ROADMAP_ID
+             , A.MEMBER_ID
+             , B.NICKNAME
+             , A.TITLE
+             , A.CONTENT
+             , A.CREATED_AT
+             , A.UPDATED_AT
+             , A.LIKE_COUNT
+             , A.COMMENT_COUNT
+             , A.VISIBILITY
+        <if test="memberId != null">
+             , EXISTS (SELECT 1
+                         FROM LIKES B
+                        WHERE B.ALGO_POST_ID = A.ID
+                          AND B.MEMBER_ID = #{memberId}
+                      ) AS IS_LIKED
+        </if>
+            , C.ID AS ALGO_QUIZ_QUESTION_ID
+         FROM ALGO_POST A
+         JOIN MEMBER B
+           ON A.MEMBER_ID = B.ID
+         LEFT JOIN ALGO_QUIZ_QUESTION C
+           ON C.ALGO_POST_ID = A.ID
+        WHERE A.ID = #{postId}
+        ORDER BY A.ID ASC;
+    </select>
+
     <select id="selectSolvedQuizzesByMemberIdAndRoadmapIds"
             resultType="com.threego.algo.algorithm.query.dto.AlgoMemberSolvedQuizResponseDTO">
         SELECT
@@ -120,5 +170,13 @@
           ORDER BY CASE WHEN A.PARENT_ID IS NULL THEN A.ID
                         ELSE A.PARENT_ID END ASC,
                    A.ID;
+    </select>
+
+    <select id="selectAlgoImagesByPostId" parameterType="_int" resultType="string">
+        SELECT
+                A.IMAGE_URL
+           FROM ALGO_POST_IMAGE A
+          WHERE A.POST_ID = #{postId}
+          ORDER BY A.ID;
     </select>
 </mapper>

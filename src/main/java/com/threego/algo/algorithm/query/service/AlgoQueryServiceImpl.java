@@ -4,6 +4,7 @@ import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import com.threego.algo.algorithm.query.dao.AlgoMapper;
 import com.threego.algo.algorithm.query.dto.AlgoMemberSolvedQuizResponseDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
+import com.threego.algo.algorithm.query.dto.AlgoPostDetailResponseDTO;
 import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,17 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
         });
 
         return commentResponse;
+    }
+
+    @Override
+    public AlgoPostDetailResponseDTO findAlgoPostByPostId(final int memberId, final int postId) {
+        final AlgoPostDetailResponseDTO postResponse = algoMapper.selectAlgoPostByPostId(memberId, postId);
+
+        // TODO 조회된 게시물의 삭제 여부가 'N'인 경우 예외 처리
+        final List<String> imageResponse = algoMapper.selectAlgoImagesByPostId(postId);
+        postResponse.setImageUrls(imageResponse);
+
+        return postResponse;
     }
 
     private void findSolvedQuizzesByMemberIdAndRoadmapIds(final int memberId, final int roadmapId,
