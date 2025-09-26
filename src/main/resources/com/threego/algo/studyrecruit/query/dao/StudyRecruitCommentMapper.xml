@@ -61,7 +61,7 @@
         </if>
     </select>
 
-    <!-- 관리자용 - 숨김 처리 댓글 조회 -->
+    <!-- 관리자용 - 숨김 처리된 게시물의 댓글 조회 -->
     <select id="selectStudyRecruitCommentsIncludeHidden"
             parameterType="long"
             resultMap="StudyRecruitCommentMap">

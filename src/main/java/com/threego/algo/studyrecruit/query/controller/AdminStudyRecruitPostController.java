@@ -4,9 +4,10 @@ import com.threego.algo.studyrecruit.query.dto.StudyRecruitCommentDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitDetailDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitPostDTO;
 import com.threego.algo.studyrecruit.query.dto.StudyRecruitSearchDTO;
-import com.threego.algo.studyrecruit.query.service.StudyRecruitPostService;
+import com.threego.algo.studyrecruit.query.service.StudyRecruitPostServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +15,11 @@ import java.util.List;
 
 @Tag(name = "Admin Study Recruit Posts", description = "관리자용 스터디 모집글 조회 API")
 @RestController
+@AllArgsConstructor
 @RequestMapping("/admin/study-recruit")
 public class AdminStudyRecruitPostController {
 
-    private final StudyRecruitPostService studyRecruitPostService;
-
-    public AdminStudyRecruitPostController(StudyRecruitPostService studyRecruitPostService) {
-        this.studyRecruitPostService = studyRecruitPostService;
-    }
+    private final StudyRecruitPostServiceImpl studyRecruitPostServiceImpl;
 
     @Operation(
             summary = "관리자용 숨김 처리된 스터디 모집글 목록 조회",
@@ -41,7 +39,7 @@ public class AdminStudyRecruitPostController {
                 .keyword(keyword)
                 .build();
 
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitListIncludeHidden(searchDto));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitListIncludeHidden(searchDto));
     }
 
     @Operation(
@@ -50,7 +48,7 @@ public class AdminStudyRecruitPostController {
     )
     @GetMapping("/posts/{postId}/hidden")
     public ResponseEntity<StudyRecruitDetailDTO> findHiddenPost(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitDetailIncludeHidden(postId));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitDetailIncludeHidden(postId));
     }
 
     @Operation(
@@ -67,7 +65,7 @@ public class AdminStudyRecruitPostController {
                 .size(size)
                 .build();
 
-        return ResponseEntity.ok(studyRecruitPostService.findAllStudyRecruitCommentsIncludeHidden(searchDto));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findAllStudyRecruitCommentsIncludeHidden(searchDto));
     }
 
     @Operation(
@@ -76,6 +74,6 @@ public class AdminStudyRecruitPostController {
     )
     @GetMapping("/posts/{postId}/comments/hidden")
     public ResponseEntity<List<StudyRecruitCommentDTO>> findHiddenPostComments(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitCommentsIncludeHidden(postId));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitCommentsIncludeHidden(postId));
     }
 }

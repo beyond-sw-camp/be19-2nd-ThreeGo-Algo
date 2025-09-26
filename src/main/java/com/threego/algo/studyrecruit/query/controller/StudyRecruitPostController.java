@@ -1,23 +1,21 @@
 package com.threego.algo.studyrecruit.query.controller;
 
 import com.threego.algo.studyrecruit.query.dto.*;
-import com.threego.algo.studyrecruit.query.service.StudyRecruitPostService;
+import com.threego.algo.studyrecruit.query.service.StudyRecruitPostServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Tag(name = "Study Recruit Posts", description = "스터디 모집글 조회 API")
 @RestController
+@AllArgsConstructor
 @RequestMapping("/study-recruit")
 public class StudyRecruitPostController {
 
-    private final StudyRecruitPostService studyRecruitPostService;
-
-    public StudyRecruitPostController(StudyRecruitPostService studyRecruitPostService) {
-        this.studyRecruitPostService = studyRecruitPostService;
-    }
+    private final StudyRecruitPostServiceImpl studyRecruitPostServiceImpl;
 
     @Operation(
             summary = "스터디 모집글 목록 조회",
@@ -37,7 +35,7 @@ public class StudyRecruitPostController {
                 .keyword(keyword)
                 .build();
 
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitList(searchDto));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitList(searchDto));
     }
 
     @Operation(
@@ -46,7 +44,7 @@ public class StudyRecruitPostController {
     )
     @GetMapping("/posts/{postId}")
     public ResponseEntity<StudyRecruitDetailDTO> findPost(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitDetail(postId));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitDetail(postId));
     }
 
     @Operation(
@@ -55,7 +53,7 @@ public class StudyRecruitPostController {
     )
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity<List<StudyRecruitCommentDTO>> findPostComments(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitComments(postId));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitComments(postId));
     }
 
     @Operation(
@@ -64,7 +62,7 @@ public class StudyRecruitPostController {
     )
     @GetMapping("/posts/{postId}/members")
     public ResponseEntity<List<StudyRecruitMemberDTO>> findPostMembers(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostService.findStudyRecruitMembers(postId));
+        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitMembers(postId));
     }
 
 

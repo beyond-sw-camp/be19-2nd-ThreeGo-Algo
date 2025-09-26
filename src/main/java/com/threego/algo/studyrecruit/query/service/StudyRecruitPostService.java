@@ -1,60 +1,23 @@
 package com.threego.algo.studyrecruit.query.service;
 
-import com.threego.algo.studyrecruit.query.dao.StudyRecruitCommentMapper;
-import com.threego.algo.studyrecruit.query.dao.StudyRecruitPostMapper;
 import com.threego.algo.studyrecruit.query.dto.*;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-@Transactional
-public class StudyRecruitPostService {
-    private final StudyRecruitPostMapper studyRecruitPostMapper;
-    private final StudyRecruitCommentMapper studyRecruitCommentMapper;
+public interface StudyRecruitPostService {
+    List<StudyRecruitPostDTO> findStudyRecruitList(StudyRecruitSearchDTO searchDto);
 
-    /* 설명. 스터디 모집글 전체 목록 조회 */
-    public List<StudyRecruitPostDTO> findStudyRecruitList(StudyRecruitSearchDTO searchDto) {
-        return studyRecruitPostMapper.selectStudyRecruitList(searchDto);
-    }
+    StudyRecruitDetailDTO findStudyRecruitDetail(Long postId);
 
-    /* 설명. 스터디 모집글 상세 조회 */
-    public StudyRecruitDetailDTO findStudyRecruitDetail(Long postId) {
-        return studyRecruitPostMapper.selectStudyRecruitDetail(postId);
-    }
+    List<StudyRecruitCommentDTO> findStudyRecruitComments(Long postId);
 
-    /* 설명. 스터디 모집 게시물의 댓글 조회 */
-    public List<StudyRecruitCommentDTO> findStudyRecruitComments(Long postId) {
-        return studyRecruitCommentMapper.selectStudyRecruitComments(postId);
-    }
+    List<StudyRecruitMemberDTO> findStudyRecruitMembers(Long postId);
 
-    /* 설명. 스터디 모집 참여 멤버 목록 조회 */
-    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Long postId) {
-        return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
-    }
+    List<StudyRecruitPostDTO> findStudyRecruitListIncludeHidden(StudyRecruitSearchDTO searchDto);
 
-    /* 설명. 관리자: 숨김 처리된 게시물 목록 조회 */
-    public List<StudyRecruitPostDTO> findStudyRecruitListIncludeHidden(StudyRecruitSearchDTO searchDto) {
-        return studyRecruitPostMapper.selectStudyRecruitListIncludeHidden(searchDto);
-    }
+    StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(Long postId);
 
-    /* 설명. 관리자: 숨김 처리된 게시물 상세 조회 */
-    public StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(Long postId) {
-        return studyRecruitPostMapper.selectStudyRecruitDetailIncludeHidden(postId);
-    }
+    List<StudyRecruitCommentDTO> findAllStudyRecruitCommentsIncludeHidden(StudyRecruitSearchDTO searchDto);
 
-
-    /* 설명. 관리자: 숨김 처리된 댓글 리스트 조회 */
-    public List<StudyRecruitCommentDTO> findAllStudyRecruitCommentsIncludeHidden(StudyRecruitSearchDTO searchDto) {
-        return studyRecruitCommentMapper.selectAllStudyRecruitCommentsIncludeHidden(searchDto);
-    }
-
-    /* 설명. 관리자: 숨김 처리된 댓글 조회 */
-    public List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(Long postId) {
-        return studyRecruitCommentMapper.selectStudyRecruitCommentsIncludeHidden(postId);
-    }
-
+    List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(Long postId);
 }
