@@ -7,7 +7,7 @@ import com.threego.algo.career.query.dto.PostSummaryResponseDto;
 
 import java.util.List;
 
-public interface CareerInfoService{
+public interface CareerQueryService {
 
     List<PostSummaryResponseDto> findPostList(String visibility, Status status, String keyword);
     PostDetailResponseDto findPostForMember(int postId);

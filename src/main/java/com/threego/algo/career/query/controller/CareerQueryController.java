@@ -3,7 +3,7 @@ package com.threego.algo.career.query.controller;
 import com.threego.algo.career.query.dto.CommentResponseDto;
 import com.threego.algo.career.query.dto.PostDetailResponseDto;
 import com.threego.algo.career.query.dto.PostSummaryResponseDto;
-import com.threego.algo.career.query.service.CareerInfoService;
+import com.threego.algo.career.query.service.CareerQueryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import java.util.List;
 @Tag(name = "Career Info", description = "회원용 기업별 정보 공유 API")
 @RestController
 @RequestMapping("/career-info")
-public class CareerInfoController {
+public class CareerQueryController {
 
-    private final CareerInfoService careerInfoService;
+    private final CareerQueryService careerQueryService;
 
     @Autowired
-    public CareerInfoController(CareerInfoService careerInfoService) {
-        this.careerInfoService = careerInfoService;
+    public CareerQueryController(CareerQueryService careerQueryService) {
+        this.careerQueryService = careerQueryService;
     }
 
     @Operation(
@@ -32,7 +32,7 @@ public class CareerInfoController {
     public ResponseEntity<List<PostSummaryResponseDto>> findPostList(
             @RequestParam(required = false) String keyword
     ) {
-        return ResponseEntity.ok(careerInfoService.findPostList("Y", null, keyword));
+        return ResponseEntity.ok(careerQueryService.findPostList("Y", null, keyword));
     }
 
     @Operation(
@@ -43,7 +43,7 @@ public class CareerInfoController {
     public ResponseEntity<PostDetailResponseDto> findPost(
             @PathVariable int postId
     ){
-        return ResponseEntity.ok(careerInfoService.findPostForMember(postId));
+        return ResponseEntity.ok(careerQueryService.findPostForMember(postId));
     }
 
     @Operation(
@@ -55,6 +55,6 @@ public class CareerInfoController {
     public ResponseEntity<List<CommentResponseDto>> findComments(
             @PathVariable int postId
     ){
-        return ResponseEntity.ok(careerInfoService.findCommentsByPostId(postId));
+        return ResponseEntity.ok(careerQueryService.findCommentsByPostId(postId));
     }
 }

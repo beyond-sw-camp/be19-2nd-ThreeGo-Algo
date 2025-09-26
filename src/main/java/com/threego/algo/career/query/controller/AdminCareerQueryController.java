@@ -3,7 +3,7 @@ package com.threego.algo.career.query.controller;
 import com.threego.algo.career.command.domain.aggregate.enums.Status;
 import com.threego.algo.career.query.dto.PostDetailResponseDto;
 import com.threego.algo.career.query.dto.PostSummaryResponseDto;
-import com.threego.algo.career.query.service.CareerInfoService;
+import com.threego.algo.career.query.service.CareerQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.List;
 @Tag(name = "Career Info (Admin)", description = "관리자용 기업별 정보 공유 API")
 @RestController
 @RequestMapping("/admin/career-info")
-public class AdminCareerInfoController {
-    private final CareerInfoService careerInfoService;
+public class AdminCareerQueryController {
+    private final CareerQueryService careerInfoService;
 
     @Autowired
-    public AdminCareerInfoController(CareerInfoService careerInfoService) {
-        this.careerInfoService = careerInfoService;
+    public AdminCareerQueryController(CareerQueryService careerQueryService) {
+        this.careerInfoService = careerQueryService;
     }
 
     @Operation(
