@@ -1,5 +1,6 @@
 package com.threego.algo.career.query.controller;
 
+import com.threego.algo.career.query.dto.CommentResponseDto;
 import com.threego.algo.career.query.dto.PostDetailResponseDto;
 import com.threego.algo.career.query.dto.PostSummaryResponseDto;
 import com.threego.algo.career.query.service.CareerInfoService;
@@ -43,5 +44,17 @@ public class CareerInfoController {
             @PathVariable int postId
     ){
         return ResponseEntity.ok(careerInfoService.findPostForMember(postId));
+    }
+
+    @Operation(
+            summary = "기업별 정보 공유 게시물의 댓글 조회",
+            description = "특정 게시물에 달린 모든 댓글을 조회합니다. " +
+                    "visibility 여부와 관계없이 모두 내려주며, 프론트에서 처리(블러)합니다."
+    )
+    @GetMapping("/posts/{postId}/comments")
+    public ResponseEntity<List<CommentResponseDto>> findComments(
+            @PathVariable int postId
+    ){
+        return ResponseEntity.ok(careerInfoService.findCommentsByPostId(postId));
     }
 }
