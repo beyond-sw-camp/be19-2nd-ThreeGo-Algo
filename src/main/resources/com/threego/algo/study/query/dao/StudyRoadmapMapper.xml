@@ -36,22 +36,27 @@
              , A.`ORDER`      AS STUDY_ROADMAP_ORDER
              , A.CREATED_AT   AS STUDY_ROADMAP_CREATED_AT
           FROM STUDY_ROADMAP A
+          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
          WHERE A.STUDY_ID = #{studyId}
+           AND B.ROLE != 'NOT_MEMBER'
          ORDER BY A.`ORDER` ASC
     </select>
 
     <select id="selectStudyRoadmapDetail" parameterType="int" resultMap="StudyRoadmapDetailMap">
         SELECT
                A.ID                   AS ROADMAP_ID
-             , B.ID                   AS MILESTONE_ID
              , A.TITLE                AS ROADMAP_TITLE
              , A.`DESCRIPTION`        AS ROADMAP_DESCRIPTION
-             , B.TITLE                AS MILESTONE_TITLE
-             , B.`DESCRIPTION`        AS MILESTONE_DESCRIPTION
+             , C.ID                   AS MILESTONE_ID
+             , C.TITLE                AS MILESTONE_TITLE
+             , C.`DESCRIPTION`        AS MILESTONE_DESCRIPTION
+             , C.`ORDER`              AS MILESTONE_ORDER
           FROM STUDY_ROADMAP A
-          LEFT JOIN STUDY_MILESTONE B ON A.ID = B.ROADMAP_ID
-         WHERE A.ID = 1      -- #{roadmapId}
-         ORDER BY B.`ORDER`;
+          JOIN STUDY_MEMBER B        ON A.MEMBER_ID = B.ID
+          LEFT JOIN STUDY_MILESTONE C ON A.ID = C.ROADMAP_ID
+         WHERE A.ID = #{roadmapId}
+           AND B.ROLE != 'NOT_MEMBER'
+         ORDER BY C.`ORDER`
     </select>
 
 
