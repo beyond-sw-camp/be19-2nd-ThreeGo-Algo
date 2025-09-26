@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CareerInfoServiceImpl implements CareerInfoService{
+public class CareerQueryServiceImpl implements CareerQueryService {
     private final CareerInfoMapper careerInfoMapper;
 
     @Autowired
-    public CareerInfoServiceImpl(CareerInfoMapper careerInfoMapper) {
+    public CareerQueryServiceImpl(CareerInfoMapper careerInfoMapper) {
         this.careerInfoMapper = careerInfoMapper;
     }
 
