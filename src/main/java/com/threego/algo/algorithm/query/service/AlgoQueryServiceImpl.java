@@ -74,15 +74,18 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
     public AlgoPostDetailResponseDTO findAlgoPostByPostId(final int memberId, final int postId) {
         final AlgoPostDetailResponseDTO postResponse = algoMapper.selectAlgoPostByPostId(memberId, postId);
 
-        // TODO 조회된 게시물의 삭제 여부가 'N'인 경우 예외 처리
-        final List<String> imageResponse = algoMapper.selectAlgoImagesByPostId(postId);
-        postResponse.setImageUrls(imageResponse);
+        // TODO 조회된 게시물의 삭제가 된 경우 예외 처리 필요
+        if (postResponse != null) {
+            final List<String> imageResponse = algoMapper.selectAlgoImagesByPostId(postId);
+            postResponse.setImageUrls(imageResponse);
+        }
 
         return postResponse;
     }
 
     @Override
     public List<AlgoQuizResponseDTO> findQuizQuestionAndOptionByPostId(final int postId) {
+        // TODO 게시글 삭제된 상태라면 예외 처리 필요
         return algoMapper.selectQuizQuestionAndOptionByPostId(postId);
     }
 

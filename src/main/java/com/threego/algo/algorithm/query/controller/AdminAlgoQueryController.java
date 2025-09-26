@@ -1,9 +1,6 @@
 package com.threego.algo.algorithm.query.controller;
 
-import com.threego.algo.algorithm.query.dto.AlgoPostCommentDTO;
-import com.threego.algo.algorithm.query.dto.AlgoPostDetailResponseDTO;
-import com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO;
-import com.threego.algo.algorithm.query.dto.AlgoRoadmapResponseDTO;
+import com.threego.algo.algorithm.query.dto.*;
 import com.threego.algo.algorithm.query.service.AlgoQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -70,6 +67,15 @@ public class AdminAlgoQueryController {
     @GetMapping("/posts/{postId}/comments")
     public ResponseEntity<List<AlgoPostCommentDTO>> findCommentsByPostId(@PathVariable("postId") final int postId) {
         List<AlgoPostCommentDTO> response = algoQueryService.findCommentsByPostId(postId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "알고리즘 학습 로드맵의 게시물 퀴즈(문제 및 보기) 목록 조회",
+            description = "관리자가 알고리즘 학습 로드맵의 게시물 퀴즈(문제 및 보기)목록을 조회할 수 있는 API입니다.")
+    @GetMapping("/posts/{postId}/quizzes")
+    public ResponseEntity<List<AlgoQuizResponseDTO>> findQuizQuestionAndOptionByPostId(@PathVariable("postId") final int postId) {
+        final List<AlgoQuizResponseDTO> response = algoQueryService.findQuizQuestionAndOptionByPostId(postId);
 
         return ResponseEntity.ok(response);
     }
