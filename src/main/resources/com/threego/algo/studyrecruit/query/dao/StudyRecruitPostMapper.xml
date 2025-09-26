@@ -151,25 +151,25 @@
             parameterType="com.threego.algo.studyrecruit.query.dto.StudyRecruitSearchDTO"
             resultMap="StudyRecruitListMap">
         SELECT
-        A.ID AS POST_ID
-        , B.ID AS MEMBER_ID
-        , B.NICKNAME AS MEMBER_NICKNAME
-        , A.TITLE AS POST_TITLE
-        , A.START_DATE AS START_DATE
-        , A.END_DATE AS END_DATE
-        , A.EXPIRES_AT AS EXPIRES_AT
-        , A.STATUS AS STATUS
-        , A.CAPACITY AS CAPACITY
-        , COUNT(D.ID) AS PARTICIPANT_COUNT
-        , A.COMMENT_COUNT AS COMMENT_COUNT
-        , A.CREATED_AT AS CREATED_AT
-        , A.UPDATED_AT AS UPDATED_AT
-        , A.VISIBILITY AS VISIBILITY
-        , C.NAME AS RANK_NAME
-        FROM STUDY_RECRUIT_POST A
-        JOIN MEMBER B ON A.MEMBER_ID = B.ID
-        JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
-        LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
+               A.ID AS POST_ID
+             , B.ID AS MEMBER_ID
+             , B.NICKNAME AS MEMBER_NICKNAME
+             , A.TITLE AS POST_TITLE
+             , A.START_DATE AS START_DATE
+             , A.END_DATE AS END_DATE
+             , A.EXPIRES_AT AS EXPIRES_AT
+             , A.STATUS AS STATUS
+             , A.CAPACITY AS CAPACITY
+             , COUNT(D.ID) AS PARTICIPANT_COUNT
+             , A.COMMENT_COUNT AS COMMENT_COUNT
+             , A.CREATED_AT AS CREATED_AT
+             , A.UPDATED_AT AS UPDATED_AT
+             , A.VISIBILITY AS VISIBILITY
+             , C.NAME AS RANK_NAME
+          FROM STUDY_RECRUIT_POST A
+          JOIN MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+          LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
         <where>
             A.VISIBILITY = 'N'
             <if test="status != null and status != ''">
@@ -195,27 +195,27 @@
             parameterType="long"
             resultMap="StudyRecruitDetailMap">
         SELECT
-        A.ID AS POST_ID
-        , B.ID AS MEMBER_ID
-        , B.NICKNAME AS MEMBER_NICKNAME
-        , A.TITLE AS POST_TITLE
-        , A.CONTENT AS POST_CONTENT
-        , A.START_DATE AS START_DATE
-        , A.END_DATE AS END_DATE
-        , A.EXPIRES_AT AS EXPIRES_AT
-        , A.STATUS AS STATUS
-        , A.CAPACITY AS CAPACITY
-        , COUNT(D.ID) AS PARTICIPANT_COUNT
-        , A.COMMENT_COUNT AS COMMENT_COUNT
-        , A.CREATED_AT AS CREATED_AT
-        , A.UPDATED_AT AS UPDATED_AT
-        , C.NAME AS RANK_NAME
-        FROM STUDY_RECRUIT_POST A
-        JOIN MEMBER B ON A.MEMBER_ID = B.ID
-        JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
-        LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
-        WHERE A.ID = #{postId}
-              AND A.VISIBILITY = 'N'
-        GROUP BY A.ID
+               A.ID AS POST_ID
+             , B.ID AS MEMBER_ID
+             , B.NICKNAME AS MEMBER_NICKNAME
+             , A.TITLE AS POST_TITLE
+             , A.CONTENT AS POST_CONTENT
+             , A.START_DATE AS START_DATE
+             , A.END_DATE AS END_DATE
+             , A.EXPIRES_AT AS EXPIRES_AT
+             , A.STATUS AS STATUS
+             , A.CAPACITY AS CAPACITY
+             , COUNT(D.ID) AS PARTICIPANT_COUNT
+             , A.COMMENT_COUNT AS COMMENT_COUNT
+             , A.CREATED_AT AS CREATED_AT
+             , A.UPDATED_AT AS UPDATED_AT
+             , C.NAME AS RANK_NAME
+          FROM STUDY_RECRUIT_POST A
+          JOIN MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
+          LEFT JOIN STUDY_RECRUIT_MEMBER D ON A.ID = D.POST_ID AND D.STATUS = 'APPROVED'
+         WHERE A.ID = #{postId}
+               AND A.VISIBILITY = 'N'
+         GROUP BY A.ID
     </select>
 </mapper>
