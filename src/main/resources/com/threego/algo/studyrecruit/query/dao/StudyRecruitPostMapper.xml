@@ -54,6 +54,10 @@
     <select id="selectStudyRecruitList"
             parameterType="com.threego.algo.studyrecruit.query.dto.StudyRecruitSearchDTO"
             resultMap="StudyRecruitListMap">
+        <!-- offset 자동 계산 -->
+        <if test="page != null and size != null">
+            <bind name="offset" value="page * size"/>
+        </if>
         SELECT
                A.ID AS POST_ID
              , B.ID AS MEMBER_ID

@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public interface StudyMemberService {
+
     List<StudyMemberDTO> findAllStudyMember(Integer studyId);
 
 }
