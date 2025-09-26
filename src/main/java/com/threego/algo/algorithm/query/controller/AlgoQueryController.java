@@ -23,7 +23,7 @@ public class AlgoQueryController {
         this.algoQueryService = algoQueryService;
     }
 
-    @Operation(summary = "알고리즘 학습 로드맵 목록조회", description = "회원이 알고리즘 학습 로드맵 목록을 확인할 수 있는 API입니다.")
+    @Operation(summary = "알고리즘 학습 로드맵 목록 조회", description = "회원이 알고리즘 학습 로드맵 목록을 확인할 수 있는 API입니다.")
     @GetMapping("/roadmaps")
     public ResponseEntity<List<AlgoRoadmapResponseDTO>> findAllAlgoRoadMaps() {
         final List<AlgoRoadmapResponseDTO> response = algoQueryService.findAllAlgoRoadmaps().stream()
