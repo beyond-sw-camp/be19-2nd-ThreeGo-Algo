@@ -13,6 +13,24 @@
         <result property="questionCount" column="QUESTION_COUNT"/>
     </resultMap>
 
+    <resultMap id="AlgoPostResultMap" type="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
+        <id property="postId" column="ID"/>
+        <result property="roadmapId" column="ROADMAP_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="title" column="TITLE"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="updatedAt" column="UPDATED_AT"/>
+        <result property="likeCount" column="LIKE_COUNT"/>
+        <result property="commentCount" column="COMMENT_COUNT"/>
+        <result property="visibility" column="VISIBILITY"/>
+        <result property="isLiked" column="IS_LIKED"/>
+
+        <collection property="quizIds" ofType="java.lang.Integer">
+            <id column="ALGO_QUIZ_QUESTION_ID"/>
+        </collection>
+    </resultMap>
+
     <select id="selectAllAlgoRoadmaps" resultMap="AlgoRoadmapResultMap">
         SELECT
                A.ID
@@ -26,35 +44,31 @@
          ORDER BY A.`ORDER`;
     </select>
 
-    <select id="selectAlgoPosts" resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
+    <select id="selectAlgoPosts" resultMap="AlgoPostResultMap">
         SELECT
-               A.ID              AS postId
-             , A.ROADMAP_ID      AS roadmapId
-             , A.MEMBER_ID       AS memberId
-             , B.NICKNAME        AS nickname
-             , A.TITLE           AS title
-             , A.CREATED_AT      AS createdAt
-             , A.UPDATED_AT      AS updatedAt
-             , A.LIKE_COUNT      AS likeCount
-             , A.COMMENT_COUNT   AS commentCount
-             , A.VISIBILITY      AS visibility
+               A.ID
+             , A.ROADMAP_ID
+             , A.MEMBER_ID
+             , B.NICKNAME
+             , A.TITLE
+             , A.CREATED_AT
+             , A.UPDATED_AT
+             , A.LIKE_COUNT
+             , A.COMMENT_COUNT
+             , A.VISIBILITY
         <if test="memberId != null">
              , EXISTS (SELECT 1
                          FROM LIKES B
                         WHERE B.ALGO_POST_ID = A.ID
                           AND B.MEMBER_ID = #{memberId}
-                      ) AS isLiked
+                      ) AS IS_LIKED
         </if>
-             , D.QUIZ_COUNT AS quizCount
+             , C.ID AS ALGO_QUIZ_QUESTION_ID
           FROM ALGO_POST A
-          LEFT JOIN MEMBER B
+          JOIN MEMBER B
             ON A.MEMBER_ID = B.ID
-          LEFT JOIN (SELECT
-                            C.ALGO_POST_ID
-                          , COUNT(C.ID) AS QUIZ_COUNT
-                       FROM ALGO_QUIZ_QUESTION C
-                      GROUP BY C.ALGO_POST_ID) AS D
-            ON D.ALGO_POST_ID = A.ID
+          LEFT JOIN ALGO_QUIZ_QUESTION C
+            ON C.ALGO_POST_ID = A.ID
         <where>
             <if test="keyword != null and keyword != ''">
                 (A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
@@ -67,5 +81,21 @@
             </if>
         </where>
          ORDER BY A.ID ASC;
+    </select>
+
+    <select id="selectSolvedQuizzesByMemberIdAndRoadmapIds"
+            resultType="com.threego.algo.algorithm.query.dto.AlgoMemberSolvedQuizResponseDTO">
+        SELECT
+               B.ALGO_POST_ID AS algoPostId
+             , A.ALGO_QUIZ_QUESTION_ID AS algoQuizQuestionId
+             , C.ROADMAP_ID AS algoRoadmapId
+          FROM MEMBER_ALGO_CORRECT_QUIZ_HISTORY A
+          JOIN ALGO_QUIZ_QUESTION B
+            ON B.ID = A.ALGO_QUIZ_QUESTION_ID
+          JOIN ALGO_POST C
+            ON C.ID = B.ALGO_POST_ID
+         WHERE A.MEMBER_ID = #{memberId}
+           AND C.ROADMAP_ID = #{roadmapId}
+        ORDER BY B.ALGO_POST_ID, A.ALGO_QUIZ_QUESTION_ID;
     </select>
 </mapper>

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -44,6 +46,11 @@ public class AlgoPostSummaryResponseDTO {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean isLiked;
 
-    @Schema(description = "알고리즘 학습 게시물 퀴즈 수")
-    private int quizCount;
+    @Schema(description = "알고리즘 학습 게시물 퀴즈 ID 리스트")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Integer> quizIds;
+
+    @Schema(description = "회원이 맞힌 알고리즘 학습 게시물 퀴즈 ID 리스트")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Integer> solvedQuizIds;
 }
