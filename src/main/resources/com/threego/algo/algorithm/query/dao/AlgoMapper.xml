@@ -29,7 +29,8 @@
     <select id="selectAllAlgoPosts" parameterType="string"
             resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
         SELECT
-               A.ID              AS id
+               A.ID              AS postId
+             , A.ROADMAP_ID      AS roadmapId
              , A.MEMBER_ID       AS memberId
              , B.NICKNAME        AS nickname
              , A.TITLE           AS title
@@ -37,6 +38,10 @@
              , A.UPDATED_AT      AS updatedAt
              , A.LIKE_COUNT      AS likeCount
              , A.COMMENT_COUNT   AS commentCount
+             , A.VISIBILITY      AS visibility
+        , (SELECT COUNT(C.ID)
+        FROM ALGO_QUIZ_QUESTION C
+        WHERE C.ALGO_POST_ID = A.ID) AS quizCount
          FROM ALGO_POST A
          LEFT JOIN MEMBER B
            ON A.MEMBER_ID = B.ID
@@ -46,5 +51,36 @@
             </if>
         </where>
          ORDER BY A.ID DESC;
+    </select>
+
+    <select id="selectAlgoPostByRoadmapId" resultType="com.threego.algo.algorithm.query.dto.AlgoPostSummaryResponseDTO">
+        SELECT
+               A.ID              AS postId
+             , A.ROADMAP_ID      AS roadmapId
+             , A.MEMBER_ID       AS memberId
+             , B.NICKNAME        AS nickname
+             , A.TITLE           AS title
+             , A.CREATED_AT      AS createdAt
+             , A.UPDATED_AT      AS updatedAt
+             , A.LIKE_COUNT      AS likeCount
+             , A.COMMENT_COUNT   AS commentCount
+             , A.VISIBILITY      AS visibility
+             , EXISTS (SELECT 1
+                         FROM LIKES B
+                        WHERE B.ALGO_POST_ID = A.ID
+                          AND B.MEMBER_ID = #{memberId}
+                      ) AS isLiked
+             , (SELECT COUNT(C.ID)
+                  FROM ALGO_QUIZ_QUESTION C
+                 WHERE C.ALGO_POST_ID = A.ID) AS quizCount
+          FROM ALGO_POST A
+          LEFT JOIN MEMBER B
+            ON A.MEMBER_ID = B.ID
+         WHERE A.VISIBILITY = 'Y'
+           AND A.ROADMAP_ID = #{roadmapId}
+        <if test="keyword != null and keyword != ''">
+           AND A.TITLE LIKE CONCAT('%', #{keyword}, '%') OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+         ORDER BY A.ID ASC;
     </select>
 </mapper>

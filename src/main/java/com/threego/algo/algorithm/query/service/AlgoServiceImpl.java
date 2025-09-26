@@ -26,4 +26,9 @@ public class AlgoServiceImpl implements AlgoService {
     public List<AlgoPostSummaryResponseDTO> findAllAlgoPosts(final String keyword) {
         return algoMapper.selectAllAlgoPosts(keyword);
     }
+
+    @Override
+    public List<AlgoPostSummaryResponseDTO> findAlgoPostByRoadmapId(final int memberId, final int roadmapId, final String keyword) {
+        return algoMapper.selectAlgoPostByRoadmapId(memberId, roadmapId, keyword);
+    }
 }

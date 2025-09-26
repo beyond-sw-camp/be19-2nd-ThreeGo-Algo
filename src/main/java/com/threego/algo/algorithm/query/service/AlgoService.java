@@ -9,4 +9,6 @@ public interface AlgoService {
     List<AlgoRoadmap> findAllAlgoRoadmaps();
 
     List<AlgoPostSummaryResponseDTO> findAllAlgoPosts(final String keyword);
+
+    List<AlgoPostSummaryResponseDTO> findAlgoPostByRoadmapId(final int memberId, final int roadmapId, final String keyword);
 }
