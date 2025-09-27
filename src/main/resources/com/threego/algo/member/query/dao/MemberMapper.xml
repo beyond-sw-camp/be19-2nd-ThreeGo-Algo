@@ -15,6 +15,24 @@
         FROM MEMBER A
         JOIN MEMBER_RANK B ON A.RANK_ID = B.ID
         JOIN MEMBER_ATTENDANCE_HISTORY C ON A.ID = C.MEMBER_ID
-        WHERE A.ID = #{id};
+        WHERE A.ID = #{id}
+    </select>
+
+    <select id="selectMemberDetailsById" resultType="com.threego.algo.member.query.dto.AdminMemberDetailResponseDTO">
+        SELECT
+               A.ID
+             , A.EMAIL
+             , A.NICKNAME
+             , B.NAME AS RANK
+             , A.POINT
+             , A.REPORTED_COUNT AS REPORTEDCOUNT
+             , A.STATUS
+             , A.CREATED_AT AS CREATEDAT
+             , D.NAME AS ROLE
+        FROM MEMBER A
+        JOIN MEMBER_RANK B ON A.RANK_ID = B.ID
+        JOIN MEMBER_ROLE C ON A.ID = C.MEMBER_ID
+        JOIN ROLE D ON C.ROLE_ID = D.ID
+        WHERE A.ID = #{id}
     </select>
 </mapper>
