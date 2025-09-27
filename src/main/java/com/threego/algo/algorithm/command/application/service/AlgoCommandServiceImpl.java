@@ -151,11 +151,30 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             parent = findAlgoCommentId(request.getParentId());
         }
 
-        final AlgoComment comment = new AlgoComment(request.getComment(), member, algoPost, parent);
+        final AlgoComment comment = new AlgoComment(request.getContent(), member, algoPost, parent);
 
         algoCommentRepository.save(comment);
 
         algoPost.updateCommentCount(algoPost.getCommentCount() + 1);
+    }
+
+    @Transactional
+    @Override
+    public void updateComment(final int memberId, final int commentId, final AlgoCommentRequestDTO request) throws Exception {
+        final AlgoComment comment = findAlgoCommentId(commentId);
+
+        final Member member = findMemberById(memberId);
+
+        validAuthor(member, comment.getMember());
+
+        comment.updateContent(request.getContent());
+    }
+
+    private void validAuthor(final Member author, final Member loginMember) throws Exception {
+        if (author != loginMember) {
+            // TODO 커스텀 예외 발생
+            throw new Exception("작성자가 아니므로 수정 및 삭제 권한 존재하지 않는다.");
+        }
     }
 
     private AlgoComment findAlgoCommentId(final int parentId) throws Exception {

@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AlgoCommentRequestDTO {
     private Integer parentId;
-    private String comment;
+    private String content;
 }

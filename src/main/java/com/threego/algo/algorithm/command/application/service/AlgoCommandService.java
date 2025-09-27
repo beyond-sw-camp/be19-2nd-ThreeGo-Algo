@@ -16,4 +16,6 @@ public interface AlgoCommandService {
     void deleteAlgoPost(final int postId) throws Exception;
 
     void createComment(final int memberId, final int postId,final AlgoCommentRequestDTO request) throws Exception;
+
+    void updateComment(final int memberId, final int commentId, final AlgoCommentRequestDTO request) throws Exception;
 }

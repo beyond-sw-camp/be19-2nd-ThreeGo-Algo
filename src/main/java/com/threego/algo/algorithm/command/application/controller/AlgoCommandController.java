@@ -28,4 +28,14 @@ public class AlgoCommandController {
 
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "알고리즘 학습 게시물 댓글 수정", description = "회원이 알고리즘 학습 게시물에 댓글을 수정하는 API입니다.")
+    @PostMapping("/comments/{commentId}")
+    public ResponseEntity<Void> updateComment(@PathVariable("commentId") final int commentId,
+                                              @RequestBody final AlgoCommentRequestDTO request) throws Exception {
+        // TODO. memberID는 Authentication에서 받아오도록 수정 필요
+        algoCommandService.updateComment(1, commentId, request);
+
+        return ResponseEntity.ok().build();
+    }
 }

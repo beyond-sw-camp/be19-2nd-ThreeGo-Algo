@@ -43,4 +43,16 @@ public class AlgoComment {
         this.parent = parent;
         this.visibility = 'Y';
     }
+
+    public void updateContent(final String content) {
+        if (!this.content.equals(content)) {
+            this.content = content;
+            this.updatedAt = DateTimeUtils.nowDateTime();
+        }
+    }
+
+    public void updateVisibility(final char visibility) {
+        this.visibility = visibility;
+        this.updatedAt = DateTimeUtils.nowDateTime();
+    }
 }
