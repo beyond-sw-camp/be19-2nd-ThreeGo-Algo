@@ -1,0 +1,87 @@
+package com.threego.algo.studyrecruit.command.application.controller;
+
+import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruitCommentCreateDTO;
+import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruitPostCreateDTO;
+import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruitReportCreateDTO;
+import com.threego.algo.studyrecruit.command.application.dto.update.StudyRecruitPostUpdateDTO;
+import com.threego.algo.studyrecruit.command.application.service.StudyRecruitMemberService;
+import com.threego.algo.studyrecruit.command.application.service.StudyRecruitCommentService;
+import com.threego.algo.studyrecruit.command.application.service.StudyRecruitPostService;
+import com.threego.algo.studyrecruit.command.application.service.StudyRecruitReportService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/study-recruit/posts")
+@RequiredArgsConstructor
+@Tag(name = "스터디 모집글", description = "스터디 모집글 관리 API")
+public class StudyRecruitPostCommandController {
+    private final StudyRecruitPostService studyRecruitPostService;
+    private final StudyRecruitCommentService studyRecruitCommentService;
+    private final StudyRecruitMemberService studyRecruitMemberService;
+    private final StudyRecruitReportService studyRecruitReportService;
+
+    @Operation(summary = "모집글 등록", description = "새로운 스터디 모집글을 등록합니다.")
+    @PostMapping
+    public ResponseEntity<String> createPost(
+            @RequestHeader("Member-Id") Integer memberId,
+            @Valid @RequestBody StudyRecruitPostCreateDTO request) {
+        return studyRecruitPostService.createPost(memberId, request);
+    }
+
+    @Operation(summary = "모집글 수정", description = "작성자가 자신의 모집글을 수정합니다.")
+    @PutMapping("/{postId}")
+    public ResponseEntity<String> updatePost(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer memberId,
+            @Valid @RequestBody StudyRecruitPostUpdateDTO request) {
+        return studyRecruitPostService.updatePost(postId, memberId, request);
+    }
+
+    @Operation(summary = "모집글 삭제", description = "작성자가 자신의 모집글을 삭제합니다.")
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<String> deletePost(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer memberId) {
+        return studyRecruitPostService.deletePost(postId, memberId);
+    }
+
+    @Operation(summary = "모집글 신고", description = "부적절한 모집글을 신고합니다.")
+    @PostMapping("/{postId}/reports")
+    public ResponseEntity<String> reportPost(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer reporterId,
+            @Valid @RequestBody StudyRecruitReportCreateDTO request) {
+        return studyRecruitReportService.reportPost(postId, reporterId, request);
+    }
+
+    @Operation(summary = "모집 마감", description = "작성자가 모집을 마감합니다.")
+    @PostMapping("/{postId}/close")
+    public ResponseEntity<String> closeRecruitment(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer memberId) {
+        return studyRecruitPostService.closeRecruitment(postId, memberId);
+    }
+
+    @Operation(summary = "댓글 등록", description = "모집글에 댓글을 등록합니다.")
+    @PostMapping("/{postId}/comments")
+    public ResponseEntity<String> createComment(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer memberId,
+            @Valid @RequestBody StudyRecruitCommentCreateDTO request) {
+        return studyRecruitCommentService.createComment(postId, memberId, request);
+    }
+
+    @Operation(summary = "참가 신청", description = "스터디에 참가 신청을 합니다.")
+    @PostMapping("/{postId}/applicants")
+    public ResponseEntity<String> applyToStudy(
+            @PathVariable Integer postId,
+            @RequestHeader("Member-Id") Integer memberId) {
+        return studyRecruitMemberService.applyToStudy(postId, memberId);
+    }
+
+}
