@@ -53,4 +53,12 @@ public class AdminAlgoCommandController {
 
         return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "알고리즘 학습 게시물 삭제", description = "관리자가 알고리즘 학습 게시물을 삭제하는 API입니다.")
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<Void> deleteAlgoPost(@PathVariable("postId") final int postId) throws Exception {
+        algoCommandService.deleteAlgoPost(postId);
+
+        return ResponseEntity.noContent().build();
+    }
 }

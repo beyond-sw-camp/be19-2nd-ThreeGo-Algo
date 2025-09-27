@@ -53,4 +53,8 @@ public class AlgoPost {
         this.algoRoadmap = algoRoadmap;
         this.member = member;
     }
+
+    public void updateVisibility() {
+        this.visibility = 'N';
+    }
 }

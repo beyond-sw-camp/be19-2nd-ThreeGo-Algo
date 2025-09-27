@@ -11,4 +11,6 @@ public interface AlgoCommandService {
     AlgoRoadmap updateAlgoRoadmap(final int roadmapId, final AlgoRoadmapRequestDTO request) throws Exception;
 
     AlgoPostDetailResponseDTO createAlgoPost(final int memberId, final int roadmapId, final AlgoPostRequestDTO request) throws Exception;
+
+    void deleteAlgoPost(final int postId) throws Exception;
 }

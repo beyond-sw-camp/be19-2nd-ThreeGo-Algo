@@ -116,6 +116,25 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         return response;
     }
 
+    @Transactional
+    @Override
+    public void deleteAlgoPost(final int postId) throws Exception {
+        final AlgoPost algoPost = findAlgoPostById(postId);
+
+        // TODO 주석 제거 필요
+        // 삭제할 게시물에 속한 문제 수 카운팅
+        final int postQuizCount = algoQuizQuestionCommandRepository.countByAlgoPost(algoPost);
+
+        // 삭제할 게시물이 속한 로드맵의 문제 수 가져오기
+        final int totalQuizCount = algoPost.getAlgoRoadmap().getQuestionCount();
+
+        // 게시물 상태 변경 (Y -> N)
+        algoPost.updateVisibility();
+
+        // 로드맵의 문제 수 갱신
+        algoPost.getAlgoRoadmap().updateQuestionCount(totalQuizCount - postQuizCount);
+    }
+
     private List<AlgoPostImage> saveAlgoPostImages(final List<String> imageUrls, final AlgoPost algoPost) {
         final List<AlgoPostImage> algoPostImages = imageUrls.stream()
                 .map((imageUrl) -> new AlgoPostImage(imageUrl, algoPost))
@@ -136,5 +155,9 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
     private Member findMemberById(final int memberId) throws Exception {
         return memberCommandRepository.findById(memberId).orElseThrow(Exception::new);
+    }
+
+    private AlgoPost findAlgoPostById(final int postId) throws Exception {
+        return algoPostCommandRepository.findById(postId).orElseThrow(Exception::new);
     }
 }

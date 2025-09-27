@@ -48,6 +48,10 @@ public class AlgoRoadmap {
     }
 
     public void updateQuestionCount(final int questionCount) {
-        this.questionCount = questionCount;
+        if (questionCount < 0) {
+            this.questionCount = 0;
+        } else {
+            this.questionCount = questionCount;
+        }
     }
 }
