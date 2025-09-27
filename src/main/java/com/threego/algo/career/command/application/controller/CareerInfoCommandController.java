@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Career Info", description = "회원용 기업별 정보 공유 API")
 @RestController
@@ -23,12 +20,22 @@ public class CareerInfoCommandController {
     }
 
     @Operation(
-            summary = "게시물 등록",
+            summary = "기업별 정보 공유 게시물 등록",
             description = "회원이 기업별 정보 공유 게시판에 게시물을 등록합니다."
     )
     @PostMapping("/posts")
     public ResponseEntity<Integer> createPost(@RequestBody CareerInfoPostCreateRequest request) {
         Integer postId = service.createPost(request);
         return ResponseEntity.ok(postId);
+    }
+
+    @Operation(
+            summary = "기업별 정보 공유 게시물 삭제 (회원)",
+            description = "회원이 자신의 게시물을 삭제합니다. soft delete로 visibility를 'N'으로 변경합니다."
+    )
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Integer postId) {
+        service.deletePost(postId);
+        return ResponseEntity.ok().build();
     }
 }

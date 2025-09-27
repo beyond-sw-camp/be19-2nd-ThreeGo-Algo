@@ -56,4 +56,8 @@ public class CareerInfoPost {
         this.content = content;
         this.createdAt = DateTimeUtils.nowDateTime();
     }
+
+    public void delete() {
+        this.visibility = "N";
+    }
 }

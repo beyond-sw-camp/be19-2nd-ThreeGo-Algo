@@ -34,4 +34,14 @@ public class CareerInfoCommandService {
 
         return careerRepository.save(post).getId();
     }
+
+    @Transactional
+    public void deletePost(Integer postId) {
+        CareerInfoPost post = careerRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
+
+        // TODO: 로그인한 회원 == post.getMember() 확인 (본인 글만 삭제 가능)
+
+        post.delete();
+    }
 }
