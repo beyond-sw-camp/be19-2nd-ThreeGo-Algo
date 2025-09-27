@@ -66,4 +66,14 @@ public class CareerInfoCommandController {
         service.updateComment(commentId, request);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(
+            summary = "기업별 정보 공유 댓글 삭제 (회원)",
+            description = "회원이 자신의 댓글을 삭제합니다. soft delete로 visibility='N'으로 변경합니다."
+    )
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Integer commentId) {
+        service.deleteComment(commentId);
+        return ResponseEntity.ok().build();
+    }
 }

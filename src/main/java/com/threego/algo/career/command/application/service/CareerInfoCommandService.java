@@ -48,6 +48,10 @@ public class CareerInfoCommandService {
 
         // TODO: 로그인한 회원 == post.getMember() 확인 (본인 글만 삭제 가능)
 
+        if ("N".equals(post.getVisibility())) {
+            throw new IllegalStateException("이미 삭제된 게시물입니다.");
+        }
+
         post.delete();
     }
 
@@ -86,7 +90,22 @@ public class CareerInfoCommandService {
         CareerInfoComment comment = careerCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
 
-        // TODO: 로그인한 회원 == post.getMember() 확인 (본인 댓글만 수정 가능)
+        // TODO: 로그인 회원 == 작성자 확인
         comment.updateComment(request.getContent());
+    }
+
+    @Transactional
+    public void deleteComment(Integer commentId) {
+        CareerInfoComment comment = careerCommentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        // TODO: 로그인 회원 == 작성자 확인
+
+        if ("N".equals(comment.getVisibility())) {
+            throw new IllegalStateException("이미 삭제된 댓글입니다.");
+        }
+
+        comment.deleteComment();
+        comment.getPost().decreaseCommentCount();
     }
 }

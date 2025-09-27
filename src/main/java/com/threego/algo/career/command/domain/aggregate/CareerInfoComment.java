@@ -51,4 +51,8 @@ public class CareerInfoComment {
         this.content = content;
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
+
+    public void deleteComment() {
+        this.visibility = "N";
+    }
 }
