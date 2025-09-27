@@ -39,4 +39,11 @@ public class AlgoRoadmap {
         this.createdAt = DateTimeUtils.nowDateTime();
         this.questionCount = 0;
     }
+
+    public void updateAlgoRoadmap(final String title, final String description, final int order) {
+        this.title = title;
+        this.description = description;
+        this.order = order;
+        this.updatedAt = DateTimeUtils.nowDateTime();
+    }
 }

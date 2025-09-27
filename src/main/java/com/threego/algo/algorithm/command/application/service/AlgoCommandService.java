@@ -4,5 +4,7 @@ import com.threego.algo.algorithm.command.application.dto.AlgoRoadmapRequestDTO;
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 
 public interface AlgoCommandService {
-    AlgoRoadmap createdRoadmap(final AlgoRoadmapRequestDTO request);
+    AlgoRoadmap createAlgoRoadmap(final AlgoRoadmapRequestDTO request);
+
+    AlgoRoadmap updateAlgoRoadmap(final int roadmapId, final AlgoRoadmapRequestDTO request) throws Exception;
 }

@@ -6,10 +6,7 @@ import com.threego.algo.algorithm.command.application.service.AlgoCommandService
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/admin/algo")
 @RestController
@@ -22,8 +19,19 @@ public class AdminAlgoCommandController {
     }
 
     @PostMapping("/roadmaps")
-    public ResponseEntity<AlgoRoadmapResponseDTO> createdRoadmap(@RequestBody final AlgoRoadmapRequestDTO request) {
-        final AlgoRoadmap algoRoadmap = algoCommandService.createdRoadmap(request);
+    public ResponseEntity<AlgoRoadmapResponseDTO> createAlgoRoadmap(@RequestBody final AlgoRoadmapRequestDTO request) {
+        final AlgoRoadmap algoRoadmap = algoCommandService.createAlgoRoadmap(request);
+
+        final AlgoRoadmapResponseDTO response = AlgoRoadmapResponseDTO.of(algoRoadmap);
+
+        return ResponseEntity.ok()
+                .body(response);
+    }
+
+    @PutMapping("/roadmaps/{roadmapId}")
+    public ResponseEntity<AlgoRoadmapResponseDTO> updateAlgoRoadmap(@PathVariable("roadmapId") final int roadmapId,
+                                                                    @RequestBody final AlgoRoadmapRequestDTO request) throws Exception {
+        final AlgoRoadmap algoRoadmap = algoCommandService.updateAlgoRoadmap(roadmapId, request);
 
         final AlgoRoadmapResponseDTO response = AlgoRoadmapResponseDTO.of(algoRoadmap);
 
