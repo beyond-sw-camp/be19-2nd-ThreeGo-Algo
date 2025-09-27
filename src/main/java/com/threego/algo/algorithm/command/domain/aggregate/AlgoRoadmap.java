@@ -46,4 +46,8 @@ public class AlgoRoadmap {
         this.order = order;
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
+
+    public void updateQuestionCount(final int questionCount) {
+        this.questionCount = questionCount;
+    }
 }
