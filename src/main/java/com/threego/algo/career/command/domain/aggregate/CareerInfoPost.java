@@ -60,4 +60,8 @@ public class CareerInfoPost {
     public void delete() {
         this.visibility = "N";
     }
+
+    public void increaseCommentCount() {
+        this.commentCount += 1;
+    }
 }

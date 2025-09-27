@@ -1,5 +1,6 @@
 package com.threego.algo.career.command.application.controller;
 
+import com.threego.algo.career.command.application.dto.CareerInfoCommentCommandRequest;
 import com.threego.algo.career.command.application.dto.CareerInfoPostCreateRequest;
 import com.threego.algo.career.command.application.service.CareerInfoCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,5 +38,19 @@ public class CareerInfoCommandController {
     public ResponseEntity<Void> deletePost(@PathVariable Integer postId) {
         service.deletePost(postId);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "기업별 정보 공유 게시물에 댓글 등록",
+            description = "회원이 게시물에 댓글 또는 대댓글을 등록합니다."
+    )
+    @PostMapping("/posts/{postId}/comments")
+    public ResponseEntity<Integer> createComment(
+            @PathVariable Integer postId,
+            @RequestParam(value = "parentId", required = false) Integer parentId,
+            @RequestBody CareerInfoCommentCommandRequest request
+    ) {
+        Integer commentId = service.createComment(postId, parentId, request);
+        return ResponseEntity.ok(commentId);
     }
 }
