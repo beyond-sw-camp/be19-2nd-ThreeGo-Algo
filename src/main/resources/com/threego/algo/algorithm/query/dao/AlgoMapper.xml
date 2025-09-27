@@ -158,6 +158,7 @@
             ON C.ID = B.ALGO_POST_ID
          WHERE A.MEMBER_ID = #{memberId}
            AND C.ROADMAP_ID = #{roadmapId}
+           AND C.VISIBILITY = 'Y'          <!-- 회원이 맞힌 문제를 조회할 때 문제가 속한 게시물 상태가 Y인 것만 가져오도록 설정 -->
         ORDER BY B.ALGO_POST_ID, A.ALGO_QUIZ_QUESTION_ID;
     </select>
 
