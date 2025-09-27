@@ -1,5 +1,6 @@
 package com.threego.algo.algorithm.command.domain.aggregate;
 
+import com.threego.algo.common.util.DateTimeUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +32,11 @@ public class AlgoRoadmap {
     @Column(name = "question_count")
     private int questionCount;
 
-    public AlgoRoadmap(final String title, final String description, final int order, final String createdAt) {
+    public AlgoRoadmap(final String title, final String description, final int order) {
         this.title = title;
         this.description = description;
         this.order = order;
-        this.createdAt = createdAt;
+        this.createdAt = DateTimeUtils.nowDateTime();
         this.questionCount = 0;
     }
 }
