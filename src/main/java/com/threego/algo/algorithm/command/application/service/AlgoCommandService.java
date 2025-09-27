@@ -1,5 +1,6 @@
 package com.threego.algo.algorithm.command.application.service;
 
+import com.threego.algo.algorithm.command.application.dto.AlgoCommentRequestDTO;
 import com.threego.algo.algorithm.command.application.dto.AlgoPostDetailResponseDTO;
 import com.threego.algo.algorithm.command.application.dto.AlgoPostRequestDTO;
 import com.threego.algo.algorithm.command.application.dto.AlgoRoadmapRequestDTO;
@@ -13,4 +14,6 @@ public interface AlgoCommandService {
     AlgoPostDetailResponseDTO createAlgoPost(final int memberId, final int roadmapId, final AlgoPostRequestDTO request) throws Exception;
 
     void deleteAlgoPost(final int postId) throws Exception;
+
+    void createComment(final int memberId, final int postId,final AlgoCommentRequestDTO request) throws Exception;
 }

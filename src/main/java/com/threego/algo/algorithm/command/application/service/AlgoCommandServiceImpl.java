@@ -21,6 +21,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoPostImageCommandRepository algoPostImageCommandRepository;
     private final AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository;
     private final AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository;
+    private final AlgoCommentRepository algoCommentRepository;
 
     @Autowired
     public AlgoCommandServiceImpl(AlgoRoadmapCommandRepository algoRoadmapCommandRepository
@@ -28,13 +29,15 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             , AlgoPostCommandRepository algoPostCommandRepository
             , AlgoPostImageCommandRepository algoPostImageCommandRepository
             , AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository
-            , AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository) {
+            , AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository
+            , AlgoCommentRepository algoCommentRepository) {
         this.algoRoadmapCommandRepository = algoRoadmapCommandRepository;
         this.memberCommandRepository = memberCommandRepository;
         this.algoPostCommandRepository = algoPostCommandRepository;
         this.algoPostImageCommandRepository = algoPostImageCommandRepository;
         this.algoQuizQuestionCommandRepository = algoQuizQuestionCommandRepository;
         this.algoQuizOptionCommandRepository = algoQuizOptionCommandRepository;
+        this.algoCommentRepository = algoCommentRepository;
     }
 
     @Override
@@ -133,6 +136,30 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
         // 로드맵의 문제 수 갱신
         algoPost.getAlgoRoadmap().updateQuestionCount(totalQuizCount - postQuizCount);
+    }
+
+    @Transactional
+    @Override
+    public void createComment(final int memberId, final int postId, final AlgoCommentRequestDTO request) throws Exception {
+        final Member member = findMemberById(memberId);
+
+        final AlgoPost algoPost = findAlgoPostById(postId);
+
+        AlgoComment parent = null;
+
+        if (request.getParentId() != null) {
+            parent = findAlgoCommentId(request.getParentId());
+        }
+
+        final AlgoComment comment = new AlgoComment(request.getComment(), member, algoPost, parent);
+
+        algoCommentRepository.save(comment);
+
+        algoPost.updateCommentCount(algoPost.getCommentCount() + 1);
+    }
+
+    private AlgoComment findAlgoCommentId(final int parentId) throws Exception {
+        return algoCommentRepository.findById(parentId).orElseThrow(Exception::new);
     }
 
     private List<AlgoPostImage> saveAlgoPostImages(final List<String> imageUrls, final AlgoPost algoPost) {

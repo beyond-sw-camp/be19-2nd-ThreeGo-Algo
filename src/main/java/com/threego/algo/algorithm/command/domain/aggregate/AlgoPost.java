@@ -56,5 +56,15 @@ public class AlgoPost {
 
     public void updateVisibility() {
         this.visibility = 'N';
+
+        this.updatedAt = DateTimeUtils.nowDateTime();
+    }
+
+    public void updateCommentCount(final int commentCount) {
+        if (commentCount < 0) {
+            this.commentCount = 0;
+        } else {
+            this.commentCount = commentCount;
+        }
     }
 }
