@@ -9,8 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetLoginUserResponseDTO {
+public class MemberDetailResponseDTO {
     private int id;
     private String email;
-    private String password;
+    private String nickname;
+    private String rank;
+    private int point;
+    private int attendanceCount;
+    private String createdAt;
 }

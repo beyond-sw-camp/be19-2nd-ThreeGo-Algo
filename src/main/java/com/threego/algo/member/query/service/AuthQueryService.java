@@ -1,8 +1,8 @@
 package com.threego.algo.member.query.service;
 
-import com.threego.algo.member.query.dto.GetLoginUserResponseDTO;
+import com.threego.algo.member.query.dto.LoginUserResponseDTO;
 
 
 public interface AuthQueryService {
-    GetLoginUserResponseDTO findMemberByEmail(String email);
+    LoginUserResponseDTO findMemberByEmail(String email);
 }

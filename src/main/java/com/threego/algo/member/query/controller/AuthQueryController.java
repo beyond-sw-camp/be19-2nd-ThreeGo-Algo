@@ -1,8 +1,7 @@
 package com.threego.algo.member.query.controller;
 
-import com.threego.algo.member.query.dto.GetLoginUserResponseDTO;
+import com.threego.algo.member.query.dto.LoginUserResponseDTO;
 import com.threego.algo.member.query.service.AuthQueryService;
-import com.threego.algo.member.query.service.MemberQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,7 @@ public class AuthQueryController {
 
 
     @Autowired
-    public AuthQueryController(AuthQueryService authQueryService,
-                               MemberQueryService memberQueryService) {
+    public AuthQueryController(AuthQueryService authQueryService) {
         this.authQueryService = authQueryService;
     }
 
@@ -30,7 +28,7 @@ public class AuthQueryController {
             description = "로그인 과정에서 사용자가 입력한 이메일을 통해 해당 이메일을 가진 회원 데이터가 존재한다면 정보를 가져옵니다."
     )
     @GetMapping("/{email}")
-    public ResponseEntity<GetLoginUserResponseDTO> findMemberByEmail(
+    public ResponseEntity<LoginUserResponseDTO> findMemberByEmail(
             @PathVariable String email
     ){
         return ResponseEntity.ok(authQueryService.findMemberByEmail(email));

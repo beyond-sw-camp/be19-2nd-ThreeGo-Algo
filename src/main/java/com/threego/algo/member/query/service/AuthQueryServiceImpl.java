@@ -1,7 +1,7 @@
 package com.threego.algo.member.query.service;
 
 import com.threego.algo.member.query.dao.AuthMapper;
-import com.threego.algo.member.query.dto.GetLoginUserResponseDTO;
+import com.threego.algo.member.query.dto.LoginUserResponseDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +13,8 @@ public class AuthQueryServiceImpl implements AuthQueryService {
     }
 
     @Override
-    public GetLoginUserResponseDTO findMemberByEmail(String email) {
-       GetLoginUserResponseDTO dto = authMapper.selectMemberByEmail(email);
+    public LoginUserResponseDTO findMemberByEmail(String email) {
+       LoginUserResponseDTO dto = authMapper.selectMemberByEmail(email);
        return dto;
     }
 }
