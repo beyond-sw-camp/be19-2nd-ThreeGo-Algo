@@ -1,6 +1,7 @@
 package com.threego.algo.career.command.domain.aggregate;
 
 import com.threego.algo.career.command.domain.aggregate.enums.Status;
+import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -48,4 +49,11 @@ public class CareerInfoPost {
 
     @Column(name = "created_at", nullable = false, length = 20)
     private String createdAt;
+
+    public CareerInfoPost(Member member, String title, String content) {
+        this.member = member;
+        this.title = title;
+        this.content = content;
+        this.createdAt = DateTimeUtils.nowDateTime();
+    }
 }
