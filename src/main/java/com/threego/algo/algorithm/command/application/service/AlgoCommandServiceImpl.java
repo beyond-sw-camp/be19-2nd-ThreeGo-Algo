@@ -165,9 +165,25 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
         final Member member = findMemberById(memberId);
 
-        validAuthor(member, comment.getMember());
+        validAuthor(comment.getMember(), member);
 
         comment.updateContent(request.getContent());
+    }
+
+    @Transactional
+    @Override
+    public void deleteComment(final int memberId, final int commentId) throws Exception {
+        final AlgoComment comment = findAlgoCommentId(commentId);
+
+        final Member member = findMemberById(memberId);
+
+        validAuthor(comment.getMember(), member);
+
+        comment.updateVisibility('N');
+
+        final AlgoPost algoPost = comment.getAlgoPost();
+
+        algoPost.updateCommentCount(algoPost.getCommentCount() - 1);
     }
 
     private void validAuthor(final Member author, final Member loginMember) throws Exception {

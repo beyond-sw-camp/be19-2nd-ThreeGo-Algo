@@ -38,4 +38,13 @@ public class AlgoCommandController {
 
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "알고리즘 학습 게시물 댓글 삭제", description = "회원이 알고리즘 학습 게시물에 댓글을 삭제하는 API입니다.")
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable("commentId") final int commentId) throws Exception {
+        // TODO. memberID는 Authentication에서 받아오도록 수정 필요
+        algoCommandService.deleteComment(1, commentId);
+
+        return ResponseEntity.ok().build();
+    }
 }
