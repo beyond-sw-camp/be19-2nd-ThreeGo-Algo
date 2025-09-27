@@ -46,4 +46,9 @@ public class CareerInfoComment {
         this.content = content;
         this.createdAt = DateTimeUtils.nowDateTime();
     }
+
+    public void updateComment(String content) {
+        this.content = content;
+        this.updatedAt = DateTimeUtils.nowDateTime();
+    }
 }

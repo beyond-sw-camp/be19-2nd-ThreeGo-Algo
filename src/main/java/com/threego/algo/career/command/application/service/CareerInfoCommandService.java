@@ -80,4 +80,13 @@ public class CareerInfoCommandService {
 
         return comment.getId();
     }
+
+    @Transactional
+    public void updateComment(Integer commentId, CareerInfoCommentCommandRequest request) {
+        CareerInfoComment comment = careerCommentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        // TODO: 로그인한 회원 == post.getMember() 확인 (본인 댓글만 수정 가능)
+        comment.updateComment(request.getContent());
+    }
 }

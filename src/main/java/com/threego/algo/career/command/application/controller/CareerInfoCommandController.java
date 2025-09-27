@@ -53,4 +53,17 @@ public class CareerInfoCommandController {
         Integer commentId = service.createComment(postId, parentId, request);
         return ResponseEntity.ok(commentId);
     }
+
+    @Operation(
+            summary = "기업별 정보 공유 댓글 수정",
+            description = "회원이 자신의 댓글을 수정합니다."
+    )
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<Void> updateComment(
+            @PathVariable Integer commentId,
+            @RequestBody CareerInfoCommentCommandRequest request
+    ) {
+        service.updateComment(commentId, request);
+        return ResponseEntity.ok().build();
+    }
 }
