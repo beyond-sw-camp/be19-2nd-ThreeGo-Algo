@@ -1,8 +1,8 @@
 package com.threego.algo.career.command.application.controller;
 
-import com.threego.algo.career.command.application.dto.CareerInfoCommentCommandRequest;
-import com.threego.algo.career.command.application.dto.CareerInfoPostCreateRequest;
-import com.threego.algo.career.command.application.service.CareerInfoCommandService;
+import com.threego.algo.career.command.application.dto.CareerCommentRequest;
+import com.threego.algo.career.command.application.dto.CareerPostCreateRequest;
+import com.threego.algo.career.command.application.service.CareerCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Career Info", description = "회원용 기업별 정보 공유 API")
 @RestController
 @RequestMapping("/career-info")
-public class CareerInfoCommandController {
-    private final CareerInfoCommandService service;
+public class CareerCommandController {
+    private final CareerCommandService service;
 
     @Autowired
-    public CareerInfoCommandController(CareerInfoCommandService service) {
+    public CareerCommandController(CareerCommandService service) {
         this.service = service;
     }
 
@@ -25,7 +25,7 @@ public class CareerInfoCommandController {
             description = "회원이 기업별 정보 공유 게시판에 게시물을 등록합니다."
     )
     @PostMapping("/posts")
-    public ResponseEntity<Integer> createPost(@RequestBody CareerInfoPostCreateRequest request) {
+    public ResponseEntity<Integer> createPost(@RequestBody CareerPostCreateRequest request) {
         Integer postId = service.createPost(request);
         return ResponseEntity.ok(postId);
     }
@@ -48,7 +48,7 @@ public class CareerInfoCommandController {
     public ResponseEntity<Integer> createComment(
             @PathVariable Integer postId,
             @RequestParam(value = "parentId", required = false) Integer parentId,
-            @RequestBody CareerInfoCommentCommandRequest request
+            @RequestBody CareerCommentRequest request
     ) {
         Integer commentId = service.createComment(postId, parentId, request);
         return ResponseEntity.ok(commentId);
@@ -61,7 +61,7 @@ public class CareerInfoCommandController {
     @PutMapping("/comments/{commentId}")
     public ResponseEntity<Void> updateComment(
             @PathVariable Integer commentId,
-            @RequestBody CareerInfoCommentCommandRequest request
+            @RequestBody CareerCommentRequest request
     ) {
         service.updateComment(commentId, request);
         return ResponseEntity.ok().build();

@@ -1,7 +1,7 @@
 package com.threego.algo.career.command.application.service;
 
-import com.threego.algo.career.command.application.dto.CareerInfoCommentCommandRequest;
-import com.threego.algo.career.command.application.dto.CareerInfoPostCreateRequest;
+import com.threego.algo.career.command.application.dto.CareerCommentRequest;
+import com.threego.algo.career.command.application.dto.CareerPostCreateRequest;
 import com.threego.algo.career.command.domain.aggregate.CareerInfoComment;
 import com.threego.algo.career.command.domain.aggregate.CareerInfoPost;
 import com.threego.algo.career.command.domain.repository.CareerCommentRepository;
@@ -9,25 +9,24 @@ import com.threego.algo.career.command.domain.repository.CareerPostRepository;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CareerInfoCommandService {
+public class CareerCommandService {
     private final CareerPostRepository careerPostRepository;
     private final CareerCommentRepository careerCommentRepository;
     private final MemberCommandRepository memberRepository;
 
     @Autowired
-    public CareerInfoCommandService(CareerPostRepository careerPostRepository, CareerCommentRepository careerCommentRepository, MemberCommandRepository memberRepository) {
+    public CareerCommandService(CareerPostRepository careerPostRepository, CareerCommentRepository careerCommentRepository, MemberCommandRepository memberRepository) {
         this.careerPostRepository = careerPostRepository;
         this.careerCommentRepository = careerCommentRepository;
         this.memberRepository = memberRepository;
     }
 
     @Transactional
-    public Integer createPost(CareerInfoPostCreateRequest request) {
+    public Integer createPost(CareerPostCreateRequest request) {
         // TODO: 로그인 회원 정보 가져오기 (Spring Security에서 인증 객체 활용)
         Member member = memberRepository.findById(1)
                 .orElseThrow(() -> new IllegalArgumentException("테스트용 회원이 없습니다."));
@@ -58,7 +57,7 @@ public class CareerInfoCommandService {
     @Transactional
     public Integer createComment(Integer postId,
                                  Integer parentId,
-                                 CareerInfoCommentCommandRequest request
+                                 CareerCommentRequest request
     ) {
         CareerInfoPost post = careerPostRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
@@ -86,7 +85,7 @@ public class CareerInfoCommandService {
     }
 
     @Transactional
-    public void updateComment(Integer commentId, CareerInfoCommentCommandRequest request) {
+    public void updateComment(Integer commentId, CareerCommentRequest request) {
         CareerInfoComment comment = careerCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
 

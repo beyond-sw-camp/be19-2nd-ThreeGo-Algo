@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class CareerInfoPostCreateRequest {
-    private String title;
+public class CareerCommentRequest {
     private String content;
 }
