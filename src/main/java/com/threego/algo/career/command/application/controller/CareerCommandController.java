@@ -3,7 +3,6 @@ package com.threego.algo.career.command.application.controller;
 import com.threego.algo.career.command.application.dto.CareerCommentRequest;
 import com.threego.algo.career.command.application.dto.CareerPostCreateRequest;
 import com.threego.algo.career.command.application.service.CareerCommandService;
-import com.threego.algo.career.command.application.service.CareerCommandServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/career-info")
 public class CareerCommandController {
-    private final CareerCommandService service;
+   private final CareerCommandService service;
 
-    @Autowired
-    public CareerCommandController(CareerCommandServiceImpl service) {
+   @Autowired
+    public CareerCommandController(CareerCommandService service) {
         this.service = service;
     }
 
