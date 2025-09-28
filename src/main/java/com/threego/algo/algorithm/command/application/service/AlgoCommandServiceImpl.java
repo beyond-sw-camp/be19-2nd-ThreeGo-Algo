@@ -100,6 +100,10 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     public void deleteAlgoPost(final int postId) throws Exception {
         final AlgoPost algoPost = findAlgoPostById(postId);
 
+        if (algoPost.getVisibility().equals("N")) {
+            throw new RuntimeException("이미 삭제 처리된 알고리즘 학습 게시물입니다.");
+        }
+
         // TODO 주석 제거 필요
         // 삭제할 게시물에 속한 문제 수 카운팅
         final int postQuizCount = algoQuizQuestionCommandRepository.countByAlgoPost(algoPost);
@@ -155,6 +159,10 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
         validAuthor(comment.getMember(), member);
 
+        if (comment.getVisibility().equals("N")) {
+            throw new RuntimeException("이미 삭제 처리된 댓글입니다.");
+        }
+
         comment.updateVisibility();
 
         final AlgoPost algoPost = comment.getAlgoPost();
@@ -174,7 +182,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         if (!memberAlgoCorrectQuizHistoryCommandRepository.existsById(id)) {
             memberAlgoCorrectQuizHistoryCommandRepository.save(new MemberAlgoCorrectQuizHistory(id));
         } else {
-            throw new Exception("이미 등록된 퀴즈 정답 제출 이력입니다.");
+            throw new RuntimeException("이미 등록된 퀴즈 정답 제출 이력입니다.");
         }
     }
 
@@ -214,13 +222,15 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         }
 
         final List<AlgoQuizOption> algoQuizOptions = algoQuizOptionCommandRepository.findByAlgoQuizQuestion(quizQuestion);
+
         final List<AlgoQuizOptionResponseDTO> optionResponse = new ArrayList<>();
 
         for (UpdateAlgoQuizOptionRequestDTO dto : request.getOptions()) {
             final AlgoQuizOption algoQuizOption = algoQuizOptions.stream()
                     .filter((option) -> option.getId() == dto.getOptionId())
                     .findFirst()
-                    .orElseThrow(() -> new RuntimeException("존재하지 않는 보기입니다."));
+                    .orElseThrow(() ->
+                            new RuntimeException("알고리즘 학습 게시물 퀴즈의 보기(ID: " + dto.getOptionId() + ") 을(를) 찾을 수 없습니다."));
 
             algoQuizOption.updateAlgoQuizOption(dto.getOptionText(), dto.isCorrect());
 
@@ -271,6 +281,10 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     public void deleteCommentForAdmin(final int commentId) throws Exception {
         final AlgoComment comment = findAlgoCommentId(commentId);
 
+        if (comment.getVisibility().equals("N")) {
+            throw new RuntimeException("이미 삭제 처리된 댓글입니다.");
+        }
+
         comment.updateVisibility();
 
         final AlgoPost algoPost = comment.getAlgoPost();
@@ -304,15 +318,17 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         return algoQuizQuestionCommandRepository.findById(questionId).orElseThrow(Exception::new);
     }
 
-    private void validAuthor(final Member author, final Member loginMember) throws Exception {
+    private void validAuthor(final Member author, final Member loginMember) {
         if (author != loginMember) {
             // TODO 커스텀 예외 발생
-            throw new Exception("작성자가 아니므로 수정 및 삭제 권한이 없습니다.");
+            throw new RuntimeException("작성자가 아니므로 수정 및 삭제 권한이 없습니다.");
         }
     }
 
-    private AlgoComment findAlgoCommentId(final int parentId) throws Exception {
-        return algoCommentRepository.findById(parentId).orElseThrow(Exception::new);
+    private AlgoComment findAlgoCommentId(final int parentId) {
+        return algoCommentRepository.findById(parentId).orElseThrow(() -> {
+            throw new RuntimeException("알고리즘 학습 게시물 댓글(ID: " + parentId + ") 을(를) 찾을 수 없습니다.");
+        });
     }
 
     private List<AlgoPostImage> saveAlgoPostImages(final List<String> imageUrls, final AlgoPost algoPost) {
@@ -329,15 +345,21 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         }
     }
 
-    private AlgoRoadmap findAlgoRoadmapById(final int roadmapId) throws Exception {
-        return algoRoadmapCommandRepository.findById(roadmapId).orElseThrow(Exception::new);
+    private AlgoRoadmap findAlgoRoadmapById(final int roadmapId) {
+        return algoRoadmapCommandRepository.findById(roadmapId).orElseThrow(() -> {
+            throw new RuntimeException("알고리즘 학습 로드맵 대분류(ID: " + roadmapId + ") 을(를) 찾을 수 없습니다.");
+        });
     }
 
-    private Member findMemberById(final int memberId) throws Exception {
-        return memberCommandRepository.findById(memberId).orElseThrow(Exception::new);
+    private Member findMemberById(final int memberId) {
+        return memberCommandRepository.findById(memberId).orElseThrow(() -> {
+            throw new RuntimeException("회원(ID: " + memberId + ") 을(를) 찾을 수 없습니다.");
+        });
     }
 
     private AlgoPost findAlgoPostById(final int postId) throws Exception {
-        return algoPostCommandRepository.findById(postId).orElseThrow(Exception::new);
+        return algoPostCommandRepository.findById(postId).orElseThrow(() -> {
+            throw new RuntimeException("알고리즘 학습 게시물(ID: " + postId + ") 을(를) 찾을 수 없습니다.");
+        });
     }
 }
