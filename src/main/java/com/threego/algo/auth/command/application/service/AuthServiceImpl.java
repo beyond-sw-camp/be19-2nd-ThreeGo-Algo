@@ -27,19 +27,17 @@ public class AuthServiceImpl implements AuthService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
     MemberRepository memberRepository;
     AuthMapper authMapper;
-    MemberMapper memberMapper;
 
     @Autowired
     public AuthServiceImpl(MemberRepository memberRepository,
                            BCryptPasswordEncoder bCryptPasswordEncoder,
                            ModelMapper modelMapper,
-                           AuthMapper authMapper,
-                           MemberMapper memberMapper) {
+                           AuthMapper authMapper
+    ) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
         this.authMapper = authMapper;
-        this.memberMapper = memberMapper;
     }
 
     @Override
