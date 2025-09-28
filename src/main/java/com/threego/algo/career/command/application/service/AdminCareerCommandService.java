@@ -4,4 +4,6 @@ import com.threego.algo.career.command.domain.aggregate.enums.Status;
 
 public interface AdminCareerCommandService {
     void updatePostStatus(int postId, Status status, String rejectReason);
+    void deletePost(int postId);
+    void deleteComment(int commentId);
 }

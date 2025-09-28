@@ -19,7 +19,10 @@ public class AdminCareerCommandController {
         this.adminService = adminService;
     }
 
-    @Operation(summary = "게시물 상태 변경 (관리자)")
+    @Operation(
+            summary = "기업별 정보 공유 게시물 상태 변경 (관리자)",
+            description = "관리자가 기업별 정보 공유 게시물의 상태를 변경합니다."
+    )
     @PutMapping("/posts/{postId}/status")
     public ResponseEntity<Void> updatePostStatus(
             @PathVariable int postId,
@@ -27,6 +30,27 @@ public class AdminCareerCommandController {
             @RequestParam(required = false) String rejectReason
     ) {
         adminService.updatePostStatus(postId, status, rejectReason);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @Operation(
+            summary = "기업별 정보 공유 게시물 삭제 (관리자)",
+            description = "관리자가 특정 게시물을 삭제합니다. soft delete로 visibility='N' 처리됩니다."
+    )
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable int postId) {
+        adminService.deletePost(postId);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "기업별 정보 공유 댓글 삭제 (관리자)",
+            description = "관리자가 특정 댓글을 삭제합니다. soft delete로 visibility='N' 처리됩니다."
+    )
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable int commentId) {
+        adminService.deleteComment(commentId);
         return ResponseEntity.ok().build();
     }
 }
