@@ -3,7 +3,6 @@ import com.threego.algo.auth.command.application.dto.UserDTO;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberRepository;
 import com.threego.algo.member.query.dao.AuthMapper;
-import com.threego.algo.member.query.dao.MemberMapper;
 import com.threego.algo.member.query.dto.LoginUserResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
