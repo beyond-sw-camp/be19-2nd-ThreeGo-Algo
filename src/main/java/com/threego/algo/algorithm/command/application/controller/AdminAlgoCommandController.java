@@ -84,9 +84,17 @@ public class AdminAlgoCommandController {
             "퀴즈 질문 내용과 보기 내용만 수정 가능합니다.")
     @PutMapping("/algo/posts/{postId}")
     public ResponseEntity<AlgoPostDetailResponseDTO> updateAlgoPost(@PathVariable("postId") final int postId,
-                                                                      @RequestBody final AlgoPostRequestDTO request) throws Exception {
+                                                                    @RequestBody final AlgoPostRequestDTO request) throws Exception {
         AlgoPostDetailResponseDTO response = algoCommandService.updateAlgoPost(postId, request);
 
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "알고리즘 학습 게시물 댓글 삭제", description = "관리자가 알고리즘 학습 게시물 댓글을 삭제하는 API입니다.")
+    @DeleteMapping("/algo/comments/{commentId}")
+    public ResponseEntity<Void> deleteAlgoComment(@PathVariable("commentId") final int commentId) throws Exception {
+        algoCommandService.deleteCommentForAdmin(commentId);
+
+        return ResponseEntity.ok().build();
     }
 }

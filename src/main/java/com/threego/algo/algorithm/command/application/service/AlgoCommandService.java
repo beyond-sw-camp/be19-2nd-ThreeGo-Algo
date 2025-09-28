@@ -25,4 +25,6 @@ public interface AlgoCommandService {
     AlgoQuizQuestionResponseDTO updateAlgoQuiz(final int quizQuestionId, final UpdateAlgoQuizQuestionRequestDTO request) throws Exception;
 
     AlgoPostDetailResponseDTO updateAlgoPost(final int postId, final AlgoPostRequestDTO request) throws Exception;
+
+    void deleteCommentForAdmin(final int commentId) throws Exception;
 }
