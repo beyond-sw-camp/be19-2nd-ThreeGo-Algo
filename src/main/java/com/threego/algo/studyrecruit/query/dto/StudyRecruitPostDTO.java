@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyRecruitPostDTO {
-    private Long id;                    // 모집글 ID
+    private Integer id;                    // 모집글 ID
     private String title;               // 제목
     private String memberNickname;      // 작성자 닉네임
     private String rankName;            // 작성자 등급명

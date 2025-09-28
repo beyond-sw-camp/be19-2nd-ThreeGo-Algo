@@ -1,6 +1,5 @@
 package com.threego.algo.studyrecruit.command.application.dto.update;
 import com.threego.algo.common.constants.ValidationConstants;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,5 +36,5 @@ public class StudyRecruitPostUpdateDTO {
     private Integer capacity;
 
     @NotNull(message = "공개여부는 필수입니다.")
-    private VisibilityStatus visibility;
+    private String visibility;
 }

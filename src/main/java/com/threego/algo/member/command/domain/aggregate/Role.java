@@ -23,4 +23,12 @@ public class Role {
 
     @Column(nullable = false)
     private String description;
+
+    public boolean isAdmin() {
+        return this.name == RoleName.ADMIN;
+    }
+
+    public boolean isMember() {
+        return this.name == RoleName.MEMBER;
+    }
 }

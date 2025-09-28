@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "[Admin] Study API", description = "관리자용 스터디 조회 API")
+@Tag(name = "[Admin] Study API", description = "관리자용 스터디 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/study")

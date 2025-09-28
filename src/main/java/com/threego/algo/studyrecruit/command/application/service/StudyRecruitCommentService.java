@@ -14,4 +14,7 @@ public interface StudyRecruitCommentService {
 
     /* 설명. 댓글 삭제(소프트 딜리트) */
     ResponseEntity<String> deleteComment(Integer commentId, Integer memberId);
+
+    /* 설명. 관리자 댓글 삭제 */
+    ResponseEntity<String> adminDeleteComment(Integer commentId, Integer adminId);
 }

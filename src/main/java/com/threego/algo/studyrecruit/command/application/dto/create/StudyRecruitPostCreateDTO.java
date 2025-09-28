@@ -1,7 +1,8 @@
 package com.threego.algo.studyrecruit.command.application.dto.create;
 
 import com.threego.algo.common.constants.ValidationConstants;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,5 +39,7 @@ public class StudyRecruitPostCreateDTO {
     private Integer capacity;
 
     @NotNull(message = "공개여부는 필수입니다.")
-    private VisibilityStatus visibility; // Y(공개) 또는 N(비공개)
+    @Schema( defaultValue = "Y", example = "Y")
+    @Column(name = "visibility", columnDefinition = "char(1) default 'Y'")
+    private String visibility; // Y(공개) 또는 N(비공개)
 }

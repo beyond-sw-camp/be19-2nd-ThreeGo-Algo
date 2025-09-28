@@ -3,7 +3,6 @@ package com.threego.algo.studyrecruit.command.domain.aggregate;
 import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.studyrecruit.command.domain.aggregate.enums.RecruitStatus;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -57,8 +56,8 @@ public class StudyRecruitPost {
     private String updatedAt;
 
     @Column(columnDefinition = "char(1) default 'Y'")
-    @Enumerated(EnumType.STRING)
-    private VisibilityStatus visibility;
+    private String visibility;
+//    private VisibilityStatus visibility;
 
     // 연관관계
     @OneToMany(mappedBy = "studyRecruitPost", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -80,14 +79,15 @@ public class StudyRecruitPost {
         this.status = RecruitStatus.OPEN;
         this.commentCount = 0;
         this.createdAt = createdAt;
-        this.visibility = VisibilityStatus.Y;
+        this.visibility = visibility;
+//        this.visibility = VisibilityStatus.Y;
     }
 
     // 비즈니스 메소드
 
     /* 설명. 모집게시물 소프트 딜리트 */
     public void softDelete() {
-        this.visibility = VisibilityStatus.N;
+        this.visibility = "N";
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
 
@@ -110,7 +110,7 @@ public class StudyRecruitPost {
 
     /* 설명. 모집글 수정 시 업데이트 시간 갱신 */
     public void updatePost(String title, String content, String startDate, String endDate,
-                           String expiresAt, Integer capacity, VisibilityStatus visibility) {
+                           String expiresAt, Integer capacity, String visibility) {
         this.title = title;
         this.content = content;
         this.startDate = startDate;

@@ -98,7 +98,6 @@
              , A.VISIBILITY   AS POST_VISIBILITY
              , D.ID           AS IMAGE_ID
              , D.IMAGE_URL    AS IMAGE_URL
-             , D.CREATED_AT   AS IMAGE_CREATED_AT
           FROM STUDY_POST A
           JOIN STUDY_MEMBER B    ON A.MEMBER_ID = B.ID
           JOIN MEMBER C          ON B.MEMBER_ID = C.ID
@@ -176,7 +175,6 @@
              , A.VISIBILITY   AS POST_VISIBILITY
              , D.ID           AS IMAGE_ID
              , D.IMAGE_URL    AS IMAGE_URL
-             , D.CREATED_AT   AS IMAGE_CREATED_AT
           FROM STUDY_POST A
           JOIN STUDY_MEMBER B    ON A.MEMBER_ID = B.ID
           JOIN MEMBER C          ON B.MEMBER_ID = C.ID

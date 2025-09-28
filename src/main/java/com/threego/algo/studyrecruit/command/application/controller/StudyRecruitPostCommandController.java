@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/study-recruit/posts")
 @RequiredArgsConstructor
-@Tag(name = "스터디 모집글", description = "스터디 모집글 관리 API")
+@Tag(name = "Study Recruit API", description = "스터디 모집글 API")
 public class StudyRecruitPostCommandController {
     private final StudyRecruitPostService studyRecruitPostService;
-    private final StudyRecruitCommentService studyRecruitCommentService;
     private final StudyRecruitMemberService studyRecruitMemberService;
     private final StudyRecruitReportService studyRecruitReportService;
 
@@ -67,14 +66,7 @@ public class StudyRecruitPostCommandController {
         return studyRecruitPostService.closeRecruitment(postId, memberId);
     }
 
-    @Operation(summary = "댓글 등록", description = "모집글에 댓글을 등록합니다.")
-    @PostMapping("/{postId}/comments")
-    public ResponseEntity<String> createComment(
-            @PathVariable Integer postId,
-            @RequestHeader("Member-Id") Integer memberId,
-            @Valid @RequestBody StudyRecruitCommentCreateDTO request) {
-        return studyRecruitCommentService.createComment(postId, memberId, request);
-    }
+
 
     @Operation(summary = "참가 신청", description = "스터디에 참가 신청을 합니다.")
     @PostMapping("/{postId}/applicants")

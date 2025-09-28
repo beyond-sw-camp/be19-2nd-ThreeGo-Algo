@@ -2,7 +2,6 @@ package com.threego.algo.studyrecruit.command.domain.aggregate;
 
 import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -44,8 +43,9 @@ public class StudyRecruitComment {
     private String updatedAt;
 
     @Column(columnDefinition = "char(1) default 'Y'")
-    @Enumerated(EnumType.STRING)
-    private VisibilityStatus visibility;
+    private String visibility;
+
+//    private VisibilityStatus visibility;
 
     // 생성자 - 일반 댓글
     public StudyRecruitComment(StudyRecruitPost studyRecruitPost, Member member,
@@ -54,7 +54,8 @@ public class StudyRecruitComment {
         this.member = member;
         this.content = content;
         this.createdAt = createdAt;
-        this.visibility = VisibilityStatus.Y;
+        this.visibility = "Y";
+//        this.visibility = VisibilityStatus.Y;
     }
 
     // 생성자 - 대댓글
@@ -65,14 +66,16 @@ public class StudyRecruitComment {
         this.parent = parent;
         this.content = content;
         this.createdAt = createdAt;
-        this.visibility = VisibilityStatus.Y;
+        this.visibility = "Y";
+//        this.visibility = VisibilityStatus.Y;
     }
 
     // 비즈니스 메소드
 
     /* 설명. 댓글 소프트 딜리트 */
     public void softDelete() {
-        this.visibility = VisibilityStatus.N;
+        this.visibility = "N";
+//        this.visibility = VisibilityStatus.N;
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
 

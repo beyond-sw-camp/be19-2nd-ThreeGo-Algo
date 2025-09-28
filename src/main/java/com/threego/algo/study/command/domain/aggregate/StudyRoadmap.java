@@ -1,0 +1,55 @@
+package com.threego.algo.study.command.domain.aggregate;
+
+import com.threego.algo.common.util.DateTimeUtils;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "Study_Roadmap")
+@Getter
+@Setter
+@NoArgsConstructor
+public class StudyRoadmap {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "study_id", nullable = false)
+    private Integer studyId;
+
+    @Column(name = "member_id", nullable = false)
+    private Integer memberId;
+
+    @Column(nullable = false, length = 100)
+    private String title;
+
+    @Column(length = 500)
+    private String description;
+
+    @Column(name = "`order`", nullable = false)
+    private Integer order; // 로드맵 순서
+
+    @Column(name = "created_at", nullable = false)
+    private String createdAt;
+
+
+    // 생성자
+    public StudyRoadmap(Integer studyId, Integer memberId, String title, String description, Integer order) {
+        this.studyId = studyId;
+        this.memberId = memberId;  // 추가
+        this.title = title;
+        this.description = description;
+        this.order = order;
+        this.createdAt = DateTimeUtils.nowDateTime();
+    }
+
+    // 비즈니스 메소드
+    public void updateRoadmap(String title, String description, Integer order) {
+        this.title = title;
+        this.description = description;
+        this.order = order;
+    }
+
+
+}

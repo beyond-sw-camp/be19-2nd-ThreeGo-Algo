@@ -7,8 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 public class StudyRecruitMemberDTO {
 
-    private Long id;                    // 신청 ID
-    private Long memberId;              // 신청자 회원 ID
+    private Integer id;                    // 신청 ID
+    private Integer memberId;              // 신청자 회원 ID
     private String memberNickname;      // 신청자 닉네임
     private String rankName;            // 신청자 등급명
     private String status;              // 신청 상태 (PENDING, APPROVED, REJECTED)

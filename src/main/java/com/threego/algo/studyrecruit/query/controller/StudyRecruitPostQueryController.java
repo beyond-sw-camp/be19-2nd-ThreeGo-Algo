@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name = "Study Recruit API", description = "스터디 모집글 조회 API")
+@Tag(name = "Study Recruit API", description = "스터디 모집글 API")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/study-recruit")
@@ -43,25 +43,18 @@ public class StudyRecruitPostQueryController {
             description = "POST_ID로 특정 스터디 모집글의 상세 정보를 조회합니다."
     )
     @GetMapping("/posts/{postId}")
-    public ResponseEntity<StudyRecruitDetailDTO> findPost(@PathVariable Long postId) {
+    public ResponseEntity<StudyRecruitDetailDTO> findPost(@PathVariable Integer postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitDetail(postId));
     }
 
-    @Operation(
-            summary = "스터디 모집글 댓글 조회",
-            description = "특정 게시글의 댓글을 조회합니다. 부모 댓글과 대댓글이 정렬되어 반환됩니다."
-    )
-    @GetMapping("/posts/{postId}/comments")
-    public ResponseEntity<List<StudyRecruitCommentDTO>> findPostComments(@PathVariable Long postId) {
-        return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitComments(postId));
-    }
+
 
     @Operation(
             summary = "스터디 모집글 참가 신청자 목록 조회",
             description = "특정 게시글의 참가 신청자 목록을 조회합니다. 작성자만 조회 가능합니다."
     )
     @GetMapping("/posts/{postId}/members")
-    public ResponseEntity<List<StudyRecruitMemberDTO>> findPostMembers(@PathVariable Long postId) {
+    public ResponseEntity<List<StudyRecruitMemberDTO>> findPostMembers(@PathVariable Integer postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitMembers(postId));
     }
 

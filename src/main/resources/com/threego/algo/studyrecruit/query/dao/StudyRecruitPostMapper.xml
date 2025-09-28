@@ -100,7 +100,7 @@
 
     <!-- 스터디 모집글 상세 조회 -->
     <select id="selectStudyRecruitDetail"
-            parameterType="long"
+            parameterType="integer"
             resultMap="StudyRecruitDetailMap">
         SELECT
                A.ID AS POST_ID
@@ -129,7 +129,7 @@
 
     <!-- 스터디 모집글 참가 신청자 목록 조회 -->
     <select id="selectStudyRecruitMembers"
-            parameterType="long"
+            parameterType="integer"
             resultMap="StudyRecruitMemberMap">
         SELECT
                A.ID AS RECRUIT_MEMBER_ID
@@ -196,7 +196,7 @@
 
     <!-- 관리자용 - 숨김 처리 포함 스터디 모집글 상세 조회 -->
     <select id="selectStudyRecruitDetailIncludeHidden"
-            parameterType="long"
+            parameterType="integer"
             resultMap="StudyRecruitDetailMap">
         SELECT
                A.ID AS POST_ID

@@ -7,7 +7,6 @@ import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruit
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitComment;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitPost;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitReport;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitCommentRepository;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitPostRepository;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitReportRepository;
@@ -37,7 +36,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
             // 2. 신고할 모집글 존재 여부 확인 (공개상태만)
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
                     .findById(postId)
-                    .filter(post -> post.getVisibility() == VisibilityStatus.Y)
+                    .filter(post -> post.getVisibility() == "Y")
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 공개되지 않은 모집글입니다."));
 
             // 3. 중복 신고 확인
@@ -78,7 +77,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
 
             // 2. 신고할 댓글 존재 여부 확인 (공개상태만)
             StudyRecruitComment studyRecruitComment = studyRecruitCommentRepository
-                    .findByIdAndVisibility(commentId, VisibilityStatus.Y)
+                    .findByIdAndVisibility(commentId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 공개되지 않은 댓글입니다."));
 
             // 3. 중복 신고 확인

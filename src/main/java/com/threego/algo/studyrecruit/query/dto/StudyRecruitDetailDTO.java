@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudyRecruitDetailDTO {
 
-    private Long id;                    // 모집글 ID
+    private Integer id;                    // 모집글 ID
     private String title;               // 제목
     private String content;             // 내용
     private String memberNickname;      // 작성자 닉네임

@@ -2,12 +2,13 @@ package com.threego.algo.studyrecruit.command.application.service;
 
 import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
+import com.threego.algo.member.command.domain.aggregate.MemberRole;
 import com.threego.algo.member.command.domain.repository.MemberRepository;
+import com.threego.algo.member.command.domain.repository.MemberRoleRepository;
 import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruitCommentCreateDTO;
 import com.threego.algo.studyrecruit.command.application.dto.update.StudyRecruitCommentUpdateDTO;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitComment;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitPost;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitCommentRepository;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitPostRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
     private final StudyRecruitCommentRepository studyRecruitCommentRepository;
     private final StudyRecruitPostRepository studyRecruitPostRepository;
     private final MemberRepository memberRepository;
+    private final MemberRoleRepository memberRoleRepository;
 
     @Override
     public ResponseEntity<String> createComment(Integer postId, Integer memberId, StudyRecruitCommentCreateDTO request) {
@@ -35,14 +37,14 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
             // 2. 모집글 존재 여부 확인 (공개상태만)
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
                     .findById(postId)
-                    .filter(post -> post.getVisibility() == VisibilityStatus.Y)
+                    .filter(post -> post.getVisibility().equals("Y"))
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 공개되지 않은 모집글입니다."));
 
             // 3. 대댓글인 경우 부모 댓글 확인
             StudyRecruitComment parentComment = null;
             if (request.getParentId() != null) {
-                parentComment = (StudyRecruitComment) studyRecruitCommentRepository
-                        .findByIdAndVisibility(request.getParentId(), VisibilityStatus.Y)
+                parentComment =  studyRecruitCommentRepository
+                        .findByIdAndVisibility(request.getParentId(), "Y")
                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 부모 댓글입니다."));
             }
 
@@ -88,7 +90,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
         try {
             // 1. 작성자 권한 확인
             StudyRecruitComment comment = studyRecruitCommentRepository
-                    .findByIdAndMemberIdAndVisibility(commentId, memberId, VisibilityStatus.Y)
+                    .findByIdAndMemberIdAndVisibility(commentId, memberId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("수정 권한이 없거나 존재하지 않는 댓글입니다."));
 
             // 2. Entity 업데이트
@@ -112,7 +114,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
         try {
             // 1. 작성자 권한 확인
             StudyRecruitComment comment = studyRecruitCommentRepository
-                    .findByIdAndMemberIdAndVisibility(commentId, memberId, VisibilityStatus.Y)
+                    .findByIdAndMemberIdAndVisibility(commentId, memberId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("삭제 권한이 없거나 존재하지 않는 댓글입니다."));
 
             // 2. Soft Delete 처리
@@ -134,6 +136,45 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> adminDeleteComment(Integer commentId, Integer adminId) {
+        try {
+            // 1. 관리자 권한 확인
+            if (!isAdmin(adminId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 권한이 필요합니다.");
+            }
+
+            // 2. 모집 댓글 존재 여부 확인
+            StudyRecruitComment comment = studyRecruitCommentRepository.findById(commentId)
+                    .orElseThrow(() -> new IllegalArgumentException("모집 댓글을 찾을 수 없습니다."));
+
+            // 3. 이미 삭제된 댓글인지 확인
+            if (comment.getVisibility().equals("N")) {
+                return ResponseEntity.badRequest().body("이미 삭제된 댓글입니다.");
+            }
+
+            // 4. 소프트 딜리트 (VISIBILITY: Y → N)
+            comment.softDelete();
+            studyRecruitCommentRepository.save(comment);
+
+            return ResponseEntity.ok("모집 댓글이 삭제되었습니다.");
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("모집 댓글 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    private boolean isAdmin(Integer memberId) {
+        try {
+            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId != null && roleId == 2;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

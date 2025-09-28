@@ -5,9 +5,9 @@ import com.threego.algo.member.command.domain.repository.MemberRepository;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitMember;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitPost;
 import com.threego.algo.studyrecruit.command.domain.aggregate.enums.RecruitStatus;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitMemberRepository;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitPostRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService {
 
     private final StudyRecruitMemberRepository studyRecruitMemberRepository;
@@ -26,14 +27,17 @@ public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService 
     @Override
     public ResponseEntity<String> applyToStudy(Integer postId, Integer memberId) {
         try {
+            log.info("스터디 참가신청 시작 - postId: {}, memberId: {}", postId, memberId);
             // 1. 회원 존재 여부 확인
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
+
+
             // 2. 모집글 존재 여부 및 모집 상태 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
                     .findById(postId)
-                    .filter(post -> post.getVisibility() == VisibilityStatus.Y)
+                    .filter(post -> post.getVisibility().equals("Y"))
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 공개되지 않은 모집글입니다."));
 
             // 3. 모집 상태 확인

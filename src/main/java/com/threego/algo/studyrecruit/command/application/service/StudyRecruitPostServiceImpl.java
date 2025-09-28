@@ -2,18 +2,23 @@ package com.threego.algo.studyrecruit.command.application.service;
 
 import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
+import com.threego.algo.member.command.domain.aggregate.MemberRole;
 import com.threego.algo.member.command.domain.repository.MemberRepository;
+import com.threego.algo.member.command.domain.repository.MemberRoleRepository;
 import com.threego.algo.studyrecruit.command.application.dto.create.StudyRecruitPostCreateDTO;
 import com.threego.algo.studyrecruit.command.application.dto.update.StudyRecruitPostUpdateDTO;
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitPost;
 import com.threego.algo.studyrecruit.command.domain.aggregate.enums.RecruitStatus;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import com.threego.algo.studyrecruit.command.domain.repository.StudyRecruitPostRepository;
+import com.threego.algo.studyrecruit.query.dao.StudyRecruitPostMapper;
+import com.threego.algo.studyrecruit.query.dto.StudyRecruitMemberDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +27,8 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
 
     private final StudyRecruitPostRepository studyRecruitPostRepository;
     private final MemberRepository memberRepository;
+    private final StudyRecruitPostMapper studyRecruitPostMapper;
+    private final MemberRoleRepository memberRoleRepository;
 
     @Override
     public ResponseEntity<String> createPost(Integer memberId, StudyRecruitPostCreateDTO request) {
@@ -62,7 +69,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
-                    .findByIdAndMemberIdAndVisibility(postId, memberId, VisibilityStatus.Y)
+                    .findByIdAndMemberIdAndVisibility(postId, memberId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("수정 권한이 없거나 존재하지 않는 모집글입니다."));
 
             // 2. Entity 업데이트 (DateTimeUtils 사용)
@@ -92,7 +99,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
-                    .findByIdAndMemberIdAndVisibility(postId, memberId, VisibilityStatus.Y)
+                    .findByIdAndMemberIdAndVisibility(postId, memberId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("삭제 권한이 없거나 존재하지 않는 모집글입니다."));
 
             // 2. Soft Delete 처리 (DateTimeUtils 사용)
@@ -116,7 +123,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
-                    .findByIdAndMemberIdAndVisibility(postId, memberId, VisibilityStatus.Y)
+                    .findByIdAndMemberIdAndVisibility(postId, memberId, "Y")
                     .orElseThrow(() -> new IllegalArgumentException("마감 권한이 없거나 존재하지 않는 모집글입니다."));
 
             // 2. 이미 마감된 상태인지 확인
@@ -137,6 +144,50 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("모집 마감 중 오류가 발생했습니다.");
+        }
+    }
+
+    @Override
+    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Integer postId) {
+        return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
+    }
+
+    @Override
+    public ResponseEntity<String> adminDeletePost(Integer postId, Integer adminId) {
+        try {
+            // 1. 관리자 권한 확인
+            if (!isAdmin(adminId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자 권한이 필요합니다.");
+            }
+
+            // 2. 모집 게시물 존재 여부 확인
+            StudyRecruitPost post = studyRecruitPostRepository.findById(postId)
+                    .orElseThrow(() -> new IllegalArgumentException("모집 게시물을 찾을 수 없습니다."));
+
+            // 3. 이미 삭제된 게시물인지 확인
+            if (post.getVisibility() == "N") {
+                return ResponseEntity.badRequest().body("이미 삭제된 게시물입니다.");
+            }
+
+            // 4. 소프트 딜리트 (VISIBILITY: Y → N)
+            post.softDelete();
+            studyRecruitPostRepository.save(post);
+
+            return ResponseEntity.ok("모집 게시물이 삭제되었습니다.");
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("모집 게시물 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+    private boolean isAdmin(Integer memberId) {
+        try {
+            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId != null && roleId == 2;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

@@ -2,7 +2,6 @@ package com.threego.algo.studyrecruit.command.domain.repository;
 
 import com.threego.algo.studyrecruit.command.domain.aggregate.StudyRecruitPost;
 import com.threego.algo.studyrecruit.command.domain.aggregate.enums.RecruitStatus;
-import com.threego.algo.studyrecruit.command.domain.aggregate.enums.VisibilityStatus;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -17,7 +16,7 @@ public interface StudyRecruitPostRepository extends JpaRepository<StudyRecruitPo
 
 
     // 3. 모집글 삭제용 - 작성자 권한 확인 후 soft delete
-    Optional<StudyRecruitPost> findByIdAndMemberIdAndVisibility(Integer id, Integer memberId, VisibilityStatus visibility);
+    Optional<StudyRecruitPost> findByIdAndMemberIdAndVisibility(Integer id, Integer memberId, String visibility);
 
     @Modifying
     @Query("UPDATE StudyRecruitPost s SET s.visibility = 'N', s.updatedAt = :updatedAt WHERE s.id = :id")

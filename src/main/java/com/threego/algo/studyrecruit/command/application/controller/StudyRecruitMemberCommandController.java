@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/study-recruit/applicants")
 @RequiredArgsConstructor
-@Tag(name = "스터디 신청", description = "스터디 참가 신청 관리 API")
+@Tag(name = "Study Recruit Member API", description = "스터디 참가 신청 API")
 public class StudyRecruitMemberCommandController {
 
     private final StudyRecruitMemberService studyRecruitMemberService;
