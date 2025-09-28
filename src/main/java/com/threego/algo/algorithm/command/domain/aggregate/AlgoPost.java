@@ -68,4 +68,12 @@ public class AlgoPost {
             this.commentCount = commentCount;
         }
     }
+
+    public void updateAlgoPost(final String title, final String content) {
+        if (!(title.equals(this.title) && content.equals(this.content))) {
+            this.title = title;
+            this.content = content;
+            this.updatedAt = DateTimeUtils.nowDateTime();
+        }
+    }
 }

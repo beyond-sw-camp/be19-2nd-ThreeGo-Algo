@@ -230,6 +230,42 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         return AlgoQuizQuestionResponseDTO.of(quizQuestion, optionResponse);
     }
 
+    @Transactional
+    @Override
+    public AlgoPostDetailResponseDTO updateAlgoPost(final int postId, final AlgoPostRequestDTO request) throws Exception {
+        final AlgoPost algoPost = findAlgoPostById(postId);
+
+        algoPost.updateAlgoPost(request.getTitle(), request.getContent());
+
+        final List<AlgoPostImage> originAlgoPostImage = algoPostImageCommandRepository.findByAlgoPost(algoPost);
+
+        final List<String> originAlgoPostImageUrls = originAlgoPostImage.stream()
+                .map(AlgoPostImage::getImageUrl)
+                .collect(Collectors.toList());
+
+        final List<String> addAlgoPostImages = request.getImageUrls().stream()
+                .filter((image) -> !originAlgoPostImageUrls.contains(image))
+                .collect(Collectors.toList());
+
+        final List<AlgoPostImage> removeAlgoPostImages = originAlgoPostImage.stream()
+                .filter((image) -> !request.getImageUrls().contains(image.getImageUrl()))
+                .collect(Collectors.toList());
+
+        algoPostImageCommandRepository.deleteAll(removeAlgoPostImages);
+
+        saveAlgoPostImages(addAlgoPostImages, algoPost);
+
+        final AlgoPostDetailResponseDTO response = AlgoPostDetailResponseDTO.of(algoPost);
+
+        final List<String> algoPostImages = algoPostImageCommandRepository.findByAlgoPost(algoPost).stream()
+                .map(AlgoPostImage::getImageUrl)
+                .collect(Collectors.toList());
+
+        response.setImageUrls(algoPostImages);
+
+        return response;
+    }
+
     private void validQuizQuestion(final String question) {
         if (algoQuizQuestionCommandRepository.existsByQuestionLike(question)) {
             throw new RuntimeException("이미 동일한 내용의 퀴즈 질문이 존재합니다.");

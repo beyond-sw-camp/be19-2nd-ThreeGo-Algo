@@ -23,4 +23,6 @@ public interface AlgoCommandService {
     AlgoQuizQuestionResponseDTO createAlgoQuiz(final int postId, final AlgoQuizQuestionRequestDTO request) throws Exception;
 
     AlgoQuizQuestionResponseDTO updateAlgoQuiz(final int quizQuestionId, final UpdateAlgoQuizQuestionRequestDTO request) throws Exception;
+
+    AlgoPostDetailResponseDTO updateAlgoPost(final int postId, final AlgoPostRequestDTO request) throws Exception;
 }

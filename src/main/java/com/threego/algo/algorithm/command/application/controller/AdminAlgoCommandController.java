@@ -79,4 +79,14 @@ public class AdminAlgoCommandController {
 
         return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "알고리즘 학습 게시물 수정", description = "관리자가 알고리즘 학습 게시물을 수정하는 API입니다." +
+            "퀴즈 질문 내용과 보기 내용만 수정 가능합니다.")
+    @PutMapping("/algo/posts/{postId}")
+    public ResponseEntity<AlgoPostDetailResponseDTO> updateAlgoPost(@PathVariable("postId") final int postId,
+                                                                      @RequestBody final AlgoPostRequestDTO request) throws Exception {
+        AlgoPostDetailResponseDTO response = algoCommandService.updateAlgoPost(postId, request);
+
+        return ResponseEntity.ok(response);
+    }
 }
