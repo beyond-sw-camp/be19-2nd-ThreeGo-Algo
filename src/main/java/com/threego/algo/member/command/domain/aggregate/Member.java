@@ -1,11 +1,14 @@
 package com.threego.algo.member.command.domain.aggregate;
 
+import com.threego.algo.auth.command.application.dto.UserDTO;
+import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+
 
 @Setter
 @Getter
@@ -29,6 +32,9 @@ public class Member {
     @Column(columnDefinition = "integer default 0")
     private int point;
 
+    @Column(columnDefinition = "integer default 1")
+    private int rankId;
+
     @Column(name = "reported_count", columnDefinition = "integer default 0")
     private int reportedCount;
 
@@ -45,7 +51,20 @@ public class Member {
         this.nickname = nickname;
         this.point = 0;
         this.reportedCount = 0;
+        this.rankId = 1;
         this.status = Status.ACTIVE;
         this.createdAt = createdAt;
     }
+
+    public static Member UserToMember(UserDTO dto) {
+        return new Member(
+            dto.getEmail(),
+            dto.getPassword(),
+            dto.getNickname(),
+            DateTimeUtils.nowDateTime()
+        );
+    }
+
+
+
 }
