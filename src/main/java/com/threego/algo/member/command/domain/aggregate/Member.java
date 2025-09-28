@@ -41,16 +41,9 @@ public class Member {
     @Column(name = "created_at", nullable = false)
     private String createdAt;
 
-    // Role과의 다대다 관계
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "Member_Role",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<Role> roles = new ArrayList<>();
-
-    // MemberRank와의 연관관계
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberRole> memberRoles = new ArrayList<>();
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id", nullable = false)
     private MemberRank memberRank;
