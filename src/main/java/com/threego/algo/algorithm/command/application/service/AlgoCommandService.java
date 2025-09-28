@@ -22,5 +22,5 @@ public interface AlgoCommandService {
 
     void createCorrectQuizHistory(final int memberId, final int questionId) throws Exception;
 
-    List<AlgoQuizQuestionResponseDTO> createAlgoQuiz(final int postId, final List<AlgoQuizQuestionRequestDTO> request) throws Exception;
+    AlgoQuizQuestionResponseDTO createAlgoQuiz(final int postId, final AlgoQuizQuestionRequestDTO request) throws Exception;
 }

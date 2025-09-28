@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AlgoQuizQuestionCommandRepository extends JpaRepository<AlgoQuizQuestion, Integer> {
     int countByAlgoPost(final AlgoPost algoPost);
+
+    boolean existsByQuestionLike(final String question);
 }

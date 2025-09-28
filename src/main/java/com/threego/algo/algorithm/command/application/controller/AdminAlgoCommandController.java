@@ -63,9 +63,9 @@ public class AdminAlgoCommandController {
 
     @Operation(summary = "알고리즘 학습 게시물 퀴즈 등록", description = "관리자가 알고리즘 학습 게시물 퀴즈를 등록하는 API입니다.")
     @PostMapping("/posts/{postId}/quizzes")
-    public ResponseEntity<List<AlgoQuizQuestionResponseDTO>> createAlgoQuiz(@PathVariable("postId") final int postId,
-                                                 @RequestBody final List<AlgoQuizQuestionRequestDTO> request) throws Exception {
-        List<AlgoQuizQuestionResponseDTO> response = algoCommandService.createAlgoQuiz(postId, request);
+    public ResponseEntity<AlgoQuizQuestionResponseDTO> createAlgoQuiz(@PathVariable("postId") final int postId,
+                                                 @RequestBody final AlgoQuizQuestionRequestDTO request) throws Exception {
+        AlgoQuizQuestionResponseDTO response = algoCommandService.createAlgoQuiz(postId, request);
 
         return ResponseEntity.ok(response);
     }

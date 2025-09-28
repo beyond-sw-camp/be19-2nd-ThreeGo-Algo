@@ -180,34 +180,32 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
     @Transactional
     @Override
-    public List<AlgoQuizQuestionResponseDTO> createAlgoQuiz(int postId, List<AlgoQuizQuestionRequestDTO> request) throws Exception {
+    public AlgoQuizQuestionResponseDTO createAlgoQuiz(int postId, AlgoQuizQuestionRequestDTO request) throws Exception {
         final AlgoPost algoPost = findAlgoPostById(postId);
 
-        final List<AlgoQuizQuestionResponseDTO> response = new ArrayList<>();
+        validQuizQuestion(request.getQuestion());
 
-        for (AlgoQuizQuestionRequestDTO quizRequest : request) {
-            final AlgoQuizQuestion algoQuizQuestion = new AlgoQuizQuestion(quizRequest.getQuestion(), quizRequest.getType()
-                    , algoPost);
+        final AlgoQuizQuestion algoQuizQuestion = new AlgoQuizQuestion(request.getQuestion(), request.getType(), algoPost);
 
-            final AlgoQuizQuestion savedAlgoQuizQuestion = algoQuizQuestionCommandRepository.save(algoQuizQuestion);
+        final AlgoQuizQuestion savedAlgoQuizQuestion = algoQuizQuestionCommandRepository.save(algoQuizQuestion);
 
-            final List<AlgoQuizOption> options = quizRequest.getOptions().stream()
-                    .map((option) -> new AlgoQuizOption(option.getOptionText(), option.isCorrect(), savedAlgoQuizQuestion))
-                    .collect(Collectors.toList());
+        final List<AlgoQuizOption> options = request.getOptions().stream()
+                .map((option) -> new AlgoQuizOption(option.getOptionText(), option.isCorrect(), savedAlgoQuizQuestion))
+                .collect(Collectors.toList());
 
-            final List<AlgoQuizOptionResponseDTO> optionResponse = algoQuizOptionCommandRepository.saveAll(options).stream()
-                    .map(AlgoQuizOptionResponseDTO::of)
-                    .collect(Collectors.toList());
+        final List<AlgoQuizOptionResponseDTO> optionResponse = algoQuizOptionCommandRepository.saveAll(options).stream()
+                .map(AlgoQuizOptionResponseDTO::of)
+                .collect(Collectors.toList());
 
-            final AlgoQuizQuestionResponseDTO questionResponse = AlgoQuizQuestionResponseDTO.of(savedAlgoQuizQuestion
-                    , optionResponse);
+        algoPost.getAlgoRoadmap().updateQuestionCount(algoPost.getAlgoRoadmap().getQuestionCount() + 1);
 
-            response.add(questionResponse);
+        return AlgoQuizQuestionResponseDTO.of(savedAlgoQuizQuestion, optionResponse);
+    }
+
+    private void validQuizQuestion(final String question) {
+        if (algoQuizQuestionCommandRepository.existsByQuestionLike(question)) {
+            throw new RuntimeException("이미 동일한 내용의 퀴즈 질문이 존재합니다.");
         }
-
-        algoPost.getAlgoRoadmap().updateQuestionCount(algoPost.getAlgoRoadmap().getQuestionCount() + response.size());
-
-        return response;
     }
 
     private AlgoQuizQuestion findAlgoQuizQuestion(final int questionId) throws Exception {
@@ -217,7 +215,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private void validAuthor(final Member author, final Member loginMember) throws Exception {
         if (author != loginMember) {
             // TODO 커스텀 예외 발생
-            throw new Exception("작성자가 아니므로 수정 및 삭제 권한 존재하지 않는다.");
+            throw new Exception("작성자가 아니므로 수정 및 삭제 권한이 없습니다.");
         }
     }
 
@@ -235,7 +233,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
     private void validAlgoRoadmapTitle(final String title) {
         if (algoRoadmapCommandRepository.existsByTitle(title)) {
-            throw new RuntimeException("제목을 가진 로드맵이 이미 존재합니다.");
+            throw new RuntimeException("이미 존재하는 로드맵 제목입니다.");
         }
     }
 
