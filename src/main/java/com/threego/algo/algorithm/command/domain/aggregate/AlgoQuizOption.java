@@ -28,4 +28,9 @@ public class AlgoQuizOption {
         this.isCorrect = isCorrect;
         this.algoQuizQuestion = algoQuizQuestion;
     }
+
+    public void updateAlgoQuizOption(final String optionText, final boolean isCorrect) {
+        this.optionText = optionText;
+        this.isCorrect = isCorrect;
+    }
 }

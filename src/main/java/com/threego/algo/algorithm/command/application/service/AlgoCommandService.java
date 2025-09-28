@@ -3,8 +3,6 @@ package com.threego.algo.algorithm.command.application.service;
 import com.threego.algo.algorithm.command.application.dto.*;
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 
-import java.util.List;
-
 public interface AlgoCommandService {
     AlgoRoadmap createAlgoRoadmap(final AlgoRoadmapRequestDTO request);
 
@@ -23,4 +21,6 @@ public interface AlgoCommandService {
     void createCorrectQuizHistory(final int memberId, final int questionId) throws Exception;
 
     AlgoQuizQuestionResponseDTO createAlgoQuiz(final int postId, final AlgoQuizQuestionRequestDTO request) throws Exception;
+
+    AlgoQuizQuestionResponseDTO updateAlgoQuiz(final int quizQuestionId, final UpdateAlgoQuizQuestionRequestDTO request) throws Exception;
 }

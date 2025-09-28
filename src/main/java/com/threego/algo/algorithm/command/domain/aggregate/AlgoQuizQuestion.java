@@ -30,4 +30,8 @@ public class AlgoQuizQuestion {
         this.type = type;
         this.algoPost = algoPost;
     }
+
+    public void updateQuestion(final String question) {
+        this.question = question;
+    }
 }

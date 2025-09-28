@@ -202,6 +202,34 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         return AlgoQuizQuestionResponseDTO.of(savedAlgoQuizQuestion, optionResponse);
     }
 
+    @Transactional
+    @Override
+    public AlgoQuizQuestionResponseDTO updateAlgoQuiz(final int quizQuestionId,
+                                                      final UpdateAlgoQuizQuestionRequestDTO request) throws Exception {
+        final AlgoQuizQuestion quizQuestion = findAlgoQuizQuestion(quizQuestionId);
+
+        if (!quizQuestion.getQuestion().equals(request.getQuestion())) {
+            validQuizQuestion(request.getQuestion());
+            quizQuestion.updateQuestion(request.getQuestion());
+        }
+
+        final List<AlgoQuizOption> algoQuizOptions = algoQuizOptionCommandRepository.findByAlgoQuizQuestion(quizQuestion);
+        final List<AlgoQuizOptionResponseDTO> optionResponse = new ArrayList<>();
+
+        for (UpdateAlgoQuizOptionRequestDTO dto : request.getOptions()) {
+            final AlgoQuizOption algoQuizOption = algoQuizOptions.stream()
+                    .filter((option) -> option.getId() == dto.getOptionId())
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("존재하지 않는 보기입니다."));
+
+            algoQuizOption.updateAlgoQuizOption(dto.getOptionText(), dto.isCorrect());
+
+            optionResponse.add(AlgoQuizOptionResponseDTO.of(algoQuizOption));
+        }
+
+        return AlgoQuizQuestionResponseDTO.of(quizQuestion, optionResponse);
+    }
+
     private void validQuizQuestion(final String question) {
         if (algoQuizQuestionCommandRepository.existsByQuestionLike(question)) {
             throw new RuntimeException("이미 동일한 내용의 퀴즈 질문이 존재합니다.");

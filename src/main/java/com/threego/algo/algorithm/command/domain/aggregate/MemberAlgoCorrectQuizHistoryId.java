@@ -1,6 +1,5 @@
-package com.threego.algo.algorithm.command.application.dto;
+package com.threego.algo.algorithm.command.domain.aggregate;
 
-import com.threego.algo.algorithm.command.domain.aggregate.AlgoQuizQuestion;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;

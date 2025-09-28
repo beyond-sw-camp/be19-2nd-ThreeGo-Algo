@@ -1,6 +1,5 @@
 package com.threego.algo.algorithm.command.domain.aggregate;
 
-import com.threego.algo.algorithm.command.application.dto.MemberAlgoCorrectQuizHistoryId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
