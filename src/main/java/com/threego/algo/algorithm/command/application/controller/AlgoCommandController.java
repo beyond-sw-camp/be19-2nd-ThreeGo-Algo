@@ -47,4 +47,14 @@ public class AlgoCommandController {
 
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "퀴즈 정답 제출",
+            description = "회원이 알고리즘 학습 게시물의 퀴즈에 답을 제출하고, 정답일 경우 맞힌 기록을 저장하는 API입니다.")
+    @PostMapping("/quizzes/{questionId}/answers")
+    public ResponseEntity<Void> createCorrectQuizHistory(@PathVariable("questionId") final int questionId) throws Exception {
+        // TODO. memberID는 Authentication에서 받아오도록 수정 필요
+        algoCommandService.createCorrectQuizHistory(1, questionId);
+
+        return ResponseEntity.ok().build();
+    }
 }

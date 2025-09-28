@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Table(name = "Algo_roadmap")
+@Table(name = "algo_roadmap")
 @NoArgsConstructor
 @Entity
 public class AlgoRoadmap {

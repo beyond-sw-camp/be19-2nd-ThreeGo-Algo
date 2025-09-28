@@ -22,6 +22,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository;
     private final AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository;
     private final AlgoCommentRepository algoCommentRepository;
+    private final MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository;
 
     @Autowired
     public AlgoCommandServiceImpl(AlgoRoadmapCommandRepository algoRoadmapCommandRepository
@@ -30,7 +31,8 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             , AlgoPostImageCommandRepository algoPostImageCommandRepository
             , AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository
             , AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository
-            , AlgoCommentRepository algoCommentRepository) {
+            , AlgoCommentRepository algoCommentRepository
+            , MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository) {
         this.algoRoadmapCommandRepository = algoRoadmapCommandRepository;
         this.memberCommandRepository = memberCommandRepository;
         this.algoPostCommandRepository = algoPostCommandRepository;
@@ -38,6 +40,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         this.algoQuizQuestionCommandRepository = algoQuizQuestionCommandRepository;
         this.algoQuizOptionCommandRepository = algoQuizOptionCommandRepository;
         this.algoCommentRepository = algoCommentRepository;
+        this.memberAlgoCorrectQuizHistoryCommandRepository = memberAlgoCorrectQuizHistoryCommandRepository;
     }
 
     @Override
@@ -184,6 +187,26 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         final AlgoPost algoPost = comment.getAlgoPost();
 
         algoPost.updateCommentCount(algoPost.getCommentCount() - 1);
+    }
+
+    @Transactional
+    @Override
+    public void createCorrectQuizHistory(int memberId, int questionId) throws Exception {
+        final Member member = findMemberById(memberId);
+
+        final AlgoQuizQuestion quizQuestion = findAlgoQuizQuestion(questionId);
+
+        final MemberAlgoCorrectQuizHistoryId id = new MemberAlgoCorrectQuizHistoryId(member, quizQuestion);
+
+        if (!memberAlgoCorrectQuizHistoryCommandRepository.existsById(id)) {
+            memberAlgoCorrectQuizHistoryCommandRepository.save(new MemberAlgoCorrectQuizHistory(id));
+        } else {
+            throw new Exception("이미 등록된 퀴즈 정답 제출 이력입니다.");
+        }
+    }
+
+    private AlgoQuizQuestion findAlgoQuizQuestion(final int questionId) throws Exception {
+        return algoQuizQuestionCommandRepository.findById(questionId).orElseThrow(Exception::new);
     }
 
     private void validAuthor(final Member author, final Member loginMember) throws Exception {

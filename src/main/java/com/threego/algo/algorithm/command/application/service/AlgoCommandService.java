@@ -20,4 +20,6 @@ public interface AlgoCommandService {
     void updateComment(final int memberId, final int commentId, final AlgoCommentRequestDTO request) throws Exception;
 
     void deleteComment(final int memberId, final int commentId) throws Exception;
+
+    void createCorrectQuizHistory(final int memberId, final int questionId) throws Exception;
 }
