@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface AlgoQuizOptionCommandRepository extends JpaRepository<AlgoQuizOption, Integer> {
     List<AlgoQuizOption> findByAlgoQuizQuestion(final AlgoQuizQuestion algoQuizQuestion);
+
+    void deleteByAlgoQuizQuestion(final AlgoQuizQuestion algoQuizQuestion);
 }

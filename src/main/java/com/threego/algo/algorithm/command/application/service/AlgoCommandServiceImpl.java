@@ -278,6 +278,22 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         algoPost.updateCommentCount(algoPost.getCommentCount() - 1);
     }
 
+    @Transactional
+    @Override
+    public void deleteAlgoQuizQuestion(final int quizQuestionId) throws Exception {
+        final AlgoQuizQuestion algoQuizQuestion = findAlgoQuizQuestion(quizQuestionId);
+
+        final AlgoPost algoPost = algoQuizQuestion.getAlgoPost();
+
+        algoQuizOptionCommandRepository.deleteByAlgoQuizQuestion(algoQuizQuestion);
+
+        algoQuizQuestionCommandRepository.deleteById(algoQuizQuestion.getId());
+
+        final int totalQuizCount = algoPost.getAlgoRoadmap().getQuestionCount();
+
+        algoPost.getAlgoRoadmap().updateQuestionCount(totalQuizCount - 1);
+    }
+
     private void validQuizQuestion(final String question) {
         if (algoQuizQuestionCommandRepository.existsByQuestionLike(question)) {
             throw new RuntimeException("이미 동일한 내용의 퀴즈 질문이 존재합니다.");

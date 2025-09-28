@@ -97,4 +97,12 @@ public class AdminAlgoCommandController {
 
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "알고리즘 학습 게시물 퀴즈 삭제", description = "관리자가 알고리즘 학습 게시물 댓글을 삭제하는 API입니다.")
+    @DeleteMapping("/quizzes/{quizQuestionId}")
+    public ResponseEntity<Void> deleteAlgoQuizQuestion(@PathVariable("quizQuestionId") final int quizQuestionId) throws Exception {
+        algoCommandService.deleteAlgoQuizQuestion(quizQuestionId);
+
+        return ResponseEntity.ok().build();
+    }
 }
