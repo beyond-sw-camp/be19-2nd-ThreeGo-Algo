@@ -1,5 +1,6 @@
 package com.threego.algo.coding.command.domain.aggregate;
 
+import com.threego.algo.common.util.DateTimeUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class CodingPostImage {
     @Column(name = "image_url", nullable = false, length = 255)
     private String imageUrl;
 
-    @Column(name = "created_at", nullable = false, length = 20)
-    private String createdAt;
+    public CodingPostImage(CodingPost post, String imageUrl, String createdAt) {
+        this.post = post;
+        this.imageUrl = imageUrl;
+    }
 
 }

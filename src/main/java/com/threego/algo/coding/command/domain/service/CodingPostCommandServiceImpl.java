@@ -1,0 +1,156 @@
+package com.threego.algo.coding.command.domain.service;
+
+import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
+import com.threego.algo.coding.command.application.dto.CodingPostImageRequestDTO;
+import com.threego.algo.coding.command.application.dto.CodingPostRequestDTO;
+import com.threego.algo.coding.command.domain.aggregate.CodingComment;
+import com.threego.algo.coding.command.domain.aggregate.CodingPost;
+import com.threego.algo.coding.command.domain.aggregate.CodingPostImage;
+import com.threego.algo.coding.command.domain.aggregate.CodingProblem;
+import com.threego.algo.coding.command.domain.repository.CodingCommentRepository;
+import com.threego.algo.coding.command.domain.repository.CodingPostImageRepository;
+import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
+import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
+import com.threego.algo.member.command.domain.aggregate.Member;
+import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
+import com.threego.algo.common.util.DateTimeUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class CodingPostCommandServiceImpl implements CodingPostCommandService {
+
+    private final CodingPostRepository postRepository;
+    private final CodingPostImageRepository imageRepository;
+    private final CodingCommentRepository commentRepository;
+    private final CodingProblemRepository problemRepository;
+    private final MemberCommandRepository memberRepository;
+
+    @Override
+    @Transactional
+    public int createPost(CodingPostRequestDTO dto) {
+        Member member = memberRepository.findById(dto.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("작성자(Member) 없음: " + dto.getMemberId()));
+
+        CodingProblem problem = problemRepository.findById(dto.getProblemId())
+                .orElseThrow(() -> new IllegalArgumentException("문제 없음: " + dto.getProblemId()));
+
+        CodingPost post = CodingPost.create(member, problem, dto.getTitle(), dto.getContent());
+        CodingPost saved = postRepository.save(post);
+
+        // 즉시 동기화: 해당 문제의 postCount 재계산
+        problem.syncPostCount(); // problem은 관리 상태이므로 commit 시 반영됨
+
+        return saved.getId();
+    }
+
+    @Override
+    @Transactional
+    public int addImage(int postId, CodingPostImageRequestDTO dto) {
+        CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
+
+        CodingPostImage image = new CodingPostImage(post, dto.getImageUrl(), DateTimeUtils.nowDateTime());
+        CodingPostImage saved = imageRepository.save(image);
+        return saved.getId();
+    }
+
+    @Override
+    @Transactional
+    public CodingPost updatePost(int postId, CodingPostRequestDTO dto) {
+        CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
+
+        if ("N".equals(post.getVisibility())) {
+            throw new IllegalStateException("삭제된 게시물은 수정할 수 없습니다.");
+        }
+
+        post.update(dto.getTitle(), dto.getContent());
+        return post;
+    }
+
+    @Override
+    @Transactional
+    public void softDeletePost(int postId) {
+        CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
+
+        if ("N".equals(post.getVisibility())) {
+            throw new IllegalStateException("이미 삭제된 게시물입니다.");
+        }
+
+        post.delete(); // visibility = 'N'
+
+        // 즉시 동기화: 해당 문제의 postCount 재계산
+        CodingProblem problem = post.getProblem();
+        if (problem != null) {
+            problem.syncPostCount();
+        }
+    }
+
+    @Override
+    @Transactional
+    public int addComment(int postId, CodingCommentRequestDTO dto) {
+        // member, post 조회
+        Member member = memberRepository.findById(dto.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("작성자(Member) 없음: " + dto.getMemberId()));
+
+        CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
+
+        // parent가 있으면 검증: 부모가 같은 게시물에 속해야 함
+        CodingComment parent = null;
+        if (dto.getParentId() > 0) {
+            parent = commentRepository.findById(dto.getParentId())
+                    .orElseThrow(() -> new IllegalArgumentException("부모 댓글 없음: " + dto.getParentId()));
+            if (parent.getPost().getId() != postId) {
+                throw new IllegalArgumentException("부모 댓글은 같은 게시물에 속해야 합니다.");
+            }
+            if ("N".equals(parent.getVisibility())) {
+                throw new IllegalStateException("부모 댓글이 이미 삭제되어 있습니다.");
+            }
+        }
+
+        CodingComment comment = CodingComment.create(member, post, dto.getContent(), parent);
+        CodingComment saved = commentRepository.save(comment);
+
+        // 게시물의 댓글 수 증가 (대댓글도 게시물 전체 commentCount에 포함)
+        post.increaseCommentCount();
+
+        return saved.getId();
+    }
+
+    @Override
+    @Transactional
+    public void updateComment(int commentId, CodingCommentRequestDTO dto) {
+        CodingComment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 없음: " + commentId));
+
+        if ("N".equals(comment.getVisibility())) {
+            throw new IllegalStateException("삭제된 댓글은 수정할 수 없습니다.");
+        }
+
+        comment.update(dto.getContent());
+    }
+
+    @Override
+    @Transactional
+    public void softDeleteComment(int commentId) {
+        CodingComment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 없음: " + commentId));
+
+        if ("N".equals(comment.getVisibility())) {
+            throw new IllegalStateException("이미 삭제된 댓글입니다.");
+        }
+
+        comment.delete(); // visibility = 'N'
+
+        // 게시물의 댓글 수 감소 (대댓글 삭제도 게시물 전체 count에 반영)
+        CodingPost post = comment.getPost();
+        if (post != null) {
+            post.decreaseCommentCount();
+        }
+    }
+}
