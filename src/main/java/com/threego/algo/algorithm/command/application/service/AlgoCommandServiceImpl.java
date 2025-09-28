@@ -3,6 +3,7 @@ package com.threego.algo.algorithm.command.application.service;
 import com.threego.algo.algorithm.command.application.dto.*;
 import com.threego.algo.algorithm.command.domain.aggregate.*;
 import com.threego.algo.algorithm.command.domain.repository.*;
+import com.threego.algo.algorithm.query.dao.AlgoMapper;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoCommentRepository algoCommentRepository;
     private final MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository;
 
+    private final AlgoMapper algoMapper;
+
     @Autowired
     public AlgoCommandServiceImpl(AlgoRoadmapCommandRepository algoRoadmapCommandRepository
             , MemberCommandRepository memberCommandRepository
@@ -32,7 +35,8 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             , AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository
             , AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository
             , AlgoCommentRepository algoCommentRepository
-            , MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository) {
+            , MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository
+            , AlgoMapper algoMapper) {
         this.algoRoadmapCommandRepository = algoRoadmapCommandRepository;
         this.memberCommandRepository = memberCommandRepository;
         this.algoPostCommandRepository = algoPostCommandRepository;
@@ -41,6 +45,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         this.algoQuizOptionCommandRepository = algoQuizOptionCommandRepository;
         this.algoCommentRepository = algoCommentRepository;
         this.memberAlgoCorrectQuizHistoryCommandRepository = memberAlgoCorrectQuizHistoryCommandRepository;
+        this.algoMapper = algoMapper;
     }
 
     @Override
@@ -183,6 +188,13 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             memberAlgoCorrectQuizHistoryCommandRepository.save(new MemberAlgoCorrectQuizHistory(id));
         } else {
             throw new RuntimeException("이미 등록된 퀴즈 정답 제출 이력입니다.");
+        }
+
+        final int correctQuizCount = algoMapper.countMemberCorrectAnswersInRoadmap(memberId,
+                quizQuestion.getAlgoPost().getAlgoRoadmap().getId());
+
+        if (correctQuizCount + 1 == quizQuestion.getAlgoPost().getAlgoRoadmap().getQuestionCount()) {
+            // TODO 로드맵 대분류의 퀴즈를 전부 맞힌 경우 포인트 20 증가
         }
     }
 

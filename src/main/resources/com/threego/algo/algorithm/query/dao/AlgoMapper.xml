@@ -208,4 +208,16 @@
           WHERE A.ALGO_POST_ID = #{postId}
           ORDER BY A.ID;
     </select>
+
+    <select id="countMemberCorrectAnswersInRoadmap" resultType="_int">
+        SELECT COUNT(A.ALGO_QUIZ_QUESTION_ID)
+          FROM MEMBER_ALGO_CORRECT_QUIZ_HISTORY A
+          JOIN ALGO_QUIZ_QUESTION B
+            ON A.ALGO_QUIZ_QUESTION_ID = B.ID
+          JOIN ALGO_POST C
+            ON B.ALGO_POST_ID = C.ID
+         WHERE A.MEMBER_ID = #{memberId}
+           AND C.VISIBILITY = 'Y'
+           AND C.ROADMAP_ID = #{roadmapId}
+    </select>
 </mapper>
