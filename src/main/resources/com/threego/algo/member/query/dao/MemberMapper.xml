@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.threego.algo.member.query.dao.MemberMapper">
     <!-- 회원: 정보 조회 -->
-    <select id="findMemberById" resultType="com.threego.algo.member.query.dto.MemberDetailResponseDTO">
+    <select id="selectMemberById" resultType="com.threego.algo.member.query.dto.MemberDetailResponseDTO">
         SELECT
                A.ID
              , A.EMAIL
