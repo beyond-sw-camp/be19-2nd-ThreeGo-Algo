@@ -46,14 +46,15 @@ public class WebSecurity {
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(authz ->
-                authz.requestMatchers( "/member/**").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/algo/**").permitAll()
-                        .requestMatchers("/coding/**").permitAll()
-                        .requestMatchers("/career-info/**").permitAll()
-                        .requestMatchers("/study-recruit/**").permitAll()
-                        .requestMatchers("/study/**").permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                authz.requestMatchers( "/**").permitAll()
+//                authz.requestMatchers( "/member/**").permitAll()
+//                        .requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers("/algo/**").permitAll()
+//                        .requestMatchers("/coding/**").permitAll()
+//                        .requestMatchers("/career-info/**").permitAll()
+//                        .requestMatchers("/study-recruit/**").permitAll()
+//                        .requestMatchers("/study/**").permitAll()
+//                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
 
                         .anyRequest().authenticated()
         )
