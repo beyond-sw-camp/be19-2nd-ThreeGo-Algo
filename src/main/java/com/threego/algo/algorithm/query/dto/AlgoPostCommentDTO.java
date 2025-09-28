@@ -26,7 +26,7 @@ public class AlgoPostCommentDTO {
 
     private String updatedAt;
 
-    private char visibility;
+    private String visibility;
 
     private List<AlgoPostCommentDTO> childComments;
 }

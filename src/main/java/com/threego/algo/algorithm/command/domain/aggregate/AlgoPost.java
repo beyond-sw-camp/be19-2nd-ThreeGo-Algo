@@ -27,7 +27,8 @@ public class AlgoPost {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    private char visibility;
+    @Column(nullable = false, length = 1)
+    private String visibility;
 
     @Column(name = "like_count")
     private int likeCount;
@@ -47,7 +48,7 @@ public class AlgoPost {
         this.title = title;
         this.content = content;
         this.createdAt = DateTimeUtils.nowDateTime();
-        this.visibility = 'Y';
+        this.visibility = "Y";
         this.likeCount = 0;
         this.commentCount = 0;
         this.algoRoadmap = algoRoadmap;
@@ -55,7 +56,7 @@ public class AlgoPost {
     }
 
     public void updateVisibility() {
-        this.visibility = 'N';
+        this.visibility = "Y";
 
         this.updatedAt = DateTimeUtils.nowDateTime();
     }

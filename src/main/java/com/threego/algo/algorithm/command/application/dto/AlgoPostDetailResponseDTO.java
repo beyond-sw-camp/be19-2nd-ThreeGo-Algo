@@ -43,7 +43,7 @@ public class AlgoPostDetailResponseDTO {
     private int commentCount;
 
     @Schema(description = "알고리즘 학습 게시물 삭제 여부")
-    private char visibility;
+    private String visibility;
 
     @Schema(description = "알고리즘 학습 게시물 퀴즈 리스트")
     private List<AlgoQuizQuestionResponseDTO> quizzes;

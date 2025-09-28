@@ -182,7 +182,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
         validAuthor(comment.getMember(), member);
 
-        comment.updateVisibility('N');
+        comment.updateVisibility();
 
         final AlgoPost algoPost = comment.getAlgoPost();
 

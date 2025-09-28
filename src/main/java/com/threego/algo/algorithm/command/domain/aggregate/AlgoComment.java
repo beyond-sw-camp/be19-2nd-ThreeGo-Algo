@@ -21,7 +21,8 @@ public class AlgoComment {
 
     private String updatedAt;
 
-    private char visibility;
+    @Column(nullable = false, length = 1)
+    private String visibility;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -41,7 +42,7 @@ public class AlgoComment {
         this.member = member;
         this.algoPost = algoPost;
         this.parent = parent;
-        this.visibility = 'Y';
+        this.visibility = "Y";
     }
 
     public void updateContent(final String content) {
@@ -51,8 +52,8 @@ public class AlgoComment {
         }
     }
 
-    public void updateVisibility(final char visibility) {
-        this.visibility = visibility;
+    public void updateVisibility() {
+        this.visibility = "N";
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
 }
