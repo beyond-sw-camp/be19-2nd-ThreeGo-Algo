@@ -57,6 +57,16 @@ public class CareerInfoPost {
         this.createdAt = DateTimeUtils.nowDateTime();
     }
 
+    public static CareerInfoPost create(Member member, String title, String content, String imageUrl) {
+        CareerInfoPost post = new CareerInfoPost(member, title, content);
+
+        if(imageUrl != null && !imageUrl.isBlank()) {
+            post.imageUrl = imageUrl;
+            post.status = Status.PENDING;
+        }
+        return post;
+    }
+
     public void delete() {
         this.visibility = "N";
     }

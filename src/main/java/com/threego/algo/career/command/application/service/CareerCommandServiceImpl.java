@@ -26,21 +26,25 @@ public class CareerCommandServiceImpl implements CareerCommandService{
     }
 
     @Transactional
+    @Override
     public Integer createPost(CareerPostCreateRequest request) {
         // TODO: 로그인 회원 정보 가져오기 (Spring Security에서 인증 객체 활용)
         Member member = memberRepository.findById(1)
                 .orElseThrow(() -> new IllegalArgumentException("테스트용 회원이 없습니다."));
 
-        CareerInfoPost post = new CareerInfoPost(
+        // TODO: 이미지 업로드 시점 및 S3 적용 고려
+        CareerInfoPost post = CareerInfoPost.create(
                 member,
                 request.getTitle(),
-                request.getContent()
+                request.getContent(),
+                request.getImageUrl()
         );
 
         return careerPostRepository.save(post).getId();
     }
 
     @Transactional
+    @Override
     public void deletePost(int postId) {
         CareerInfoPost post = careerPostRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
@@ -55,6 +59,7 @@ public class CareerCommandServiceImpl implements CareerCommandService{
     }
 
     @Transactional
+    @Override
     public Integer createComment(int postId,
                                  Integer parentId,
                                  CareerCommentRequest request
@@ -85,6 +90,7 @@ public class CareerCommandServiceImpl implements CareerCommandService{
     }
 
     @Transactional
+    @Override
     public void updateComment(int commentId, CareerCommentRequest request) {
         CareerInfoComment comment = careerCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
@@ -94,6 +100,7 @@ public class CareerCommandServiceImpl implements CareerCommandService{
     }
 
     @Transactional
+    @Override
     public void deleteComment(int commentId) {
         CareerInfoComment comment = careerCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
