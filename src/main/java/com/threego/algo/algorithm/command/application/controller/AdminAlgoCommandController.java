@@ -1,9 +1,6 @@
 package com.threego.algo.algorithm.command.application.controller;
 
-import com.threego.algo.algorithm.command.application.dto.AlgoPostDetailResponseDTO;
-import com.threego.algo.algorithm.command.application.dto.AlgoPostRequestDTO;
-import com.threego.algo.algorithm.command.application.dto.AlgoRoadmapRequestDTO;
-import com.threego.algo.algorithm.command.application.dto.AlgoRoadmapResponseDTO;
+import com.threego.algo.algorithm.command.application.dto.*;
 import com.threego.algo.algorithm.command.application.service.AlgoCommandService;
 import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "Admin Algorithm - Command", description = "관리자용 알고리즘 학습 API (Command)")
 @RequestMapping("/admin/algo")
@@ -60,5 +59,14 @@ public class AdminAlgoCommandController {
         algoCommandService.deleteAlgoPost(postId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "알고리즘 학습 게시물 퀴즈 등록", description = "관리자가 알고리즘 학습 게시물 퀴즈를 등록하는 API입니다.")
+    @PostMapping("/posts/{postId}/quizzes")
+    public ResponseEntity<List<AlgoQuizQuestionResponseDTO>> createAlgoQuiz(@PathVariable("postId") final int postId,
+                                                 @RequestBody final List<AlgoQuizQuestionRequestDTO> request) throws Exception {
+        List<AlgoQuizQuestionResponseDTO> response = algoCommandService.createAlgoQuiz(postId, request);
+
+        return ResponseEntity.ok(response);
     }
 }

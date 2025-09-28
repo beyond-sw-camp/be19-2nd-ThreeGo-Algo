@@ -92,33 +92,6 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
         response.setImageUrls(savedAlgoPostImages);
 
-        final List<AlgoQuizQuestionResponseDTO> questionResponses = new ArrayList<>();
-
-        for (AlgoQuizQuestionRequestDTO quizRequest : request.getQuizzes()) {
-            final AlgoQuizQuestion algoQuizQuestion = new AlgoQuizQuestion(quizRequest.getQuestion(), quizRequest.getType()
-                    , algoPost);
-
-            final AlgoQuizQuestion savedAlgoQuizQuestion = algoQuizQuestionCommandRepository.save(algoQuizQuestion);
-
-            final List<AlgoQuizOption> options = quizRequest.getOptions().stream()
-                    .map((option) -> new AlgoQuizOption(option.getOptionText(), option.isCorrect(), savedAlgoQuizQuestion))
-                    .collect(Collectors.toList());
-
-            final List<AlgoQuizOptionResponseDTO> optionResponse = algoQuizOptionCommandRepository.saveAll(options).stream()
-                    .map(AlgoQuizOptionResponseDTO::of)
-                    .collect(Collectors.toList());
-
-            final AlgoQuizQuestionResponseDTO questionResponse = AlgoQuizQuestionResponseDTO.of(savedAlgoQuizQuestion
-                    , optionResponse);
-
-            questionResponses.add(questionResponse);
-        }
-
-        response.setQuizzes(questionResponses);
-
-        algoPost.getAlgoRoadmap().updateQuestionCount(algoPost.getAlgoRoadmap().getQuestionCount()
-                + questionResponses.size());
-
         return response;
     }
 
@@ -203,6 +176,38 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
         } else {
             throw new Exception("이미 등록된 퀴즈 정답 제출 이력입니다.");
         }
+    }
+
+    @Transactional
+    @Override
+    public List<AlgoQuizQuestionResponseDTO> createAlgoQuiz(int postId, List<AlgoQuizQuestionRequestDTO> request) throws Exception {
+        final AlgoPost algoPost = findAlgoPostById(postId);
+
+        final List<AlgoQuizQuestionResponseDTO> response = new ArrayList<>();
+
+        for (AlgoQuizQuestionRequestDTO quizRequest : request) {
+            final AlgoQuizQuestion algoQuizQuestion = new AlgoQuizQuestion(quizRequest.getQuestion(), quizRequest.getType()
+                    , algoPost);
+
+            final AlgoQuizQuestion savedAlgoQuizQuestion = algoQuizQuestionCommandRepository.save(algoQuizQuestion);
+
+            final List<AlgoQuizOption> options = quizRequest.getOptions().stream()
+                    .map((option) -> new AlgoQuizOption(option.getOptionText(), option.isCorrect(), savedAlgoQuizQuestion))
+                    .collect(Collectors.toList());
+
+            final List<AlgoQuizOptionResponseDTO> optionResponse = algoQuizOptionCommandRepository.saveAll(options).stream()
+                    .map(AlgoQuizOptionResponseDTO::of)
+                    .collect(Collectors.toList());
+
+            final AlgoQuizQuestionResponseDTO questionResponse = AlgoQuizQuestionResponseDTO.of(savedAlgoQuizQuestion
+                    , optionResponse);
+
+            response.add(questionResponse);
+        }
+
+        algoPost.getAlgoRoadmap().updateQuestionCount(algoPost.getAlgoRoadmap().getQuestionCount() + response.size());
+
+        return response;
     }
 
     private AlgoQuizQuestion findAlgoQuizQuestion(final int questionId) throws Exception {
