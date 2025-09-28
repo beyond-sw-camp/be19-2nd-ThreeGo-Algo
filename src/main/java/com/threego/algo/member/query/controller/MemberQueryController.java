@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Member", description = "회원 조회 API")
+@Tag(name = "Member API", description = "회원 조회 API")
 @RestController
 @RequestMapping("/member")
 public class MemberQueryController {
