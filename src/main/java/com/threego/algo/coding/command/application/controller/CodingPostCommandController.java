@@ -3,12 +3,11 @@ package com.threego.algo.coding.command.application.controller;
 import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostImageRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostRequestDTO;
-import com.threego.algo.coding.command.domain.service.CodingPostCommandService;
+import com.threego.algo.coding.command.application.service.CodingPostCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Coding Post- Command", description = "회원용 코딩게시물 API (Command)")
 @RestController

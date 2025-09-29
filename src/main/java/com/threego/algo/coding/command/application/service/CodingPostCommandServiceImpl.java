@@ -1,4 +1,4 @@
-package com.threego.algo.coding.command.domain.service;
+package com.threego.algo.coding.command.application.service;
 
 import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostImageRequestDTO;
@@ -13,7 +13,6 @@ import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
 import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
-import com.threego.algo.common.util.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

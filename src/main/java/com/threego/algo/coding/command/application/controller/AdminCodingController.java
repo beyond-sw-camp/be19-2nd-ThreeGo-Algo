@@ -3,8 +3,8 @@ package com.threego.algo.coding.command.application.controller;
 import com.threego.algo.coding.command.application.dto.CodingPostRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingProblemRequestDTO;
+import com.threego.algo.coding.command.application.service.AdminCodingPostCommandService;
 import com.threego.algo.coding.command.domain.aggregate.*;
-import com.threego.algo.coding.command.domain.service.AdminCodingPostCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +25,6 @@ public class AdminCodingController {
     public ResponseEntity<CodingPost> updatePost(@PathVariable int postId,
                                                  @RequestBody CodingPostRequestDTO dto,
                                                  @RequestParam int adminId) {
-        validateAdmin(adminId);
         return ResponseEntity.ok(service.updatePost(postId, dto));
     }
 
@@ -33,7 +32,6 @@ public class AdminCodingController {
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable int postId,
                                            @RequestParam int adminId) {
-        validateAdmin(adminId);
         service.deletePost(postId);
         return ResponseEntity.noContent().build();
     }
@@ -43,7 +41,6 @@ public class AdminCodingController {
     public ResponseEntity<CodingComment> updateComment(@PathVariable int commentId,
                                                        @RequestBody CodingCommentRequestDTO dto,
                                                        @RequestParam int adminId) {
-        validateAdmin(adminId);
         return ResponseEntity.ok(service.updateComment(commentId, dto));
     }
 
@@ -51,7 +48,6 @@ public class AdminCodingController {
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable int commentId,
                                               @RequestParam int adminId) {
-        validateAdmin(adminId);
         service.deleteComment(commentId);
         return ResponseEntity.noContent().build();
     }
@@ -60,7 +56,6 @@ public class AdminCodingController {
     @PostMapping("/coding-problem/posts")
     public ResponseEntity<CodingProblem> createProblem(@RequestBody CodingProblemRequestDTO dto,
                                                        @RequestParam int adminId) {
-        validateAdmin(adminId);
         CodingProblem problem = service.createProblem(dto);
         return ResponseEntity.ok(problem);
     }
@@ -70,7 +65,6 @@ public class AdminCodingController {
     public ResponseEntity<CodingProblem> updateProblem(@PathVariable int problemId,
                                                        @RequestBody CodingProblemRequestDTO dto,
                                                        @RequestParam int adminId) {
-        validateAdmin(adminId);
         return ResponseEntity.ok(service.updateProblem(problemId, dto));
     }
 
@@ -78,7 +72,6 @@ public class AdminCodingController {
     @DeleteMapping("/coding-problem/{problemId}")
     public ResponseEntity<Void> deleteProblem(@PathVariable int problemId,
                                               @RequestParam int adminId) {
-        validateAdmin(adminId);
         service.deleteProblem(problemId);
         return ResponseEntity.noContent().build();
     }

@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CodingCommentRequestDTO {
     private int memberId;
-    private int parentId;   // 대댓글일 경우
+    private Integer parentId;   // 대댓글일 경우
     private String content;
 }

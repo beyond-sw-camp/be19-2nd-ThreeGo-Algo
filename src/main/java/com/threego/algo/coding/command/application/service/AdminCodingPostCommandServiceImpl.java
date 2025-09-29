@@ -1,4 +1,4 @@
-package com.threego.algo.coding.command.domain.service;
+package com.threego.algo.coding.command.application.service;
 
 import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostRequestDTO;
@@ -6,7 +6,6 @@ import com.threego.algo.coding.command.application.dto.CodingProblemRequestDTO;
 import com.threego.algo.coding.command.domain.aggregate.CodingComment;
 import com.threego.algo.coding.command.domain.aggregate.CodingPost;
 import com.threego.algo.coding.command.domain.aggregate.CodingProblem;
-import com.threego.algo.coding.command.domain.aggregate.enums.Platform;
 import com.threego.algo.coding.command.domain.repository.CodingCommentRepository;
 import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
 import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class AdminCodingPostCommandServiceImpl implements AdminCodingPostCommandService{
+public class AdminCodingPostCommandServiceImpl implements AdminCodingPostCommandService {
     private final CodingPostRepository postRepository;
     private final CodingCommentRepository commentRepository;
     private final CodingProblemRepository problemRepository;

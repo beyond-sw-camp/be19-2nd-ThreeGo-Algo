@@ -1,4 +1,4 @@
-package com.threego.algo.coding.command.domain.service;
+package com.threego.algo.coding.command.application.service;
 
 import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostImageRequestDTO;
