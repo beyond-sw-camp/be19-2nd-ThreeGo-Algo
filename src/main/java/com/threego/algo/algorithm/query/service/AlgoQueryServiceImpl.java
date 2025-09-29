@@ -100,6 +100,11 @@ public class AlgoQueryServiceImpl implements AlgoQueryService {
         return response;
     }
 
+    @Override
+    public int countMemberCorrectAnswersInRoadmap(int memberId, int roadmapId) {
+        return algoMapper.countMemberCorrectAnswersInRoadmap(memberId, roadmapId);
+    }
+
     private void findSolvedQuizzesByMemberIdAndRoadmapIds(final int memberId, final int roadmapId,
                                                           final List<AlgoPostSummaryResponseDTO> postResponse) {
         final List<AlgoMemberSolvedQuizResponseDTO> memberSolvedQuizResponse =
