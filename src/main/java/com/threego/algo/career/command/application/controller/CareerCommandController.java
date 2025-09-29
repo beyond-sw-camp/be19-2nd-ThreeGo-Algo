@@ -3,20 +3,23 @@ package com.threego.algo.career.command.application.controller;
 import com.threego.algo.career.command.application.dto.CareerCommentRequest;
 import com.threego.algo.career.command.application.dto.CareerPostCreateRequest;
 import com.threego.algo.career.command.application.service.CareerCommandService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Career Info", description = "회원용 기업별 정보 공유 API")
 @RestController
 @RequestMapping("/career-info")
 public class CareerCommandController {
-   private final CareerCommandService service;
+    private final CareerCommandService service;
 
-   @Autowired
+    @Autowired
     public CareerCommandController(@Qualifier("careerCommandServiceImpl") CareerCommandService service) {
         this.service = service;
     }
@@ -25,8 +28,18 @@ public class CareerCommandController {
             summary = "기업별 정보 공유 게시물 등록",
             description = "회원이 기업별 정보 공유 게시판에 게시물을 등록합니다."
     )
-    @PostMapping("/posts")
-    public ResponseEntity<Integer> createPost(@RequestBody CareerPostCreateRequest request) {
+    @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Integer> createPost(
+            @Parameter(description = "제목") @RequestParam String title,
+            @Parameter(description = "내용") @RequestParam String content,
+            @Parameter(description = "이미지 파일 (선택, 최대 5MB)")
+            @RequestPart(value = "image", required = false) MultipartFile image) {
+
+        CareerPostCreateRequest request = new CareerPostCreateRequest();
+        request.setTitle(title);
+        request.setContent(content);
+        request.setImage(image);
+
         Integer postId = service.createPost(request);
         return ResponseEntity.ok(postId);
     }
