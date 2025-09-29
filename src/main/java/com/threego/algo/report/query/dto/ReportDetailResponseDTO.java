@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReportDetailResponseDTO {
     int id;
     int memberId;
+    String reporter;
     int categoryId;
     String categoryName;
     int typeId;
@@ -20,4 +21,5 @@ public class ReportDetailResponseDTO {
     String content;
     int targetId;
     int reportedMemberId;
+    String reported;
 }

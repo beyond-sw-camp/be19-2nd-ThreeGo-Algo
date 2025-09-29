@@ -8,6 +8,7 @@
         SELECT
                A.ID
              , A.MEMBER_ID AS MEMBERID
+             , D.NICKNAME AS REPORTER
              , C.ID AS CATEGORYID
              , C.NAME AS CATEGORYNAME
              , B.ID AS TYPEID
@@ -16,9 +17,12 @@
              , A.TARGET_ID AS TARGETID
              , A.CREATED_AT AS CREATEDAT
              , A.REPORTED_MEMBER_ID AS REPORTEDMEMBERID
+             , E.NICKNAME AS REPORTED
           FROM REPORT A
           JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
           JOIN REPORT_CATEGORY C ON A.CATEGORY_ID = C.ID
+          JOIN MEMBER D ON A.MEMBER_ID = D.ID
+          JOIN MEMBER E ON A.reported_member_id = E.ID;
 
     </select>
 
@@ -27,6 +31,7 @@
         SELECT
                A.ID
              , A.MEMBER_ID AS MEMBERID
+             , D.NICKNAME AS REPORTER
              , C.ID AS CATEGORYID
              , C.NAME AS CATEGORYNAME
              , B.ID AS TYPEID
@@ -35,29 +40,36 @@
              , A.TARGET_ID AS TARGETID
              , A.CREATED_AT AS CREATEDAT
              , A.REPORTED_MEMBER_ID AS REPORTEDMEMBERID
+             , E.NICKNAME AS REPORTED
           FROM REPORT A
           JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
           JOIN REPORT_CATEGORY C ON A.CATEGORY_ID = C.ID
-         WHERE A.MEMBER_ID = #{id}
+          JOIN MEMBER D ON A.MEMBER_ID = D.ID
+          JOIN MEMBER E ON A.reported_member_id = E.ID
+          WHERE A.MEMBER_ID = #{id}
     </select>
 
     <!-- 특정 회원이 당한 모든 신고 목록 조회 -->
     <select id="selectReportedDetailsById" resultType="com.threego.algo.report.query.dto.ReportDetailResponseDTO">
         SELECT
-        A.ID
-        , A.MEMBER_ID AS MEMBERID
-        , C.ID AS CATEGORYID
-        , C.NAME AS CATEGORYNAME
-        , B.ID AS TYPEID
-        , B.TYPE AS TYPENAME
-        , A.CONTENT
-        , A.TARGET_ID AS TARGETID
-        , A.CREATED_AT AS CREATEDAT
-        , A.REPORTED_MEMBER_ID AS REPORTEDMEMBERID
-        FROM REPORT A
-        JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
-        JOIN REPORT_CATEGORY C ON A.CATEGORY_ID = C.ID
-        WHERE A.REPORTED_MEMBER_ID = #{id}
+               A.ID
+             , A.MEMBER_ID AS MEMBERID
+             , D.NICKNAME AS REPORTER
+             , C.ID AS CATEGORYID
+             , C.NAME AS CATEGORYNAME
+             , B.ID AS TYPEID
+             , B.TYPE AS TYPENAME
+             , A.CONTENT
+             , A.TARGET_ID AS TARGETID
+             , A.CREATED_AT AS CREATEDAT
+             , A.REPORTED_MEMBER_ID AS REPORTEDMEMBERID
+             , E.NICKNAME AS REPORTED
+          FROM REPORT A
+          JOIN REPORT_TYPE B ON A.TYPE_ID = B.ID
+          JOIN REPORT_CATEGORY C ON A.CATEGORY_ID = C.ID
+          JOIN MEMBER D ON A.MEMBER_ID = D.ID
+          JOIN MEMBER E ON A.reported_member_id = E.ID
+         WHERE A.REPORTED_MEMBER_ID = #{id}
     </select>
 
 </mapper>
