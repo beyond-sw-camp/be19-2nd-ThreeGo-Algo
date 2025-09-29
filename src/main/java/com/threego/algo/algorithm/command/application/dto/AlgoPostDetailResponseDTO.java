@@ -1,15 +1,15 @@
-package com.threego.algo.algorithm.query.dto;
+package com.threego.algo.algorithm.command.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.threego.algo.algorithm.command.domain.aggregate.AlgoPost;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class AlgoPostDetailResponseDTO {
     @Schema(description = "알고리즘 학습 게시물 ID")
@@ -45,18 +45,25 @@ public class AlgoPostDetailResponseDTO {
     @Schema(description = "알고리즘 학습 게시물 삭제 여부")
     private String visibility;
 
-    @Schema(description = "알고리즘 학습 게시물 추천 여부")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean isLiked;
-
-    @Schema(description = "알고리즘 학습 게시물 퀴즈 ID 리스트")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Integer> quizIds;
-
-    @Schema(description = "회원이 맞힌 알고리즘 학습 게시물 퀴즈 ID 리스트")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Integer> solvedQuizIds;
+    @Schema(description = "알고리즘 학습 게시물 퀴즈 리스트")
+    private List<AlgoQuizQuestionResponseDTO> quizzes;
 
     @Schema(description = "알고리즘 학습 게시물 이미지 url 리스트")
     private List<String> imageUrls;
+
+    public static AlgoPostDetailResponseDTO of(final AlgoPost algoPost) {
+        return AlgoPostDetailResponseDTO.builder()
+                .postId(algoPost.getId())
+                .roadmapId(algoPost.getAlgoRoadmap().getId())
+                .memberId(algoPost.getMember().getId())
+                .nickname(algoPost.getMember().getNickname())
+                .title(algoPost.getTitle())
+                .content(algoPost.getContent())
+                .createdAt(algoPost.getCreatedAt())
+                .updatedAt(algoPost.getUpdatedAt())
+                .likeCount(algoPost.getLikeCount())
+                .commentCount(algoPost.getCommentCount())
+                .visibility(algoPost.getVisibility())
+                .build();
+    }
 }

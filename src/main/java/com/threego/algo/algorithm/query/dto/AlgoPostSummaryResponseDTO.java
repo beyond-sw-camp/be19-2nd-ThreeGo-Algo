@@ -40,7 +40,7 @@ public class AlgoPostSummaryResponseDTO {
     private int commentCount;
 
     @Schema(description = "알고리즘 학습 게시물 삭제 여부")
-    private char visibility;
+    private String visibility;
 
     @Schema(description = "알고리즘 학습 게시물 추천 여부")
     @JsonInclude(JsonInclude.Include.NON_NULL)
