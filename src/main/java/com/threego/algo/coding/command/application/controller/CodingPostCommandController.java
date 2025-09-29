@@ -4,6 +4,7 @@ import com.threego.algo.coding.command.application.dto.CodingCommentRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostImageRequestDTO;
 import com.threego.algo.coding.command.application.dto.CodingPostRequestDTO;
 import com.threego.algo.coding.command.application.service.CodingPostCommandService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -76,5 +77,15 @@ public class CodingPostCommandController {
     public ResponseEntity<String> deleteComment(@PathVariable int commentId) {
         codingPostCommandService.softDeleteComment(commentId);
         return ResponseEntity.ok("삭제 완료");
+    }
+
+    @Operation(summary = "코딩 문제 풀이 게시물 추천",
+            description = "회원이 코딩 문제 풀이 게시물을 추천하는 API입니다.")
+    @PostMapping("/posts/{postId}/likes")
+    public ResponseEntity<Void> createdCodingPostLikes(@PathVariable("postId") final int postId) {
+        // TODO. memberID는 Authentication에서 받아오도록 수정 필요
+        codingPostCommandService.createCodingPostLikes(1, postId);
+
+        return ResponseEntity.ok().build();
     }
 }
