@@ -26,7 +26,7 @@ import java.util.List;
 public class StudyPostCommandController {
 
     private final StudyPostService studyPostService;
-    
+
     @PostMapping(value = "/{studyId}/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "스터디 게시물 등록")
     public ResponseEntity<StudyPostCreateResponseDTO> createPost(
