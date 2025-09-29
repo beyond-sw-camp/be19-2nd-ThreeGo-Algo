@@ -56,7 +56,7 @@ public class AlgoPost {
     }
 
     public void updateVisibility() {
-        this.visibility = "Y";
+        this.visibility = "N";
 
         this.updatedAt = DateTimeUtils.nowDateTime();
     }
