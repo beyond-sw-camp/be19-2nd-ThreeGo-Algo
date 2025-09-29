@@ -1,10 +1,15 @@
 package com.threego.algo.coding.command.domain.aggregate;
 
 import com.threego.algo.coding.command.domain.aggregate.enums.Platform;
+import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -55,4 +60,68 @@ public class CodingProblem {
     @Column(name = "created_at", nullable = false, length = 20)
     private String createdAt;
 
+//    public CodingProblem(Platform platform, String title, String problemUrl) {
+//        this.platform = platform;
+//        this.title = title;
+//        this.problemUrl = problemUrl;
+//        this.createdAt = DateTimeUtils.nowDateTime();
+//    }
+
+    @Builder
+    public CodingProblem(Member member, Platform platform, String title, String problemUrl,
+                         String difficulty, String content, String input,
+                         String output, String constraints) {
+        this.memberId = member;
+        this.platform = platform;
+        this.title = title;
+        this.problemUrl = problemUrl;
+        this.difficulty = difficulty;
+        this.content = content;
+        this.input = input;
+        this.output = output;
+        this.constraints = constraints;
+        this.createdAt = DateTimeUtils.nowDateTime();
+    }
+
+    public void update(String title, String problemUrl, String difficulty, String content,
+                       String input, String output, String constraints) {
+        this.title = title;
+        this.problemUrl = problemUrl;
+        this.difficulty = difficulty;
+        this.content = content;
+        this.input = input;
+        this.output = output;
+        this.constraints = constraints;
+    }
+
+    public void delete() {
+        this.visibility = "N";
+    }
+
+
+    // 양방향 매핑
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CodingPost> posts = new ArrayList<>();
+
+    // postCount 동기화 메서드
+    public void syncPostCount() {
+        this.postCount = (int) posts.stream()
+                .filter(post -> "Y".equals(post.getVisibility()))  // 공개글만 카운트
+                .count();
+    }
+
+    public void setDifficulty(String difficulty) {
+    }
+
+    public void setContent(String content) {
+    }
+
+    public void setInput(String input) {
+    }
+
+    public void setOutput(String output) {
+    }
+
+    public void setConstraints(String constraints) {
+    }
 }

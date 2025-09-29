@@ -2,6 +2,9 @@ package com.threego.algo.coding.query.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -18,4 +21,7 @@ public class CodingPostCommentDTO {
     private String createdAt;
     private String updatedAt;
     private String visibility;
+
+    // ✅ 트리 구조
+    private List<CodingPostCommentDTO> children = new ArrayList<>();
 }

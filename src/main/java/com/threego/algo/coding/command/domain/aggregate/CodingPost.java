@@ -1,5 +1,6 @@
 package com.threego.algo.coding.command.domain.aggregate;
 
+import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -62,4 +63,33 @@ public class CodingPost {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CodingPostImage> images = new ArrayList<>();
 
+    public CodingPost(Member memberId, CodingProblem problem, String title, String content) {
+        this.memberId = memberId;
+        this.problem = problem;
+        this.title = title;
+        this.content = content;
+        this.createdAt = DateTimeUtils.nowDateTime();
+    }
+
+    public static CodingPost create(Member memberId, CodingProblem problemId, String title, String content) {
+        return new CodingPost(memberId, problemId, title, content);
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.updatedAt = DateTimeUtils.nowDateTime();
+    }
+
+    public void delete() {
+        this.visibility = "N";
+    }
+
+    public void increaseCommentCount() {
+        this.commentCount += 1;
+    }
+
+    public void decreaseCommentCount() {
+        if (this.commentCount > 0) this.commentCount -= 1;
+    }
 }

@@ -8,7 +8,10 @@ import com.threego.algo.coding.query.dto.CodingPostSummaryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,9 +34,33 @@ public class CodingPostQueryServiceImpl implements CodingPostQueryService {
         return codingPostMapper.selectPostDetail(postId);
     }
 
+
     @Override
     public List<CodingPostCommentDTO> findCommentsByPostId(int postId) {
-        return codingPostMapper.selectCommentsByPostId(postId);
+        // 평면 구조 가져오기
+        List<CodingPostCommentDTO> comments = codingPostMapper.selectCommentsByPostId(postId);
+
+        // ID -> Comment 매핑
+        Map<Integer, CodingPostCommentDTO> map = comments.stream()
+                .collect(Collectors.toMap(CodingPostCommentDTO::getCommentId, c -> c));
+
+        // 결과 트리
+        List<CodingPostCommentDTO> result = new ArrayList<>();
+
+        for (CodingPostCommentDTO comment : comments) {
+            if (comment.getParentId() == null) {
+                // 최상위 댓글
+                result.add(comment);
+            } else {
+                // 부모 댓글 찾아 children에 추가
+                CodingPostCommentDTO parent = map.get(comment.getParentId());
+                if (parent != null) {
+                    parent.getChildren().add(comment);
+                }
+            }
+        }
+
+        return result;
     }
 
     // ---------------- 관리자용 ---------------- //
