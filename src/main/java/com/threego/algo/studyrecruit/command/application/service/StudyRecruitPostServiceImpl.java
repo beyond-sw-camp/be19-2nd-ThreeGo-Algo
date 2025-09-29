@@ -165,7 +165,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
                     .orElseThrow(() -> new IllegalArgumentException("모집 게시물을 찾을 수 없습니다."));
 
             // 3. 이미 삭제된 게시물인지 확인
-            if (post.getVisibility() == "N") {
+            if (post.getVisibility().equals("N")) {
                 return ResponseEntity.badRequest().body("이미 삭제된 게시물입니다.");
             }
 

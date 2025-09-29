@@ -6,6 +6,7 @@ import com.threego.algo.member.command.domain.aggregate.MemberRole;
 import com.threego.algo.member.command.domain.repository.MemberRepository;
 import com.threego.algo.member.command.domain.repository.MemberRoleRepository;
 import com.threego.algo.study.command.application.dto.create.StudyPostCreateDTO;
+import com.threego.algo.study.command.application.dto.create.StudyPostCreateResponseDTO;
 import com.threego.algo.study.command.application.dto.create.StudyReportCreateDTO;
 import com.threego.algo.study.command.application.dto.update.StudyPostUpdateDTO;
 import com.threego.algo.study.command.domain.aggregate.Study;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,27 +40,20 @@ public class StudyPostServiceImpl implements StudyPostService {
     private final S3Service s3Service;
 
     @Override
-    public ResponseEntity<String> createPost(int studyId, int memberId, StudyPostCreateDTO request, List<MultipartFile> images) {
+    public ResponseEntity<StudyPostCreateResponseDTO> createPost(
+            int studyId, int memberId, StudyPostCreateDTO request, List<MultipartFile> images) {
         try {
             // 1. 스터디 멤버 권한 확인
             validateStudyMemberAccess(studyId, memberId);
 
-            // 2. 이미지 업로드 및 저장 (S3 연동 후 구현)
+            // 2. 이미지 검증
             if (images != null && !images.isEmpty()) {
-                for (MultipartFile image : images) {
-                    if (!s3Service.isValidImageFile(image)) {
-                        return ResponseEntity.badRequest()
-                                .body("지원하지 않는 이미지 형식입니다. (JPG, JPEG, PNG, GIF, WEBP만 가능)");
-                    }
-                    if (!s3Service.isValidFileSize(image)) {
-                        return ResponseEntity.badRequest()
-                                .body("이미지 파일 크기는 5MB 이하여야 합니다.");
-                    }
+                if (images.size() > 10) {
+                    throw new IllegalArgumentException("이미지는 최대 10개까지 업로드 가능합니다.");
                 }
 
-                if (images.size() > 10) {
-                    return ResponseEntity.badRequest()
-                            .body("이미지는 최대 10개까지 업로드 가능합니다.");
+                for (MultipartFile image : images) {
+                    s3Service.validateImageFile(image);  // S3Service의 validateImageFile 사용
                 }
             }
 
@@ -67,25 +62,37 @@ public class StudyPostServiceImpl implements StudyPostService {
             studyPostRepository.save(post);
 
             // 4. 이미지 S3 업로드 및 DB 저장
+            List<String> uploadedImageUrls = new ArrayList<>();
+
             if (images != null && !images.isEmpty()) {
                 for (MultipartFile image : images) {
                     try {
                         String imageUrl = s3Service.uploadStudyPostImage(image);
                         StudyPostImage postImage = new StudyPostImage(post.getId(), imageUrl);
                         studyPostImageRepository.save(postImage);
+                        uploadedImageUrls.add(imageUrl);
                     } catch (Exception e) {
-                        // 이미지 업로드 실패 시 이미 업로드된 이미지들 정리
                         rollbackUploadedImages(post.getId());
                         throw new IllegalArgumentException("이미지 업로드 중 오류가 발생했습니다: " + e.getMessage());
                     }
                 }
             }
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("게시물이 성공적으로 등록되었습니다.");
+            // 5. 응답 생성
+            StudyPostCreateResponseDTO response = new StudyPostCreateResponseDTO(
+                    post.getId(),
+                    post.getTitle(),
+                    post.getContent(),
+                    uploadedImageUrls,
+                    "게시물이 성공적으로 등록되었습니다."
+            );
 
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("게시물 등록 중 오류가 발생했습니다.");
+            throw new RuntimeException("게시물 등록 중 오류가 발생했습니다.");
         }
     }
 

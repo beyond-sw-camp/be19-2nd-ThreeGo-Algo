@@ -16,11 +16,11 @@ public interface StudyMemberRepository extends JpaRepository<StudyMember, Intege
     /* 설명. 리더 권한 확인 (권한 체크용) */
     boolean existsByStudyIdAndMemberIdAndRole(int studyId, int memberId, StudyRole role);
 
-    boolean existsByStudyIdAndMemberIdAndRoleIn(int studyId, int memberId, List<StudyRole> list);
-
     Optional<Object> findByStudyAndMember(Study study, Member leader);
 
     long countByStudyAndMemberNot(Study study, Member leader);
 
     Optional<Object> findByStudyIdAndMemberId(int studyId, int memberId);
+
+    long countByStudyAndRoleIn(Study study, List<StudyRole> roles);
 }

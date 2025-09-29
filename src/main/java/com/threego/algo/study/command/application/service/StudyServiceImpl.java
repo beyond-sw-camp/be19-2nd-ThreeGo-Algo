@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -137,7 +138,6 @@ public class StudyServiceImpl implements StudyService {
             Member leader = memberRepository.findById(leaderId)
                     .orElseThrow(() -> new IllegalArgumentException("그룹장을 찾을 수 없습니다."));
 
-            // 현재 사용자가 그룹장인지 확인
             StudyMember leaderMember = (StudyMember) studyMemberRepository.findByStudyAndMember(study, leader)
                     .orElseThrow(() -> new IllegalArgumentException("스터디 멤버를 찾을 수 없습니다."));
 
@@ -145,16 +145,18 @@ public class StudyServiceImpl implements StudyService {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("그룹장만 그룹을 삭제할 수 있습니다.");
             }
 
-            // 다른 그룹원이 있는지 확인 (그룹장 제외)
-            long memberCount = studyMemberRepository.countByStudyAndMemberNot(study, leader);
-            if (memberCount > 0) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("그룹원이 있는 상태에서는 그룹을 삭제할 수 없습니다.");
+            // 활동 중인 그룹원 확인 (LEADER, MEMBER 상태만 카운트)
+            long activeMemberCount = studyMemberRepository.countByStudyAndRoleIn(
+                    study,
+                    Arrays.asList(StudyRole.LEADER, StudyRole.MEMBER)
+            );
+
+            if (activeMemberCount > 1) {  // 그룹장 포함이므로 1보다 크면 다른 멤버 존재
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("활동 중인 그룹원이 있는 상태에서는 그룹을 삭제할 수 없습니다.");
             }
 
-            // 그룹장도 멤버 테이블에서 제거
             studyMemberRepository.delete(leaderMember);
-
-            // 스터디 그룹 삭제
             studyRepository.delete(study);
 
             return ResponseEntity.ok("스터디 그룹을 삭제했습니다.");
@@ -162,7 +164,8 @@ public class StudyServiceImpl implements StudyService {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("스터디 그룹 삭제 중 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("스터디 그룹 삭제 중 오류가 발생했습니다.");
         }
     }
 }

@@ -42,7 +42,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
             }
 
             // 그룹장 자신을 강퇴하려는 경우 방지
-            if (leader.getId()!=(memberId)) {
+            if (leader.getId() == (memberId)) {
                 return ResponseEntity.badRequest().body("그룹장은 자신을 강퇴할 수 없습니다.");
             }
 

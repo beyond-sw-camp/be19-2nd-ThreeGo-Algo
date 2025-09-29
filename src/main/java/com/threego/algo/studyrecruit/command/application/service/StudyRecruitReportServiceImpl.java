@@ -36,7 +36,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
             // 2. 신고할 모집글 존재 여부 확인 (공개상태만)
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
                     .findById(postId)
-                    .filter(post -> post.getVisibility() == "Y")
+                    .filter(post -> post.getVisibility().equals("Y"))
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않거나 공개되지 않은 모집글입니다."));
 
             // 3. 중복 신고 확인
