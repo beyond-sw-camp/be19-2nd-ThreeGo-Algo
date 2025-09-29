@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Admin Coding - Command", description = "관리자용 코딩게시물,코딩문제 API (Command)")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/admin/coding")
+@RequestMapping("/admin")
 public class AdminCodingController {
 
     @Qualifier("adminCodingPostCommandService")
@@ -57,7 +57,7 @@ public class AdminCodingController {
     }
 
     /** 코딩문제 등록 */
-    @PostMapping("/problems/posts")
+    @PostMapping("/coding-problem/posts")
     public ResponseEntity<CodingProblem> createProblem(@RequestBody CodingProblemRequestDTO dto,
                                                        @RequestParam int adminId) {
         validateAdmin(adminId);
@@ -66,7 +66,7 @@ public class AdminCodingController {
     }
 
     /** 코딩문제 수정 */
-    @PutMapping("/problems/{problemId}")
+    @PutMapping("/coding-problem/{problemId}")
     public ResponseEntity<CodingProblem> updateProblem(@PathVariable int problemId,
                                                        @RequestBody CodingProblemRequestDTO dto,
                                                        @RequestParam int adminId) {
@@ -75,7 +75,7 @@ public class AdminCodingController {
     }
 
     /** 코딩문제 삭제 */
-    @DeleteMapping("/problems/{problemId}")
+    @DeleteMapping("/coding-problem/{problemId}")
     public ResponseEntity<Void> deleteProblem(@PathVariable int problemId,
                                               @RequestParam int adminId) {
         validateAdmin(adminId);

@@ -52,7 +52,14 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
         CodingPost post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
 
-        CodingPostImage image = new CodingPostImage(post, dto.getImageUrl(), DateTimeUtils.nowDateTime());
+        // 1. 파일을 S3에 업로드
+//        String imageUrl = s3Uploader.upload(dto.getFile(), "coding-posts");
+
+        // 2. DB에 URL 저장
+//        CodingPostImage image = new CodingPostImage(post, imageUrl);
+//        CodingPostImage saved = imageRepository.save(image);
+
+        CodingPostImage image = new CodingPostImage(post, dto.getImageUrl());
         CodingPostImage saved = imageRepository.save(image);
         return saved.getId();
     }

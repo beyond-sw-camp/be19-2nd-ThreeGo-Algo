@@ -22,7 +22,7 @@ public class CodingPostImage {
     @Column(name = "image_url", nullable = false, length = 255)
     private String imageUrl;
 
-    public CodingPostImage(CodingPost post, String imageUrl, String createdAt) {
+    public CodingPostImage(CodingPost post, String imageUrl) {
         this.post = post;
         this.imageUrl = imageUrl;
     }

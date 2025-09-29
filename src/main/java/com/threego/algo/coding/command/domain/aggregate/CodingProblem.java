@@ -60,18 +60,26 @@ public class CodingProblem {
     @Column(name = "created_at", nullable = false, length = 20)
     private String createdAt;
 
-    public CodingProblem(Platform platform, String title, String problemUrl) {
-        this.platform = platform;
-        this.title = title;
-        this.problemUrl = problemUrl;
-        this.createdAt = DateTimeUtils.nowDateTime();
-    }
+//    public CodingProblem(Platform platform, String title, String problemUrl) {
+//        this.platform = platform;
+//        this.title = title;
+//        this.problemUrl = problemUrl;
+//        this.createdAt = DateTimeUtils.nowDateTime();
+//    }
 
-    public CodingProblem(Platform platform, String title, String problemUrl, Member member) {
+    @Builder
+    public CodingProblem(Member member, Platform platform, String title, String problemUrl,
+                         String difficulty, String content, String input,
+                         String output, String constraints) {
+        this.memberId = member;
         this.platform = platform;
         this.title = title;
         this.problemUrl = problemUrl;
-        this.memberId = memberId;
+        this.difficulty = difficulty;
+        this.content = content;
+        this.input = input;
+        this.output = output;
+        this.constraints = constraints;
         this.createdAt = DateTimeUtils.nowDateTime();
     }
 

@@ -65,21 +65,17 @@ public class AdminCodingPostCommandServiceImpl implements AdminCodingPostCommand
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("관리자 계정을 찾을 수 없습니다."+ dto.getMemberId()));
 
-        CodingProblem problem = new CodingProblem(
-                dto.getPlatform(),
-                dto.getTitle(),
-                dto.getProblemUrl()
-        );
-
-        problem.update(
-                dto.getTitle(),
-                dto.getProblemUrl(),
-                dto.getDifficulty(),
-                dto.getContent(),
-                dto.getInput(),
-                dto.getOutput(),
-                dto.getConstraints()
-        );
+        CodingProblem problem = CodingProblem.builder()
+                .member(member)   // 여기서는 Member 객체
+                .platform(dto.getPlatform())
+                .title(dto.getTitle())
+                .problemUrl(dto.getProblemUrl())
+                .difficulty(dto.getDifficulty())
+                .content(dto.getContent())
+                .input(dto.getInput())
+                .output(dto.getOutput())
+                .constraints(dto.getConstraints())
+                .build();
 
         // 관리자 정보 세팅
 //        problem.setMemberId(admin);
