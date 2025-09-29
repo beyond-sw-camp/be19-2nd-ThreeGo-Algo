@@ -16,7 +16,7 @@ public class StudyMemberQueryServiceImpl implements StudyMemberQueryService {
     private final StudyMemberMapper studyMemberMapper;
 
     @Override
-    public List<StudyMemberDTO> findAllStudyMember(Integer studyId) {
+    public List<StudyMemberDTO> findAllStudyMember(int studyId) {
         return studyMemberMapper.selectAllStudyMember(studyId);
     }
 }

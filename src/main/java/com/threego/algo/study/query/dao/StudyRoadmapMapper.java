@@ -10,9 +10,9 @@ import java.util.List;
 public interface StudyRoadmapMapper {
 
     /* 설명. 스터디 로드맵 목록 조회 */
-    List<StudyRoadmapDTO> selectAllStudyRoadmap(Integer studyId);
+    List<StudyRoadmapDTO> selectAllStudyRoadmap(int studyId);
 
     /* 설명. 스터디 로드맵 상세 조회 */
-    StudyRoadmapDetailDTO selectStudyRoadmapDetail(Integer roadmapId);
+    StudyRoadmapDetailDTO selectStudyRoadmapDetail(int roadmapId);
 
 }

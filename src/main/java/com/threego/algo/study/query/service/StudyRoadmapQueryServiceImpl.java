@@ -16,12 +16,12 @@ public class StudyRoadmapQueryServiceImpl implements StudyRoadmapQueryService {
     private final StudyRoadmapMapper studyRoadmapMapper;
 
     @Override
-    public List<StudyRoadmapDTO> findAllStudyRoadmap(Integer studyId) {
+    public List<StudyRoadmapDTO> findAllStudyRoadmap(int studyId) {
         return studyRoadmapMapper.selectAllStudyRoadmap(studyId);
     }
 
     @Override
-    public StudyRoadmapDetailDTO findStudyRoadmapDetail(Integer roadmapId) {
+    public StudyRoadmapDetailDTO findStudyRoadmapDetail(int roadmapId) {
         return studyRoadmapMapper.selectStudyRoadmapDetail(roadmapId);
     }
 }

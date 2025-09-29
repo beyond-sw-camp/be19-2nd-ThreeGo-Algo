@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyRoadmapDTO {
-    private Integer id;
-    private Integer studyId;
-    private Integer memberId;
+    private int id;
+    private int studyId;
+    private int memberId;
     private String title;
     private String description;
     private Integer order;

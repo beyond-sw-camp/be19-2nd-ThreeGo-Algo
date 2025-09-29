@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudyRoadmapQueryService {
 
-    List<StudyRoadmapDTO> findAllStudyRoadmap(Integer studyId);
+    List<StudyRoadmapDTO> findAllStudyRoadmap(int studyId);
 
-    StudyRoadmapDetailDTO findStudyRoadmapDetail(Integer roadmapId);
+    StudyRoadmapDetailDTO findStudyRoadmapDetail(int roadmapId);
 }

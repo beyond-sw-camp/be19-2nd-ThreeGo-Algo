@@ -15,16 +15,16 @@ public interface StudyPostMapper {
     List<StudyPostDTO> selectAllStudyPosts(StudyPostSearchDTO searchDto);
 
     /* 설명. 스터디 게시물 상세 조회 */
-    StudyPostDetailDTO selectStudyPostDetail(Integer postId);
+    StudyPostDetailDTO selectStudyPostDetail(int postId);
 
     /* 설명. 스터디 게시물 댓글 조회 */
-    List<StudyCommentDTO> selectStudyPostComments(Integer postId);
+    List<StudyCommentDTO> selectStudyPostComments(int postId);
 
     /* 설명. 관리자: 숨김 처리된 게시물 목록 조회 */
     List<StudyPostDTO> selectAllHiddenStudyPosts(StudyPostSearchDTO searchDto);
 
     /* 설명. 관리자: 숨김 처리된 스터디 게시물 상세 조회 */
-    StudyPostDetailDTO selectHiddenStudyPostDetail(Integer postId);
+    StudyPostDetailDTO selectHiddenStudyPostDetail(int postId);
 
     /* 설명. 관리자: 숨김 처리된 스터디 게시물 댓글 조회 */
     List<StudyCommentDTO> selectAllHiddenStudyComments(StudyPostSearchDTO searchDto);

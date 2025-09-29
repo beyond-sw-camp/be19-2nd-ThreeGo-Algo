@@ -11,15 +11,15 @@ public interface StudyPostQueryService {
 
     List<StudyPostDTO> findAllStudyPosts(StudyPostSearchDTO searchDto);
 
-    StudyPostDetailDTO findStudyPostDetail(Integer postId);
+    StudyPostDetailDTO findStudyPostDetail(int postId);
 
-    List<StudyCommentDTO> findStudyPostComments(Integer postId);
+    List<StudyCommentDTO> findStudyPostComments(int postId);
 
     // ========== 관리자용 메소드들 ==========
 
     List<StudyPostDTO> findAllHiddenStudyPosts(StudyPostSearchDTO searchDto);
 
-    StudyPostDetailDTO findHiddenStudyPostDetail(Integer postId);
+    StudyPostDetailDTO findHiddenStudyPostDetail(int postId);
 
     List<StudyCommentDTO> findAllHiddenStudyComments(StudyPostSearchDTO searchDto);
 }

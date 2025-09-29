@@ -24,19 +24,19 @@ public class StudyRecruitPostQueryServiceImpl implements StudyRecruitPostQuerySe
 
     /* 설명. 스터디 모집글 상세 조회 */
     @Override
-    public StudyRecruitDetailDTO findStudyRecruitDetail(Long postId) {
+    public StudyRecruitDetailDTO findStudyRecruitDetail(int postId) {
         return studyRecruitPostMapper.selectStudyRecruitDetail(postId);
     }
 
     /* 설명. 스터디 모집 게시물의 댓글 조회 */
     @Override
-    public List<StudyRecruitCommentDTO> findStudyRecruitComments(Long postId) {
+    public List<StudyRecruitCommentDTO> findStudyRecruitComments(int postId) {
         return studyRecruitCommentMapper.selectStudyRecruitComments(postId);
     }
 
     /* 설명. 스터디 모집 참여 멤버 목록 조회 */
     @Override
-    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Long postId) {
+    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(int postId) {
         return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
     }
 
@@ -48,7 +48,7 @@ public class StudyRecruitPostQueryServiceImpl implements StudyRecruitPostQuerySe
 
     /* 설명. 관리자: 숨김 처리된 게시물 상세 조회 */
     @Override
-    public StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(Long postId) {
+    public StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(int postId) {
         return studyRecruitPostMapper.selectStudyRecruitDetailIncludeHidden(postId);
     }
 
@@ -61,7 +61,7 @@ public class StudyRecruitPostQueryServiceImpl implements StudyRecruitPostQuerySe
 
     /* 설명. 관리자: 숨김 처리된 댓글 조회 */
     @Override
-    public List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(Long postId) {
+    public List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(int postId) {
         return studyRecruitCommentMapper.selectStudyRecruitCommentsIncludeHidden(postId);
     }
 

@@ -69,7 +69,7 @@
              , A.UPDATED_AT   AS POST_UPDATED_AT
              , A.VISIBILITY   AS POST_VISIBILITY
           FROM STUDY_POST A
-          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.MEMBER_ID
           JOIN MEMBER C       ON B.MEMBER_ID = C.ID
          WHERE A.STUDY_ID = #{studyId}
            AND A.VISIBILITY = 'Y'
@@ -98,7 +98,6 @@
              , A.VISIBILITY   AS POST_VISIBILITY
              , D.ID           AS IMAGE_ID
              , D.IMAGE_URL    AS IMAGE_URL
-             , D.CREATED_AT   AS IMAGE_CREATED_AT
           FROM STUDY_POST A
           JOIN STUDY_MEMBER B    ON A.MEMBER_ID = B.ID
           JOIN MEMBER C          ON B.MEMBER_ID = C.ID
@@ -122,7 +121,7 @@
              , A.UPDATED_AT   AS COMMENT_UPDATED_AT
              , A.VISIBILITY   AS COMMENT_VISIBILITY
           FROM STUDY_COMMENT A
-          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.MEMBER_ID
           JOIN MEMBER C       ON B.MEMBER_ID = C.ID
          WHERE A.POST_ID = #{postId}
            AND A.VISIBILITY = 'Y'
@@ -149,7 +148,7 @@
              , A.UPDATED_AT   AS POST_UPDATED_AT
              , A.VISIBILITY   AS POST_VISIBILITY
           FROM STUDY_POST A
-          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.MEMBER_ID
           JOIN MEMBER C       ON B.MEMBER_ID = C.ID
          WHERE A.VISIBILITY = 'N'
          ORDER BY A.CREATED_AT DESC
@@ -176,7 +175,6 @@
              , A.VISIBILITY   AS POST_VISIBILITY
              , D.ID           AS IMAGE_ID
              , D.IMAGE_URL    AS IMAGE_URL
-             , D.CREATED_AT   AS IMAGE_CREATED_AT
           FROM STUDY_POST A
           JOIN STUDY_MEMBER B    ON A.MEMBER_ID = B.ID
           JOIN MEMBER C          ON B.MEMBER_ID = C.ID
@@ -204,7 +202,7 @@
              , A.UPDATED_AT   AS COMMENT_UPDATED_AT
              , A.VISIBILITY   AS COMMENT_VISIBILITY
           FROM STUDY_COMMENT A
-          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.ID
+          JOIN STUDY_MEMBER B ON A.MEMBER_ID = B.MEMBER_ID
           JOIN MEMBER C       ON B.MEMBER_ID = C.ID
          WHERE A.VISIBILITY = 'N'
          ORDER BY A.CREATED_AT DESC

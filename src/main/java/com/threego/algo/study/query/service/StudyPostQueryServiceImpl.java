@@ -24,12 +24,12 @@ public class StudyPostQueryServiceImpl implements StudyPostQueryService {
     }
 
     @Override
-    public StudyPostDetailDTO findStudyPostDetail(Integer postId) {
+    public StudyPostDetailDTO findStudyPostDetail(int postId) {
         return studyPostMapper.selectStudyPostDetail(postId);
     }
 
     @Override
-    public List<StudyCommentDTO> findStudyPostComments(Integer postId) {
+    public List<StudyCommentDTO> findStudyPostComments(int postId) {
         return studyPostMapper.selectStudyPostComments(postId);
     }
 
@@ -39,7 +39,7 @@ public class StudyPostQueryServiceImpl implements StudyPostQueryService {
     }
 
     @Override
-    public StudyPostDetailDTO findHiddenStudyPostDetail(Integer postId) {
+    public StudyPostDetailDTO findHiddenStudyPostDetail(int postId) {
         return studyPostMapper.selectHiddenStudyPostDetail(postId);
     }
 

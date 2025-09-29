@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @Table(name = "Role")
@@ -15,7 +18,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -23,6 +26,9 @@ public class Role {
 
     @Column(nullable = false)
     private String description;
+
+    @OneToMany(mappedBy = "role")
+    private List<MemberRole> memberRoles = new ArrayList<>();
 
     public boolean isAdmin() {
         return this.name == RoleName.ADMIN;

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyPostSearchDTO {
-    private Integer studyId;
-    private Integer page;
-    private Integer size;
-    private Integer offset;  // MyBatis에서 자동 계산될 값
+    private int studyId;
+    private int page;
+    private int size;
+    private int offset;  // MyBatis에서 자동 계산될 값
 }

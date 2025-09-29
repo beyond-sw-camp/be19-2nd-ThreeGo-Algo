@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyRoadmapDetailDTO {
-    private Integer roadmapId;
+    private int roadmapId;
     private String roadmapTitle;
     private String roadmapDescription;
     private List<MilestoneInfo> milestones;
@@ -22,7 +22,7 @@ public class StudyRoadmapDetailDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MilestoneInfo {
-        private Integer milestoneId;
+        private int milestoneId;
         private String milestoneTitle;
         private String milestoneDescription;
     }

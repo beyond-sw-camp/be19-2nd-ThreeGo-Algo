@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface StudyMemberMapper {
     /* 설명. 스터디 멤버 목록 조회 */
-    List<StudyMemberDTO> selectAllStudyMember(Integer studyId);
+    List<StudyMemberDTO> selectAllStudyMember(int studyId);
 
 }

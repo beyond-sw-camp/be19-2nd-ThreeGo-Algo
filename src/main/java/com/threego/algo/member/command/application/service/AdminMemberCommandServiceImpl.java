@@ -1,5 +1,6 @@
 package com.threego.algo.member.command.application.service;
 
+import com.threego.algo.member.command.domain.aggregate.MemberRole;
 import com.threego.algo.member.command.domain.aggregate.Role;
 import com.threego.algo.member.command.domain.aggregate.enums.RoleName;
 import com.threego.algo.member.command.domain.aggregate.enums.Status;
@@ -42,8 +43,8 @@ public class AdminMemberCommandServiceImpl implements AdminMemberCommandService 
         Role role = roleCommandRepository.findByName(roleName)
                 .orElseThrow(() -> new IllegalArgumentException("해당 역할이 존재하지 않습니다."));
 
-        member.getRoles().clear();
-        member.getRoles().add(role);
+        member.getMemberRoles().clear();
+        member.getMemberRoles().add(new MemberRole(member, role));
 
         memberCommandRepository.save(member);
     }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "[Admin] Study Recruit API", description = "관리자용 스터디 모집글 조회 API")
+@Tag(name = "[Admin] Study Recruit API", description = "관리자용 스터디 모집글 API")
 @RestController
 @AllArgsConstructor
 @RequestMapping("/admin/study-recruit")
@@ -27,8 +27,8 @@ public class AdminStudyRecruitPostQueryController {
     )
     @GetMapping("/posts/hidden")
     public ResponseEntity<List<StudyRecruitPostDTO>> findHiddenPosts(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String keyword
     ) {
@@ -47,7 +47,7 @@ public class AdminStudyRecruitPostQueryController {
             description = "관리자는 숨김 처리된 게시글을 상세 조회할 수 있습니다."
     )
     @GetMapping("/posts/{postId}/hidden")
-    public ResponseEntity<StudyRecruitDetailDTO> findHiddenPost(@PathVariable Long postId) {
+    public ResponseEntity<StudyRecruitDetailDTO> findHiddenPost(@PathVariable int postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitDetailIncludeHidden(postId));
     }
 
@@ -57,8 +57,8 @@ public class AdminStudyRecruitPostQueryController {
     )
     @GetMapping("/comments/hidden")
     public ResponseEntity<List<StudyRecruitCommentDTO>> findAllHiddenComments(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
         StudyRecruitSearchDTO searchDto = StudyRecruitSearchDTO.builder()
                 .page(page)
@@ -73,7 +73,7 @@ public class AdminStudyRecruitPostQueryController {
             description = "관리자는 숨김 처리된 게시글의 댓글도 조회할 수 있습니다."
     )
     @GetMapping("/posts/{postId}/comments/hidden")
-    public ResponseEntity<List<StudyRecruitCommentDTO>> findHiddenPostComments(@PathVariable Long postId) {
+    public ResponseEntity<List<StudyRecruitCommentDTO>> findHiddenPostComments(@PathVariable int postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitCommentsIncludeHidden(postId));
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -31,13 +31,11 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column(columnDefinition = "int default 0")
     private int point;
 
-    @Column(columnDefinition = "integer default 1")
-    private int rankId;
 
-    @Column(name = "reported_count", columnDefinition = "integer default 0")
+    @Column(name = "reported_count", columnDefinition = "int default 0")
     private int reportedCount;
 
     @Column(nullable = false)
@@ -47,16 +45,9 @@ public class Member {
     @Column(name = "created_at", nullable = false)
     private String createdAt;
 
-    // Role과의 다대다 관계
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "Member_Role",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<Role> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberRole> memberRoles = new ArrayList<>();
 
-    // MemberRank와의 연관관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id", nullable = false)
     private MemberRank memberRank;
@@ -68,7 +59,6 @@ public class Member {
         this.memberRank = memberRank;
         this.point = 0;
         this.reportedCount = 0;
-        this.rankId = 1;
         this.status = Status.ACTIVE;
         this.createdAt = createdAt;
     }
@@ -78,6 +68,7 @@ public class Member {
             dto.getEmail(),
             dto.getPassword(),
             dto.getNickname(),
+            dto.getMemberRank(),
             DateTimeUtils.nowDateTime()
         );
     }

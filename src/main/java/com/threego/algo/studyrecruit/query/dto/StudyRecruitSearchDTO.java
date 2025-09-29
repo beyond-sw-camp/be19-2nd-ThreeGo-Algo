@@ -15,8 +15,8 @@ public class StudyRecruitSearchDTO {
     private String startDateTo;         // 시작일 범위 검색 (끝)
     private String expiresAtFrom;       // 모집마감일 범위 검색 (시작)
     private String expiresAtTo;         // 모집마감일 범위 검색 (끝)
-    private Integer minCapacity;        // 최소 모집 정원
-    private Integer maxCapacity;        // 최대 모집 정원
+    private int minCapacity;        // 최소 모집 정원
+    private int maxCapacity;        // 최대 모집 정원
 
     // 페이징 정보
     private Integer page;               // 페이지 번호 (0부터 시작)
@@ -25,11 +25,11 @@ public class StudyRecruitSearchDTO {
     private String sortDirection;       // 정렬 방향 (ASC, DESC)
 
     // 기본값 설정
-    public Integer getPage() {
+    public int getPage() {
         return page != null ? page : 0;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return size != null ? size : 10;
     }
 
@@ -42,7 +42,7 @@ public class StudyRecruitSearchDTO {
     }
 
     // OFFSET 계산
-    public Integer getOffset() {
+    public int getOffset() {
         return getPage() * getSize();
     }
 }
