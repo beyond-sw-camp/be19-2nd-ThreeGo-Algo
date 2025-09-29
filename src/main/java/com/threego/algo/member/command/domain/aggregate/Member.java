@@ -1,5 +1,7 @@
 package com.threego.algo.member.command.domain.aggregate;
 
+import com.threego.algo.auth.command.application.dto.UserDTO;
+import com.threego.algo.common.util.DateTimeUtils;
 import com.threego.algo.member.command.domain.aggregate.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Setter
 @Getter
@@ -31,6 +34,7 @@ public class Member {
     @Column(columnDefinition = "int default 0")
     private int point;
 
+
     @Column(name = "reported_count", columnDefinition = "int default 0")
     private int reportedCount;
 
@@ -43,7 +47,7 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberRole> memberRoles = new ArrayList<>();
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id", nullable = false)
     private MemberRank memberRank;
@@ -58,4 +62,17 @@ public class Member {
         this.status = Status.ACTIVE;
         this.createdAt = createdAt;
     }
+
+    public static Member UserToMember(UserDTO dto) {
+        return new Member(
+            dto.getEmail(),
+            dto.getPassword(),
+            dto.getNickname(),
+            dto.getMemberRank(),
+            DateTimeUtils.nowDateTime()
+        );
+    }
+
+
+
 }

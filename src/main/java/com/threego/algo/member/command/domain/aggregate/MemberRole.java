@@ -24,7 +24,6 @@ public class MemberRole {
     @Column(name = "role_id", nullable = false)
     private int roleId;
 
-    // Member와의 연관관계 (필요한 경우)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", insertable = false, updatable = false)
     private Member member;
@@ -47,6 +46,8 @@ public class MemberRole {
         this.roleId = role.getId();
     }
 
+
+
     // 편의 메서드 - 일반 회원 권한 확인
     public boolean isMember() {
         if (this.role != null) {
@@ -55,4 +56,5 @@ public class MemberRole {
         // Role이 로드되지 않은 경우, roleId로 직접 확인 (MEMBER의 ID가 1이라고 가정)
         return this.roleId == 1;
     }
+
 }
