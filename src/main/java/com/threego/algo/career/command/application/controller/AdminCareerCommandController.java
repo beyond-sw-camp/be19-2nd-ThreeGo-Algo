@@ -5,6 +5,7 @@ import com.threego.algo.career.command.domain.aggregate.enums.Status;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class AdminCareerCommandController {
     private final AdminCareerCommandService adminService;
 
     @Autowired
-    public AdminCareerCommandController(AdminCareerCommandService adminService) {
+    public AdminCareerCommandController(@Qualifier("adminCareerCommandServiceImpl")AdminCareerCommandService adminService) {
         this.adminService = adminService;
     }
 

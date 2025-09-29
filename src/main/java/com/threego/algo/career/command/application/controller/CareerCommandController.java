@@ -6,6 +6,7 @@ import com.threego.algo.career.command.application.service.CareerCommandService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class CareerCommandController {
    private final CareerCommandService service;
 
    @Autowired
-    public CareerCommandController(CareerCommandService service) {
+    public CareerCommandController(@Qualifier("careerCommandServiceImpl") CareerCommandService service) {
         this.service = service;
     }
 
