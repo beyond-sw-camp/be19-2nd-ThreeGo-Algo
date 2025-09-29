@@ -5,7 +5,6 @@ import com.threego.algo.member.command.domain.aggregate.enums.RoleName;
 import com.threego.algo.member.command.domain.aggregate.enums.Status;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
-import com.threego.algo.member.command.domain.repository.MemberRoleCommandRepository;
 import com.threego.algo.member.command.domain.repository.RoleCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AdminMemberCommandServiceImpl implements AdminMemberCommandService {
     private final MemberCommandRepository memberCommandRepository;
-    private final MemberRoleCommandRepository memberRoleCommandRepository;
     private final RoleCommandRepository roleCommandRepository;
 
     @Autowired
     public AdminMemberCommandServiceImpl(MemberCommandRepository memberCommandRepository,
-                                         MemberRoleCommandRepository memberRoleCommandRepository,
                                          RoleCommandRepository roleCommandRepository) {
         this.memberCommandRepository = memberCommandRepository;
-        this.memberRoleCommandRepository = memberRoleCommandRepository;
         this.roleCommandRepository = roleCommandRepository;
     }
 
