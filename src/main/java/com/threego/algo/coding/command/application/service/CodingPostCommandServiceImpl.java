@@ -98,19 +98,21 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
 
     @Override
     @Transactional
-    public int addComment(int postId, CodingCommentRequestDTO dto) {
+    public int addComment(int postId,
+                          Integer parentId,
+                          CodingCommentRequestDTO dto) {
         // member, post 조회
-        Member member = memberRepository.findById(dto.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("작성자(Member) 없음: " + dto.getMemberId()));
+        Member member = memberRepository.findById(1)
+                .orElseThrow(() -> new IllegalArgumentException("작성자(Member) 없음: "));
 
         CodingPost post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
 
         // parent가 있으면 검증: 부모가 같은 게시물에 속해야 함
         CodingComment parent = null;
-        if (dto.getParentId() > 0) {
-            parent = commentRepository.findById(dto.getParentId())
-                    .orElseThrow(() -> new IllegalArgumentException("부모 댓글 없음: " + dto.getParentId()));
+        if (parentId != null) {
+            parent = commentRepository.findById(parentId)
+                    .orElseThrow(() -> new IllegalArgumentException("부모 댓글 없음: "));
             if (parent.getPost().getId() != postId) {
                 throw new IllegalArgumentException("부모 댓글은 같은 게시물에 속해야 합니다.");
             }

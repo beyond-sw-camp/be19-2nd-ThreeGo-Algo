@@ -56,9 +56,12 @@ public class CodingPostCommandController {
 
     // 댓글 등록 (parentId가 있으면 대댓글)
     @PostMapping("/posts/{postId}/comments")
-    public ResponseEntity<Integer> createComment(@PathVariable int postId, @RequestBody CodingCommentRequestDTO request) {
-        int id = codingPostCommandService.addComment(postId, request);
-        return ResponseEntity.ok(id);
+    public ResponseEntity<Integer> createComment(
+            @PathVariable int postId,
+            @RequestParam(value = "parentId", required = false) Integer parentId,
+            @RequestBody CodingCommentRequestDTO request) {
+        Integer commentid = codingPostCommandService.addComment(postId, parentId, request);
+        return ResponseEntity.ok(commentid);
     }
 
     // 댓글 수정

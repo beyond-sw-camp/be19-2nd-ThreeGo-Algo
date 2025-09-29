@@ -15,7 +15,7 @@ public interface CodingPostCommandService {
 
     void softDeletePost(int postId);
 
-    int addComment(int postId, CodingCommentRequestDTO dto);
+    int addComment(int postId, Integer parentId, CodingCommentRequestDTO dto);
 
     void updateComment(int commentId, CodingCommentRequestDTO dto);
 
