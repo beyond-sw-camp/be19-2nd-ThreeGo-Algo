@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(name = "CodingProblem (Admin)", description = "관리자용 코딩문제 API")
-@RequestMapping("/admin/codingproblem")
+@RequestMapping("/admin/coding-problem")
 @RestController
 @RequiredArgsConstructor
 public class AdminCodingProblemQueryController {
@@ -18,7 +18,7 @@ public class AdminCodingProblemQueryController {
     private final CodingProblemQueryService codingProblemQueryService;
 
     // 관리자용 알고리즘 문제 게시물 목록 조회
-    // GET /admin/codingproblem/posts
+    // GET /admin/coding-problem/posts
     @GetMapping("/posts")
     public List<CodingProblemSummaryDTO> findProblemsListForAdmin(
             @RequestParam(value = "visibility", required = false) String visibility, // Y/N/ALL
@@ -28,7 +28,7 @@ public class AdminCodingProblemQueryController {
 
     // 관리자용 알고리즘 문제 게시물 상세 조회
     // GET /admin/codingproblem/posts/{postId}
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/problems/{postId}")
     public CodingProblemDetailDTO findProblemDetailForAdmin(@PathVariable int postId) {
         return codingProblemQueryService.findProblemDetailForAdmin(postId);
     }

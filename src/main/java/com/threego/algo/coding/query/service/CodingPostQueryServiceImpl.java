@@ -25,15 +25,6 @@ public class CodingPostQueryServiceImpl implements CodingPostQueryService {
         return codingPostMapper.selectPostList(condition);
     }
 
-    @Override
-    public List<CodingPostSummaryDTO> getPostsByProblemId(String keyword) {
-        return List.of();
-    }
-
-    @Override
-    public List<CodingPostSummaryDTO> findPostByProblemIdOrderByLike(int problemId, int likeCount) {
-        return codingPostMapper.selectPostByProblemIdOrderByLike(problemId);
-    }
 
     @Override
     public CodingPostDetailDTO findPostDetail(int postId) {

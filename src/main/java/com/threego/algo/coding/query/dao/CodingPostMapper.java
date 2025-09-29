@@ -15,8 +15,8 @@ public interface CodingPostMapper {
     // 풀이 게시물 목록 조회 (최신순)
     List<CodingPostSummaryDTO> selectPostList(CodingPostSearchConditionDTO condition);
 
-    // 풀이 게시물 목록 조회 (추천순)
-    List<CodingPostSummaryDTO> selectPostByProblemIdOrderByLike(@Param("problemId") int problemId);
+    // 특정 문제별 게시물 목록 조회
+    List<CodingPostSummaryDTO> selectPostListByProblemId(CodingPostSearchConditionDTO condition);
 
     // 풀이 게시물 상세 조회
     CodingPostDetailDTO selectPostDetail(@Param("postId") int postId);

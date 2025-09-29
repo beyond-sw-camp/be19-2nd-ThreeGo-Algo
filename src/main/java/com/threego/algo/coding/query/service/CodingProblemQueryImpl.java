@@ -1,7 +1,9 @@
 package com.threego.algo.coding.query.service;
 
+import com.threego.algo.coding.query.dao.CodingPostMapper;
 import com.threego.algo.coding.query.dao.CodingProblemMapper;
 import com.threego.algo.coding.query.dto.CodingPostSearchConditionDTO;
+import com.threego.algo.coding.query.dto.CodingPostSummaryDTO;
 import com.threego.algo.coding.query.dto.CodingProblemDetailDTO;
 import com.threego.algo.coding.query.dto.CodingProblemSummaryDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodingProblemQueryImpl implements CodingProblemQueryService {
     private final CodingProblemMapper codingProblemMapper;
+    private final CodingPostMapper codingPostMapper;
 
     @Override
     public List<CodingProblemSummaryDTO> findProblemsList(String keyword) {
@@ -26,6 +29,14 @@ public class CodingProblemQueryImpl implements CodingProblemQueryService {
         return codingProblemMapper.selectProblemsByDifficulty();
     }
 
+    @Override
+    public List<CodingPostSummaryDTO> findPostListByProblemId(int problemId, String keyword) {
+        CodingPostSearchConditionDTO condition = new CodingPostSearchConditionDTO();
+        condition.setProblemId(problemId);
+        condition.setKeyword(keyword);
+        return codingPostMapper.selectPostListByProblemId(condition);
+    }
+    
     @Override
     public CodingProblemDetailDTO findProblemDetail(int problemId) {
         return codingProblemMapper.selectProblemDetail(problemId);

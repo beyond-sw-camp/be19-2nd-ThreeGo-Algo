@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 /* 설명. 풀이 게시물 목록*/
-public class CodingPostSummaryDTO extends CodingPostDetailDTO {
+public class CodingPostSummaryDTO {
     private int postId;
     private String postTitle;
     private String postContent;

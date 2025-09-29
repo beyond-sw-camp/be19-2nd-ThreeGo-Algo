@@ -28,8 +28,23 @@
                     select="findImagesByPostId"/>
     </resultMap>
 
+    <resultMap id="CodingPostSummaryMap" type="com.threego.algo.coding.query.dto.CodingPostSummaryDTO">
+        <id property="postId" column="postId"/>
+        <result property="postTitle" column="postTitle"/>
+        <result property="postContent" column="postContent"/>
+        <result property="memberId" column="memberId"/>
+        <result property="nickname" column="nickname"/>
+        <result property="memberRank" column="memberRank"/>
+        <result property="problemTitle" column="problemTitle"/>
+        <result property="commentCount" column="commentCount"/>
+        <result property="likeCount" column="likeCount"/>
+        <result property="createdAt" column="createdAt"/>
+        <result property="updatedAt" column="updatedAt"/>
+        <result property="visibility" column="visibility"/>
+    </resultMap>
+
     <!-- 풀이 게시물 목록 조회 (최신순) -->
-    <select id="selectPostList" resultType="com.threego.algo.coding.query.dto.CodingPostSummaryDTO">
+    <select id="selectPostList" resultMap="CodingPostSummaryMap">
         SELECT
         A.ID AS postId,
         A.TITLE AS postTitle,
@@ -61,8 +76,8 @@
         ORDER BY A.ID DESC
     </select>
 
-    <!-- 풀이 게시물 목록 조회 (추천순) -->
-    <select id="selectPostByProblemIdOrderByLike" resultType="com.threego.algo.coding.query.dto.CodingPostSummaryDTO">
+    <!-- 특정 문제별 게시물 목록 조회 -->
+    <select id="selectPostListByProblemId" resultMap="CodingPostSummaryMap">
         SELECT
         A.ID AS postId,
         A.TITLE AS postTitle,
@@ -80,9 +95,20 @@
         JOIN MEMBER B ON A.MEMBER_ID = B.ID
         JOIN MEMBER_RANK C ON B.RANK_ID = C.ID
         JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
-        WHERE A.VISIBILITY = 'Y'
-        AND A.PROBLEM_ID = #{problemId}
-        ORDER BY A.LIKE_COUNT DESC
+        <where>
+            A.VISIBILITY = 'Y'
+            AND A.PROBLEM_ID = #{problemId}
+
+            <!-- keyword 조건 -->
+            <if test="keyword != null and keyword != ''">
+                AND (
+                A.TITLE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.CONTENT LIKE CONCAT('%', #{keyword}, '%')
+                OR B.NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+        </where>
+        ORDER BY A.ID DESC
     </select>
 
     <!-- 풀이 게시물 상세 조회 -->
@@ -143,7 +169,7 @@
     </select>
 
     <!-- 관리자용 전체 목록 조회 -->
-    <select id="selectAdminPostList" parameterType="map" resultType="com.threego.algo.coding.query.dto.CodingPostSummaryDTO">
+    <select id="selectAdminPostList" resultMap="CodingPostSummaryMap">
         SELECT
         A.ID AS postId,
         A.TITLE AS postTitle,
@@ -163,7 +189,7 @@
         JOIN CODING_PROBLEM D ON A.PROBLEM_ID = D.ID
         <where>
             <!-- visibility 조건 -->
-            <if test="visibility != null and visibility != '' and visibility != 'ALL'">
+            <if test="visibility != null and visibility != ''">
                 A.VISIBILITY = #{visibility}
             </if>
 
