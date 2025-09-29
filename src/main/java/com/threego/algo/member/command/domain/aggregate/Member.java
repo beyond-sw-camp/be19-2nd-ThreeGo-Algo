@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,7 +17,7 @@ import org.hibernate.annotations.ColumnDefault;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -39,10 +41,25 @@ public class Member {
     @Column(name = "created_at", nullable = false)
     private String createdAt;
 
-    public Member(final String email, final String password, final String nickname, final String createdAt) {
+    // Role과의 다대다 관계
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "Member_Role",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles = new ArrayList<>();
+
+    // MemberRank와의 연관관계
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rank_id", nullable = false)
+    private MemberRank memberRank;
+
+    public Member(final String email, final String password, final String nickname, final MemberRank memberRank, final String createdAt) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.memberRank = memberRank;
         this.point = 0;
         this.reportedCount = 0;
         this.status = Status.ACTIVE;
