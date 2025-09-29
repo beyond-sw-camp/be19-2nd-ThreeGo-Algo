@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/career-info")
 public class CareerCommandController {
-   private final CareerCommandService service;
+    private final CareerCommandService service;
 
-   @Autowired
+    @Autowired
     public CareerCommandController(@Qualifier("careerCommandServiceImpl") CareerCommandService service) {
         this.service = service;
     }
@@ -75,6 +75,18 @@ public class CareerCommandController {
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Integer commentId) {
         service.deleteComment(commentId);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "기업별 정보 공유 게시물 추천 (회원)",
+            description = "회원이 자신이 작성하지 않는 게시물을 추천합니다. 추천 시 게시물의 작성자의 포인트가 1씩 증가합니다."
+    )
+    @DeleteMapping("/posts/{postId}/likes")
+    public ResponseEntity<Void> createCareerPostLikes(@PathVariable("postId") final int postId) {
+        // TODO. memberID는 Authentication에서 받아오도록 수정 필요
+        service.createCareerPostLikes(1, postId);
+
         return ResponseEntity.ok().build();
     }
 }

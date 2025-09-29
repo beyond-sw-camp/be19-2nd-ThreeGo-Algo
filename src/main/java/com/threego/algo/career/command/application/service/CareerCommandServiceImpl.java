@@ -6,6 +6,9 @@ import com.threego.algo.career.command.domain.aggregate.CareerInfoComment;
 import com.threego.algo.career.command.domain.aggregate.CareerInfoPost;
 import com.threego.algo.career.command.domain.repository.CareerCommentRepository;
 import com.threego.algo.career.command.domain.repository.CareerPostRepository;
+import com.threego.algo.likes.command.application.service.LikesCommandService;
+import com.threego.algo.likes.command.domain.aggregate.enums.Type;
+import com.threego.algo.likes.query.service.LikesQueryService;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +16,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CareerCommandServiceImpl implements CareerCommandService{
+public class CareerCommandServiceImpl implements CareerCommandService {
     private final CareerPostRepository careerPostRepository;
     private final CareerCommentRepository careerCommentRepository;
     private final MemberCommandRepository memberRepository;
 
+    private final LikesCommandService likesCommandService;
+    private final LikesQueryService likesQueryService;
+
     @Autowired
-    public CareerCommandServiceImpl(CareerPostRepository careerPostRepository, CareerCommentRepository careerCommentRepository, MemberCommandRepository memberRepository) {
+    public CareerCommandServiceImpl(CareerPostRepository careerPostRepository
+            , CareerCommentRepository careerCommentRepository
+            , MemberCommandRepository memberRepository
+            , LikesCommandService likesCommandService
+            , LikesQueryService likesQueryService) {
         this.careerPostRepository = careerPostRepository;
         this.careerCommentRepository = careerCommentRepository;
         this.memberRepository = memberRepository;
+        this.likesCommandService = likesCommandService;
+        this.likesQueryService = likesQueryService;
     }
 
     @Transactional
@@ -72,7 +84,7 @@ public class CareerCommandServiceImpl implements CareerCommandService{
                 .orElseThrow(() -> new IllegalArgumentException("테스트용 회원이 없습니다."));
 
         CareerInfoComment parent = null;
-        if(parentId != null) {
+        if (parentId != null) {
             parent = careerCommentRepository.findById(parentId)
                     .orElseThrow(() -> new IllegalArgumentException("부모 댓글이 존재하지 않습니다."));
         }
@@ -113,5 +125,30 @@ public class CareerCommandServiceImpl implements CareerCommandService{
 
         comment.deleteComment();
         comment.getPost().decreaseCommentCount();
+    }
+
+    @Transactional
+    @Override
+    public void createCareerPostLikes(final int memberId, final int postId) {
+        // TODO: 로그인 회원 정보 가져오기 (Spring Security에서 인증 객체 활용)
+        final Member member = memberRepository.findById(1)
+                .orElseThrow(() -> new IllegalArgumentException("테스트용 회원이 없습니다."));
+
+        final CareerInfoPost post = careerPostRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다."));
+
+        if (member == post.getMember()) {
+            throw new RuntimeException("자신이 작성한 글은 추천할 수 없습니다.");
+        }
+
+        if (likesQueryService.existsLikesByMemberIdAndPostIdAndPostType(memberId, postId, Type.CAREER_INFO_POST)) {
+            throw new RuntimeException("이미 추천한 게시물입니다.");
+        }
+
+        likesCommandService.createLikes(member, post, Type.CAREER_INFO_POST);
+
+        post.getMember().increasePoint(1);
+
+        post.increaseLikeCount();
     }
 }
