@@ -72,7 +72,7 @@
              , A.UPDATED_AT
              , A.QUESTION_COUNT
           FROM ALGO_ROADMAP A
-         ORDER BY A.`ORDER`;
+         ORDER BY A.`ORDER`, A.ID;
     </select>
 
     <select id="selectAlgoPosts" resultMap="AlgoPostResultMap">
