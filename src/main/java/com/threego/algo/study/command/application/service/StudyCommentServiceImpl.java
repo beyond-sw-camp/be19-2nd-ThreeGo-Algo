@@ -30,7 +30,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     private final MemberRoleRepository memberRoleRepository;
 
     @Override
-    public ResponseEntity<String> createComment(Integer postId, Integer memberId, StudyCommentCreateDTO request) {
+    public ResponseEntity<String> createComment(int postId, int memberId, StudyCommentCreateDTO request) {
         try {
             // 1. 게시물 존재 여부 확인
             StudyPost post = studyPostRepository.findById(postId)
@@ -62,14 +62,14 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
-    public ResponseEntity<String> updateComment(Integer commentId, Integer memberId, StudyCommentUpdateDTO request) {
+    public ResponseEntity<String> updateComment(int commentId, int memberId, StudyCommentUpdateDTO request) {
         try {
             // 1. 댓글 존재 여부 확인
             StudyComment comment = studyCommentRepository.findById(commentId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
 
             // 2. 작성자 권한 확인
-            if (!comment.getMemberId().equals(memberId)) {
+            if (comment.getMemberId() != (memberId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("댓글을 수정할 권한이 없습니다.");
             }
@@ -88,14 +88,14 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
-    public ResponseEntity<String> deleteComment(Integer commentId, Integer memberId) {
+    public ResponseEntity<String> deleteComment(int commentId, int memberId) {
         try {
             // 1. 댓글 존재 여부 확인
             StudyComment comment = studyCommentRepository.findById(commentId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
 
             // 2. 작성자 권한 확인
-            if (!comment.getMemberId().equals(memberId)) {
+            if (comment.getMemberId()!=(memberId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("댓글을 삭제할 권한이 없습니다.");
             }
@@ -119,7 +119,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
     }
 
     @Override
-    public ResponseEntity<String> adminDeleteComment(Integer commentId, Integer adminId) {
+    public ResponseEntity<String> adminDeleteComment(int commentId, int adminId) {
         try {
             // 1. 관리자 권한 확인
             if (!isAdmin(adminId)) {
@@ -143,7 +143,7 @@ public class StudyCommentServiceImpl implements StudyCommentService {
         }
     }
 
-    private void validateStudyMemberAccess(Integer studyId, Integer memberId) {
+    private void validateStudyMemberAccess(int studyId, int memberId) {
         StudyMember studyMember = getStudyMember(studyId, memberId);
 
         if (!studyMember.isActive()) {
@@ -151,16 +151,16 @@ public class StudyCommentServiceImpl implements StudyCommentService {
         }
     }
 
-    private boolean isAdmin(Integer memberId) {
+    private boolean isAdmin(int memberId) {
         try {
-            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
-            return roleId != null && roleId == 2;
+            int roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId == 2;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private StudyMember getStudyMember(Integer studyId, Integer memberId) {
+    private StudyMember getStudyMember(int studyId, int memberId) {
         return (StudyMember) studyMemberRepository.findByStudyIdAndMemberId(studyId, memberId)
                 .orElseThrow(() -> new IllegalArgumentException("스터디 멤버가 아닙니다."));
     }

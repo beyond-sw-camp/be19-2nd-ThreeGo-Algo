@@ -25,8 +25,8 @@ public class StudyRecruitCommentCommandController {
     @Operation(summary = "댓글 등록", description = "모집글에 댓글을 등록합니다.")
     @PostMapping("/{postId}/comments")
     public ResponseEntity<String> createComment(
-            @PathVariable Integer postId,
-            @RequestHeader("Member-Id") Integer memberId,
+            @PathVariable int postId,
+            @RequestHeader("Member-Id") int memberId,
             @Valid @RequestBody StudyRecruitCommentCreateDTO request) {
         return studyRecruitCommentService.createComment(postId, memberId, request);
     }
@@ -34,8 +34,8 @@ public class StudyRecruitCommentCommandController {
     @Operation(summary = "댓글 수정", description = "작성자가 자신의 댓글을 수정합니다.")
     @PutMapping("/{commentId}")
     public ResponseEntity<String> updateComment(
-            @PathVariable Integer commentId,
-            @RequestHeader("Member-Id") Integer memberId,
+            @PathVariable int commentId,
+            @RequestHeader("Member-Id") int memberId,
             @Valid @RequestBody StudyRecruitCommentUpdateDTO request) {
         return studyRecruitCommentService.updateComment(commentId, memberId, request);
     }
@@ -43,16 +43,16 @@ public class StudyRecruitCommentCommandController {
     @Operation(summary = "댓글 삭제", description = "작성자가 자신의 댓글을 삭제합니다.")
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(
-            @PathVariable Integer commentId,
-            @RequestHeader("Member-Id") Integer memberId) {
+            @PathVariable int commentId,
+            @RequestHeader("Member-Id") int memberId) {
         return studyRecruitCommentService.deleteComment(commentId, memberId);
     }
 
     @Operation(summary = "댓글 신고", description = "부적절한 댓글을 신고합니다.")
     @PostMapping("/{commentId}/reports")
     public ResponseEntity<String> reportComment(
-            @PathVariable Integer commentId,
-            @RequestHeader("Member-Id") Integer reporterId,
+            @PathVariable int commentId,
+            @RequestHeader("Member-Id") int reporterId,
             @Valid @RequestBody StudyRecruitReportCreateDTO request) {
         return studyRecruitReportService.reportComment(commentId, reporterId, request);
     }

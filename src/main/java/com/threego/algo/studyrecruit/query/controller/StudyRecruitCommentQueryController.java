@@ -22,7 +22,7 @@ public class StudyRecruitCommentQueryController {
             description = "특정 게시글의 댓글을 조회합니다. 부모 댓글과 대댓글이 정렬되어 반환됩니다."
     )
     @GetMapping("/posts/{postId}/comments")
-    public ResponseEntity<List<StudyRecruitCommentDTO>> findPostComments(@PathVariable Integer postId) {
+    public ResponseEntity<List<StudyRecruitCommentDTO>> findPostComments(@PathVariable int postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitComments(postId));
     }
 }

@@ -16,14 +16,14 @@ public interface StudyRecruitPostRepository extends JpaRepository<StudyRecruitPo
 
 
     // 3. 모집글 삭제용 - 작성자 권한 확인 후 soft delete
-    Optional<StudyRecruitPost> findByIdAndMemberIdAndVisibility(Integer id, Integer memberId, String visibility);
+    Optional<StudyRecruitPost> findByIdAndMemberIdAndVisibility(int id, int memberId, String visibility);
 
     @Modifying
     @Query("UPDATE StudyRecruitPost s SET s.visibility = 'N', s.updatedAt = :updatedAt WHERE s.id = :id")
-    void softDeleteById(@Param("id") Integer id, @Param("updatedAt") String updatedAt);
+    void softDeleteById(@Param("id") int id, @Param("updatedAt") String updatedAt);
 
     // 13. 모집 마감용 - 작성자 권한 확인 및 상태 변경
     @Modifying
     @Query("UPDATE StudyRecruitPost s SET s.status = :status, s.updatedAt = :updatedAt WHERE s.id = :id")
-    void updateStatusToClosed(@Param("id") Integer id, @Param("status") RecruitStatus status, @Param("updatedAt") String updatedAt);
+    void updateStatusToClosed(@Param("id") int id, @Param("status") RecruitStatus status, @Param("updatedAt") String updatedAt);
 }

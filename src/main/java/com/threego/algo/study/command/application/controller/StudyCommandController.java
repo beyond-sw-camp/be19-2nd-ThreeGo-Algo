@@ -34,10 +34,10 @@ public class StudyCommandController {
     @PostMapping
     public ResponseEntity<String> createStudy(
             @Parameter(description = "작성자 ID", required = true)
-            @RequestHeader("Member-Id") Integer authorId,
+            @RequestHeader("Member-Id") int authorId,
 
             @Parameter(description = "모집글 ID", required = true)
-            @RequestHeader("POST-ID") Integer post_id,
+            @RequestHeader("POST-ID") int post_id,
 
             @Parameter(description = "스터디 생성 정보", required = true)
             @Valid @RequestBody StudyCreateDTO request) {
@@ -58,9 +58,9 @@ public class StudyCommandController {
     @PutMapping("/{studyId}")
     public ResponseEntity<String> updateStudy(
             @Parameter(description = "스터디 ID", required = true)
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId,
+            @RequestHeader("Member-Id") int leaderId,
             @Parameter(description = "스터디 수정 정보", required = true)
             @Valid @RequestBody StudyUpdateDTO request) {
         return studyService.updateStudy(studyId, leaderId, request);
@@ -81,10 +81,10 @@ public class StudyCommandController {
     @DeleteMapping("/{studyId}")
     public ResponseEntity<String> deleteStudy(
             @Parameter(description = "삭제할 스터디 ID", required = true)
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
 
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId) {
+            @RequestHeader("Member-Id") int leaderId) {
 
         return studyService.deleteStudy(studyId, leaderId);
     }

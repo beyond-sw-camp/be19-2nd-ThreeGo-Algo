@@ -52,7 +52,7 @@
              , C.`DESCRIPTION`        AS MILESTONE_DESCRIPTION
              , C.`ORDER`              AS MILESTONE_ORDER
           FROM STUDY_ROADMAP A
-          JOIN STUDY_MEMBER B        ON A.MEMBER_ID = B.ID
+          JOIN STUDY_MEMBER B        ON A.MEMBER_ID = B.MEMBER_ID
           LEFT JOIN STUDY_MILESTONE C ON A.ID = C.ROADMAP_ID
          WHERE A.ID = #{roadmapId}
            AND B.ROLE != 'NOT_MEMBER'

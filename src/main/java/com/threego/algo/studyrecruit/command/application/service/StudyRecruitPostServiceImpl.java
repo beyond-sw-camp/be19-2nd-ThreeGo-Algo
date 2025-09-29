@@ -31,7 +31,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
     private final MemberRoleRepository memberRoleRepository;
 
     @Override
-    public ResponseEntity<String> createPost(Integer memberId, StudyRecruitPostCreateDTO request) {
+    public ResponseEntity<String> createPost(int memberId, StudyRecruitPostCreateDTO request) {
         try {
             // 1. 회원 존재 여부 확인
             Member member = memberRepository.findById(memberId)
@@ -65,7 +65,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
     }
 
     @Override
-    public ResponseEntity<String> updatePost(Integer postId, Integer memberId, StudyRecruitPostUpdateDTO request) {
+    public ResponseEntity<String> updatePost(int postId, int memberId, StudyRecruitPostUpdateDTO request) {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
@@ -95,7 +95,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
     }
 
     @Override
-    public ResponseEntity<String> deletePost(Integer postId, Integer memberId) {
+    public ResponseEntity<String> deletePost(int postId, int memberId) {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
@@ -119,7 +119,7 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
     }
 
     @Override
-    public ResponseEntity<String> closeRecruitment(Integer postId, Integer memberId) {
+    public ResponseEntity<String> closeRecruitment(int postId, int memberId) {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitPost studyRecruitPost = studyRecruitPostRepository
@@ -148,12 +148,12 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
     }
 
     @Override
-    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(Integer postId) {
+    public List<StudyRecruitMemberDTO> findStudyRecruitMembers(int postId) {
         return studyRecruitPostMapper.selectStudyRecruitMembers(postId);
     }
 
     @Override
-    public ResponseEntity<String> adminDeletePost(Integer postId, Integer adminId) {
+    public ResponseEntity<String> adminDeletePost(int postId, int adminId) {
         try {
             // 1. 관리자 권한 확인
             if (!isAdmin(adminId)) {
@@ -182,10 +182,10 @@ public class StudyRecruitPostServiceImpl implements StudyRecruitPostService {
         }
     }
 
-    private boolean isAdmin(Integer memberId) {
+    private boolean isAdmin(int memberId) {
         try {
-            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
-            return roleId != null && roleId == 2;
+            int roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId == 2;
         } catch (Exception e) {
             return false;
         }

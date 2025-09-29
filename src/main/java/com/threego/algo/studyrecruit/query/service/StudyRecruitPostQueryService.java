@@ -7,17 +7,17 @@ import java.util.List;
 public interface StudyRecruitPostQueryService {
     List<StudyRecruitPostDTO> findStudyRecruitList(StudyRecruitSearchDTO searchDto);
 
-    StudyRecruitDetailDTO findStudyRecruitDetail(Integer postId);
+    StudyRecruitDetailDTO findStudyRecruitDetail(int postId);
 
-    List<StudyRecruitCommentDTO> findStudyRecruitComments(Integer postId);
+    List<StudyRecruitCommentDTO> findStudyRecruitComments(int postId);
 
-    List<StudyRecruitMemberDTO> findStudyRecruitMembers(Integer postId);
+    List<StudyRecruitMemberDTO> findStudyRecruitMembers(int postId);
 
     List<StudyRecruitPostDTO> findStudyRecruitListIncludeHidden(StudyRecruitSearchDTO searchDto);
 
-    StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(Integer postId);
+    StudyRecruitDetailDTO findStudyRecruitDetailIncludeHidden(int postId);
 
     List<StudyRecruitCommentDTO> findAllStudyRecruitCommentsIncludeHidden(StudyRecruitSearchDTO searchDto);
 
-    List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(Integer postId);
+    List<StudyRecruitCommentDTO> findStudyRecruitCommentsIncludeHidden(int postId);
 }

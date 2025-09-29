@@ -33,7 +33,7 @@ public class StudyRecruitPostUpdateDTO {
     @NotNull(message = "모집 인원은 필수입니다.")
     @Min(value = 2, message = "모집 인원은 최소 2명 이상이어야 합니다.")
     @Max(value = 20, message = "모집 인원은 최대 20명까지 가능합니다.")
-    private Integer capacity;
+    private int capacity;
 
     @NotNull(message = "공개여부는 필수입니다.")
     private String visibility;

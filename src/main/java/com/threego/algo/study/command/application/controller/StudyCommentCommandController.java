@@ -30,9 +30,9 @@ public class StudyCommentCommandController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     public ResponseEntity<String> createComment(
-            @PathVariable Integer postId,
+            @PathVariable int postId,
             @RequestBody StudyCommentCreateDTO commentDto,
-            @RequestParam Integer memberId) {
+            @RequestParam int memberId) {
         return studyCommentService.createComment(postId, memberId, commentDto);
     }
 
@@ -46,9 +46,9 @@ public class StudyCommentCommandController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     public ResponseEntity<String> updateComment(
-            @PathVariable Integer commentId,
+            @PathVariable int commentId,
             @RequestBody StudyCommentUpdateDTO commentDto,
-            @RequestParam Integer memberId) {
+            @RequestParam int memberId) {
         return studyCommentService.updateComment(commentId, memberId, commentDto);
     }
 
@@ -62,8 +62,8 @@ public class StudyCommentCommandController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     public ResponseEntity<String> deleteComment(
-            @PathVariable Integer commentId,
-            @RequestParam Integer memberId) {
+            @PathVariable int commentId,
+            @RequestParam int memberId) {
         return studyCommentService.deleteComment(commentId, memberId);
     }
 }

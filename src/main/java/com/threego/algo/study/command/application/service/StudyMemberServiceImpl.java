@@ -22,7 +22,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
     private final StudyMemberRepository studyMemberRepository;
 
     @Override
-    public ResponseEntity<String> kickMember(Integer studyId, Integer memberId, Integer leaderId) {
+    public ResponseEntity<String> kickMember(int studyId, int memberId, int leaderId) {
         try {
             Study study = studyRepository.findById(studyId)
                     .orElseThrow(() -> new IllegalArgumentException("스터디 그룹을 찾을 수 없습니다."));
@@ -42,7 +42,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
             }
 
             // 그룹장 자신을 강퇴하려는 경우 방지
-            if (leader.getId().equals(memberId)) {
+            if (leader.getId()!=(memberId)) {
                 return ResponseEntity.badRequest().body("그룹장은 자신을 강퇴할 수 없습니다.");
             }
 
@@ -63,7 +63,7 @@ public class StudyMemberServiceImpl implements StudyMemberService {
     }
 
     @Override
-    public ResponseEntity<String> delegateLeadership(Integer studyId, Integer newLeaderId, Integer currentLeaderId) {
+    public ResponseEntity<String> delegateLeadership(int studyId, int newLeaderId, int currentLeaderId) {
         try {
             Study study = studyRepository.findById(studyId)
                     .orElseThrow(() -> new IllegalArgumentException("스터디 그룹을 찾을 수 없습니다."));

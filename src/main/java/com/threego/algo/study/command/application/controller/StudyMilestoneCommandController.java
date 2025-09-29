@@ -32,9 +32,9 @@ public class StudyMilestoneCommandController {
     @PostMapping("/roadmaps/{roadmapId}/milestones")
     public ResponseEntity<String> createMilestone(
             @Parameter(description = "로드맵 ID", required = true)
-            @PathVariable Integer roadmapId,
+            @PathVariable int roadmapId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId,
+            @RequestHeader("Member-Id") int leaderId,
             @Parameter(description = "마일스톤 등록 정보", required = true)
             @Valid @RequestBody StudyMilestoneCreateDTO request) {
         return studyMilestoneService.createMilestone(roadmapId, leaderId, request);
@@ -51,9 +51,9 @@ public class StudyMilestoneCommandController {
     @PutMapping("/milestones/{milestoneId}")
     public ResponseEntity<String> updateMilestone(
             @Parameter(description = "마일스톤 ID", required = true)
-            @PathVariable Integer milestoneId,
+            @PathVariable int milestoneId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId,
+            @RequestHeader("Member-Id") int leaderId,
             @Parameter(description = "마일스톤 수정 정보", required = true)
             @Valid @RequestBody StudyMilestoneUpdateDTO request) {
         return studyMilestoneService.updateMilestone(milestoneId, leaderId, request);
@@ -69,9 +69,9 @@ public class StudyMilestoneCommandController {
     @DeleteMapping("/milestones/{milestoneId}")
     public ResponseEntity<String> deleteMilestone(
             @Parameter(description = "마일스톤 ID", required = true)
-            @PathVariable Integer milestoneId,
+            @PathVariable int milestoneId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId) {
+            @RequestHeader("Member-Id") int leaderId) {
         return studyMilestoneService.deleteMilestone(milestoneId, leaderId);
     }
 }

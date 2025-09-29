@@ -18,7 +18,7 @@ public class StudyRecruitPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -44,10 +44,10 @@ public class StudyRecruitPost {
     private RecruitStatus status;
 
     @Column(nullable = false)
-    private Integer capacity;
+    private int capacity;
 
-    @Column(name = "comment_count", columnDefinition = "integer default 0")
-    private Integer commentCount;
+    @Column(name = "comment_count", columnDefinition = "int default 0")
+    private int commentCount;
 
     @Column(name = "created_at", nullable = false)
     private String createdAt;
@@ -68,7 +68,7 @@ public class StudyRecruitPost {
 
     // 생성자
     public StudyRecruitPost(Member member, String title, String content, String startDate,
-                            String endDate, String expiresAt, Integer capacity, String createdAt) {
+                            String endDate, String expiresAt, int capacity, String createdAt) {
         this.member = member;
         this.title = title;
         this.content = content;
@@ -99,18 +99,18 @@ public class StudyRecruitPost {
 
     /* 설명. 스터디 모집 게시물 댓글 수 카운트 + 1 */
     public void incrementCommentCount() {
-        this.commentCount = (this.commentCount == null ? 0 : this.commentCount) + 1;
+        this.commentCount = this.commentCount + 1;
     }
 
     /* 설명. 스터디 모집 게시물 댓글 수 카운트 - 1 */
     public void decrementCommentCount() {
-        this.commentCount = Math.max(0, (this.commentCount == null ? 0 : this.commentCount) - 1);
+        this.commentCount = Math.max(0, this.commentCount - 1);
     }
 
 
     /* 설명. 모집글 수정 시 업데이트 시간 갱신 */
     public void updatePost(String title, String content, String startDate, String endDate,
-                           String expiresAt, Integer capacity, String visibility) {
+                           String expiresAt, int capacity, String visibility) {
         this.title = title;
         this.content = content;
         this.startDate = startDate;

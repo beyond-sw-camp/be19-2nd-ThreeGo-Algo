@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 
 public interface StudyMilestoneService {
     /* 설명. 마일스톤 등록 */
-    ResponseEntity<String> createMilestone(Integer roadmapId, Integer leaderId, StudyMilestoneCreateDTO request);
+    ResponseEntity<String> createMilestone(int roadmapId, int leaderId, StudyMilestoneCreateDTO request);
 
     /* 설명. 마일스톤 수정 */
-    ResponseEntity<String> updateMilestone(Integer milestoneId, Integer leaderId, StudyMilestoneUpdateDTO request);
+    ResponseEntity<String> updateMilestone(int milestoneId, int leaderId, StudyMilestoneUpdateDTO request);
 
     /* 설명. 마일스톤 삭제 */
-    ResponseEntity<String> deleteMilestone(Integer milestoneId, Integer leaderId);
+    ResponseEntity<String> deleteMilestone(int milestoneId, int leaderId);
 
 }

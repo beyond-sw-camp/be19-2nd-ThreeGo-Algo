@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 public interface StudyRecruitMemberService {
 
     /* 설명. 참가 신청 */
-    ResponseEntity<String> applyToStudy(Integer postId, Integer memberId);
+    ResponseEntity<String> applyToStudy(int postId, int memberId);
 
     /* 설명. 참가 신청 취소 */
-    ResponseEntity<String> cancelApplication(Integer joinId, Integer memberId);
+    ResponseEntity<String> cancelApplication(int joinId, int memberId);
 
     /* 설명. 참가 신청 승인 */
-    ResponseEntity<String> acceptApplication(Integer joinId, Integer authorId);
+    ResponseEntity<String> acceptApplication(int joinId, int authorId);
 
     /* 설명. 참가 신청 거절 */
-    ResponseEntity<String> rejectApplication(Integer joinId, Integer authorId);
+    ResponseEntity<String> rejectApplication(int joinId, int authorId);
 }

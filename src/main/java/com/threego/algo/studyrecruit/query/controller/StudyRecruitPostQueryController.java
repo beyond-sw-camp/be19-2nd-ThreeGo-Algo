@@ -23,8 +23,8 @@ public class StudyRecruitPostQueryController {
     )
     @GetMapping("/posts")
     public ResponseEntity<List<StudyRecruitPostDTO>> findPosts(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String keyword
     ) {
@@ -43,7 +43,7 @@ public class StudyRecruitPostQueryController {
             description = "POST_ID로 특정 스터디 모집글의 상세 정보를 조회합니다."
     )
     @GetMapping("/posts/{postId}")
-    public ResponseEntity<StudyRecruitDetailDTO> findPost(@PathVariable Integer postId) {
+    public ResponseEntity<StudyRecruitDetailDTO> findPost(@PathVariable int postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitDetail(postId));
     }
 
@@ -54,7 +54,7 @@ public class StudyRecruitPostQueryController {
             description = "특정 게시글의 참가 신청자 목록을 조회합니다. 작성자만 조회 가능합니다."
     )
     @GetMapping("/posts/{postId}/members")
-    public ResponseEntity<List<StudyRecruitMemberDTO>> findPostMembers(@PathVariable Integer postId) {
+    public ResponseEntity<List<StudyRecruitMemberDTO>> findPostMembers(@PathVariable int postId) {
         return ResponseEntity.ok(studyRecruitPostServiceImpl.findStudyRecruitMembers(postId));
     }
 

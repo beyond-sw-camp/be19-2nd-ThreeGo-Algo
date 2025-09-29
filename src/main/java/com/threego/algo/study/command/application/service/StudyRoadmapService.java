@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 public interface StudyRoadmapService {
 
     /* 설명. 스터디 로드맵 등록 */
-    ResponseEntity<String> createRoadmap(Integer studyId, Integer leaderId, StudyRoadmapCreateDTO request);
+    ResponseEntity<String> createRoadmap(int studyId, int leaderId, StudyRoadmapCreateDTO request);
 
     /* 설명. 스터디 로드맵 수정 */
-    ResponseEntity<String> updateRoadmap(Integer roadmapId, Integer leaderId, StudyRoadmapUpdateDTO request);
+    ResponseEntity<String> updateRoadmap(int roadmapId, int leaderId, StudyRoadmapUpdateDTO request);
 
     /* 설명. 스터디 로드맵 삭제 */
-    ResponseEntity<String> deleteRoadmap(Integer roadmapId, Integer leaderId);
+    ResponseEntity<String> deleteRoadmap(int roadmapId, int leaderId);
 }

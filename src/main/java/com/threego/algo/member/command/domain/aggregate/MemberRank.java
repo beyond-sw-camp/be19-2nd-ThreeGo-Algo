@@ -16,14 +16,14 @@ import lombok.Setter;
 public class MemberRank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RankName name;
 
     @Column(name = "min_point", nullable = false)
-    private Integer minPoint;
+    private int minPoint;
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;

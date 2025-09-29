@@ -24,7 +24,7 @@ public class StudyRoadmapServiceImpl implements  StudyRoadmapService {
 
     /* 설명. 스터디 로드맵 생성 */
     @Override
-    public ResponseEntity<String> createRoadmap(Integer studyId, Integer leaderId, StudyRoadmapCreateDTO request) {
+    public ResponseEntity<String> createRoadmap(int studyId, int leaderId, StudyRoadmapCreateDTO request) {
         try {
 
             // 1. 리더 권한 확인
@@ -53,7 +53,7 @@ public class StudyRoadmapServiceImpl implements  StudyRoadmapService {
 
     /* 설명. 스터리 로드맵 수정 */
     @Override
-    public ResponseEntity<String> updateRoadmap(Integer roadmapId, Integer leaderId, StudyRoadmapUpdateDTO request) {
+    public ResponseEntity<String> updateRoadmap(int roadmapId, int leaderId, StudyRoadmapUpdateDTO request) {
         try {
             // 1. 로드맵 존재 여부 확인
             StudyRoadmap roadmap = studyRoadmapRepository.findById(roadmapId)
@@ -81,7 +81,7 @@ public class StudyRoadmapServiceImpl implements  StudyRoadmapService {
 
     /* 설명. 스터디 로드맵 삭제 */
     @Override
-    public ResponseEntity<String> deleteRoadmap(Integer roadmapId, Integer leaderId) {
+    public ResponseEntity<String> deleteRoadmap(int roadmapId, int leaderId) {
         try {
             // 1. 로드맵 존재 여부 확인
             StudyRoadmap roadmap = studyRoadmapRepository.findById(roadmapId)
@@ -113,7 +113,7 @@ public class StudyRoadmapServiceImpl implements  StudyRoadmapService {
     }
 
     /* 설명. 스터디 리더 권한 확인 */
-    private boolean isStudyLeader(Integer studyId, Integer memberId) {
+    private boolean isStudyLeader(int studyId, int memberId) {
         return studyMemberRepository.existsByStudyIdAndMemberIdAndRole(studyId, memberId, StudyRole.LEADER);
     }
 }

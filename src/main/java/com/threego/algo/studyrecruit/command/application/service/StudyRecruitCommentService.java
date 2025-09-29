@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity;
 public interface StudyRecruitCommentService {
 
     /* 설명. 댓글 등록 */
-    ResponseEntity<String> createComment(Integer postId, Integer memberId, StudyRecruitCommentCreateDTO request);
+    ResponseEntity<String> createComment(int postId, int memberId, StudyRecruitCommentCreateDTO request);
 
     /* 설명. 댓글 수정 */
-    ResponseEntity<String> updateComment(Integer commentId, Integer memberId, StudyRecruitCommentUpdateDTO request);
+    ResponseEntity<String> updateComment(int commentId, int memberId, StudyRecruitCommentUpdateDTO request);
 
     /* 설명. 댓글 삭제(소프트 딜리트) */
-    ResponseEntity<String> deleteComment(Integer commentId, Integer memberId);
+    ResponseEntity<String> deleteComment(int commentId, int memberId);
 
     /* 설명. 관리자 댓글 삭제 */
-    ResponseEntity<String> adminDeleteComment(Integer commentId, Integer adminId);
+    ResponseEntity<String> adminDeleteComment(int commentId, int adminId);
 }

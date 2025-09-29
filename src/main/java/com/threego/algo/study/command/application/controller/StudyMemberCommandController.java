@@ -37,13 +37,13 @@ public class StudyMemberCommandController {
     @DeleteMapping("/{studyId}/members/{memberId}")
     public ResponseEntity<String> kickMember(
             @Parameter(description = "스터디 ID", required = true)
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
 
             @Parameter(description = "강퇴할 멤버 ID", required = true)
-            @PathVariable Integer memberId,
+            @PathVariable int memberId,
 
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId) {
+            @RequestHeader("Member-Id") int leaderId) {
 
         return studyMemberService.kickMember(studyId, memberId, leaderId);
     }
@@ -62,13 +62,13 @@ public class StudyMemberCommandController {
     @PutMapping("/{studyId}/leader/{memberId}")
     public ResponseEntity<String> delegateLeadership(
             @Parameter(description = "스터디 ID", required = true)
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
 
             @Parameter(description = "새로운 그룹장이 될 멤버 ID", required = true)
-            @PathVariable Integer memberId,
+            @PathVariable int memberId,
 
             @Parameter(description = "현재 그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer currentLeaderId) {
+            @RequestHeader("Member-Id") int currentLeaderId) {
 
         return studyMemberService.delegateLeadership(studyId, memberId, currentLeaderId);
     }

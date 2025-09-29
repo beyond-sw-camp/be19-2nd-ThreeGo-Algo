@@ -19,24 +19,24 @@ public class StudyRecruitMemberCommandController {
     @Operation(summary = "신청 취소", description = "신청자가 자신의 신청을 취소합니다.")
     @DeleteMapping("/{joinId}")
     public ResponseEntity<String> cancelApplication(
-            @PathVariable Integer joinId,
-            @RequestHeader("Member-Id") Integer memberId) {
+            @PathVariable int joinId,
+            @RequestHeader("Member-Id") int memberId) {
         return studyRecruitMemberService.cancelApplication(joinId, memberId);
     }
 
     @Operation(summary = "신청 승인", description = "모집글 작성자가 신청을 승인합니다.")
     @PostMapping("/{joinId}/accept")
     public ResponseEntity<String> acceptApplication(
-            @PathVariable Integer joinId,
-            @RequestHeader("Member-Id") Integer authorId) {
+            @PathVariable int joinId,
+            @RequestHeader("Member-Id") int authorId) {
         return studyRecruitMemberService.acceptApplication(joinId, authorId);
     }
 
     @Operation(summary = "신청 거절", description = "모집글 작성자가 신청을 거절합니다.")
     @PostMapping("/{joinId}/reject")
     public ResponseEntity<String> rejectApplication(
-            @PathVariable Integer joinId,
-            @RequestHeader("Member-Id") Integer authorId) {
+            @PathVariable int joinId,
+            @RequestHeader("Member-Id") int authorId) {
         return studyRecruitMemberService.rejectApplication(joinId, authorId);
     }
 }

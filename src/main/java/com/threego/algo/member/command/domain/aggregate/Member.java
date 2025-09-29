@@ -17,7 +17,7 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -28,10 +28,10 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(columnDefinition = "integer default 0")
+    @Column(columnDefinition = "int default 0")
     private int point;
 
-    @Column(name = "reported_count", columnDefinition = "integer default 0")
+    @Column(name = "reported_count", columnDefinition = "int default 0")
     private int reportedCount;
 
     @Column(nullable = false)

@@ -17,13 +17,13 @@ public class StudyComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "post_id", nullable = false)
-    private Integer postId;
+    private int postId;
 
     @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    private int memberId;
 
     @Column(name = "parent_id")
     private Integer parentId;
@@ -41,7 +41,7 @@ public class StudyComment {
     private String visibility = "Y";
 
     // 생성자
-    public StudyComment(Integer postId, Integer memberId, String content) {
+    public StudyComment(int postId, int memberId, String content) {
         this.postId = postId;
         this.memberId = memberId;
         this.content = content;
@@ -50,7 +50,7 @@ public class StudyComment {
     }
 
     // 대댓글 생성자
-    public StudyComment(Integer postId, Integer memberId, Integer parentId, String content) {
+    public StudyComment(int postId, int memberId, Integer parentId, String content) {
         this.postId = postId;
         this.memberId = memberId;
         this.parentId = parentId;

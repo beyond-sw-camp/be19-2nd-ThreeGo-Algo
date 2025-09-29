@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyCommentDTO {
-    private Integer id;
-    private Integer postId;
-    private Integer memberId;
+    private int id;
+    private int postId;
+    private int memberId;
     private String memberNickname;
     private Integer parentId;
     private String content;

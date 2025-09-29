@@ -26,9 +26,9 @@ public class StudyPostQueryController {
     )
     @GetMapping("/{studyId}/posts")
     public ResponseEntity<List<StudyPostDTO>> findPosts(
-            @PathVariable Integer studyId,
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @PathVariable int studyId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         StudyPostSearchDTO searchDto = StudyPostSearchDTO.builder()
                 .studyId(studyId)
@@ -45,7 +45,7 @@ public class StudyPostQueryController {
             description = "스터디 게시물의 상세 정보와 이미지를 조회합니다."
     )
     @GetMapping("/posts/{postId}")
-    public ResponseEntity<StudyPostDetailDTO> findPostDetail(@PathVariable Integer postId) {
+    public ResponseEntity<StudyPostDetailDTO> findPostDetail(@PathVariable int postId) {
         StudyPostDetailDTO postDetail = studyPostQueryService.findStudyPostDetail(postId);
         return ResponseEntity.ok(postDetail);
     }

@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyPostDTO {
-    private Integer id;
-    private Integer studyId;
-    private Integer memberId;
+    private int id;
+    private int studyId;
+    private int memberId;
     private String memberNickname;
     private String title;
     private String content;
-    private Integer commentCount;
+    private int commentCount;
     private String createdAt;
     private String updatedAt;
     private String visibility;

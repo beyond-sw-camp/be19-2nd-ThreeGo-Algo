@@ -17,13 +17,13 @@ public class StudyPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "study_id", nullable = false)
-    private Integer studyId;
+    private int studyId;
 
     @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    private int memberId;
 
     @Column(nullable = false, length = 255)
     private String title;
@@ -32,7 +32,7 @@ public class StudyPost {
     private String content;
 
     @Column(name = "comment_count", nullable = false)
-    private Integer commentCount = 0;
+    private int commentCount = 0;
 
     @Column(name = "created_at", nullable = false, length = 20)
     private String createdAt;
@@ -47,7 +47,7 @@ public class StudyPost {
     private List<StudyPostImage> images = new ArrayList<>();
 
     // 생성자
-    public StudyPost(Integer studyId, Integer memberId, String title, String content) {
+    public StudyPost(int studyId, int memberId, String title, String content) {
         this.studyId = studyId;
         this.memberId = memberId;
         this.title = title;

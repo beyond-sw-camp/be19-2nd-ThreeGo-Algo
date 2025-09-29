@@ -11,5 +11,5 @@ public interface StudyMilestoneRepository extends JpaRepository<StudyMilestone, 
 
 
     /* 설명. 하위 마일스톤 존재 여부 확인 */
-    boolean existsByRoadmapId(Integer roadmapId);
+    boolean existsByRoadmapId(int roadmapId);
 }

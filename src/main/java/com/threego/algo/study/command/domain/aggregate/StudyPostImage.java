@@ -12,16 +12,16 @@ public class StudyPostImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "post_id", nullable = false)
-    private Integer postId;
+    private int postId;
 
     @Column(name = "image_url", nullable = false, length = 255)
     private String imageUrl;
 
     // 생성자
-    public StudyPostImage(Integer postId, String imageUrl) {
+    public StudyPostImage(int postId, String imageUrl) {
         this.postId = postId;
         this.imageUrl = imageUrl;
     }

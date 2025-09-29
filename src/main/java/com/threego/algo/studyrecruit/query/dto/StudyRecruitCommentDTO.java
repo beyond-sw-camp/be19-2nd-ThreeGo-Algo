@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class StudyRecruitCommentDTO {
 
-    private Integer id;                    // 댓글 ID
-    private Integer postId;                // 게시글 ID
+    private int id;                    // 댓글 ID
+    private int postId;                // 게시글 ID
     private Integer parentId;              // 부모 댓글 ID (대댓글인 경우)
     private String content;             // 댓글 내용
     private String memberNickname;      // 작성자 닉네임

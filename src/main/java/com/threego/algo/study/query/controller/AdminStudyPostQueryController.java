@@ -27,8 +27,8 @@ public class AdminStudyPostQueryController {
     )
     @GetMapping("/posts/hidden")
     public ResponseEntity<List<StudyPostDTO>> findHiddenPosts(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         StudyPostSearchDTO searchDto = StudyPostSearchDTO.builder()
                 .page(page)
@@ -44,7 +44,7 @@ public class AdminStudyPostQueryController {
             description = "관리자가 숨김 처리된 스터디 게시물을 상세 조회합니다."
     )
     @GetMapping("/posts/{postId}/hidden")
-    public ResponseEntity<StudyPostDetailDTO> findHiddenPostDetail(@PathVariable Integer postId) {
+    public ResponseEntity<StudyPostDetailDTO> findHiddenPostDetail(@PathVariable int postId) {
         StudyPostDetailDTO postDetail = studyPostQueryServiceImpl.findHiddenStudyPostDetail(postId);
         return ResponseEntity.ok(postDetail);
     }
@@ -55,8 +55,8 @@ public class AdminStudyPostQueryController {
     )
     @GetMapping("/comments/hidden")
     public ResponseEntity<List<StudyCommentDTO>> findHiddenComments(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         StudyPostSearchDTO searchDto = StudyPostSearchDTO.builder()
                 .page(page)

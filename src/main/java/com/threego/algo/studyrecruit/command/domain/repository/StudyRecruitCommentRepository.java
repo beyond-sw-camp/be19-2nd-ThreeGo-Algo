@@ -12,11 +12,11 @@ import java.util.Optional;
 public interface StudyRecruitCommentRepository extends JpaRepository<StudyRecruitComment, Integer> {
 
     // 7. 댓글 삭제용 - 작성자 권한 확인 후 soft delete
-    Optional<StudyRecruitComment> findByIdAndMemberIdAndVisibility(Integer id, Integer memberId, String visibility);
+    Optional<StudyRecruitComment> findByIdAndMemberIdAndVisibility(int id, int memberId, String visibility);
 
     @Modifying
     @Query("UPDATE StudyRecruitComment c SET c.visibility = 'N', c.updatedAt = :updatedAt WHERE c.id = :id")
-    void softDeleteById(@Param("id") Integer id, @Param("updatedAt") String updatedAt);
+    void softDeleteById(@Param("id") int id, @Param("updatedAt") String updatedAt);
 
     Optional<StudyRecruitComment> findByIdAndVisibility(Integer parentId, String visibility);
 }

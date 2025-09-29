@@ -15,5 +15,5 @@ public interface MemberRoleRepository extends JpaRepository<MemberRole, Integer>
 
     // 멤버 ID로 권한 조회
     @Query(value = "SELECT role_id FROM Member_Role WHERE member_id = :memberId", nativeQuery = true)
-    Integer getRoleIdByMemberId(@Param("memberId") Integer memberId);
+    int getRoleIdByMemberId(@Param("memberId") int memberId);
 }

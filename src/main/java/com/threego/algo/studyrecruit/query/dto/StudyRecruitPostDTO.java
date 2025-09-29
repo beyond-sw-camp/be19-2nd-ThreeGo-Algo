@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyRecruitPostDTO {
-    private Integer id;                    // 모집글 ID
+    private int id;                    // 모집글 ID
     private String title;               // 제목
     private String memberNickname;      // 작성자 닉네임
     private String rankName;            // 작성자 등급명
@@ -18,9 +18,9 @@ public class StudyRecruitPostDTO {
     private String startDate;           // 스터디 시작일
     private String endDate;             // 스터디 종료일
     private String expiresAt;           // 모집 마감일
-    private Integer capacity;           // 모집 정원
-    private Integer participantCount;   // 현재 참여자 수 (APPROVED 상태만)
-    private Integer commentCount;       // 댓글 수
+    private int capacity;           // 모집 정원
+    private int participantCount;   // 현재 참여자 수 (APPROVED 상태만)
+    private int commentCount;       // 댓글 수
     private String createdAt;           // 작성일
     private String updatedAt;           // 수정일
 

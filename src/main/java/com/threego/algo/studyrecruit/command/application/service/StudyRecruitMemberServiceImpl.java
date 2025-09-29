@@ -25,7 +25,7 @@ public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService 
     private final MemberRepository memberRepository;
 
     @Override
-    public ResponseEntity<String> applyToStudy(Integer postId, Integer memberId) {
+    public ResponseEntity<String> applyToStudy(int postId, int memberId) {
         try {
             log.info("스터디 참가신청 시작 - postId: {}, memberId: {}", postId, memberId);
             // 1. 회원 존재 여부 확인
@@ -65,7 +65,7 @@ public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService 
     }
 
     @Override
-    public ResponseEntity<String> cancelApplication(Integer joinId, Integer memberId) {
+    public ResponseEntity<String> cancelApplication(int joinId, int memberId) {
         try {
             // 1. 신청자 본인 확인
             StudyRecruitMember application = studyRecruitMemberRepository
@@ -85,7 +85,7 @@ public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService 
     }
 
     @Override
-    public ResponseEntity<String> acceptApplication(Integer joinId, Integer authorId) {
+    public ResponseEntity<String> acceptApplication(int joinId, int authorId) {
         try {
             // 1. 모집글 작성자 권한 확인
             StudyRecruitMember application = studyRecruitMemberRepository
@@ -111,7 +111,7 @@ public class StudyRecruitMemberServiceImpl implements StudyRecruitMemberService 
     }
 
     @Override
-    public ResponseEntity<String> rejectApplication(Integer joinId, Integer authorId) {
+    public ResponseEntity<String> rejectApplication(int joinId, int authorId) {
         try {
             // 1. 모집글 작성자 권한 확인
             StudyRecruitMember application = studyRecruitMemberRepository

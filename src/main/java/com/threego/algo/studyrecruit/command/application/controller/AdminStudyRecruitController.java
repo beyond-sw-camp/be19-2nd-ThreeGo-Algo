@@ -33,10 +33,10 @@ public class AdminStudyRecruitController {
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<String> deleteStudyRecruitPost(
             @Parameter(description = "모집 게시물 ID", required = true)
-            @PathVariable Integer postId,
+            @PathVariable int postId,
 
             @Parameter(description = "관리자 ID", required = true)
-            @RequestHeader("Member-Id") Integer adminId) {
+            @RequestHeader("Member-Id") int adminId) {
 
         return studyRecruitPostService.adminDeletePost(postId, adminId);
     }
@@ -54,10 +54,10 @@ public class AdminStudyRecruitController {
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<String> deleteStudyRecruitComment(
             @Parameter(description = "모집 댓글 ID", required = true)
-            @PathVariable Integer commentId,
+            @PathVariable int commentId,
 
             @Parameter(description = "관리자 ID", required = true)
-            @RequestHeader("Member-Id") Integer adminId) {
+            @RequestHeader("Member-Id") int adminId) {
 
         return studyRecruitCommentService.adminDeleteComment(commentId, adminId);
     }

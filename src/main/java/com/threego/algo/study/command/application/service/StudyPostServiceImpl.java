@@ -38,7 +38,7 @@ public class StudyPostServiceImpl implements StudyPostService {
     private final S3Service s3Service;
 
     @Override
-    public ResponseEntity<String> createPost(Integer studyId, Integer memberId, StudyPostCreateDTO request, List<MultipartFile> images) {
+    public ResponseEntity<String> createPost(int studyId, int memberId, StudyPostCreateDTO request, List<MultipartFile> images) {
         try {
             // 1. 스터디 멤버 권한 확인
             validateStudyMemberAccess(studyId, memberId);
@@ -91,14 +91,14 @@ public class StudyPostServiceImpl implements StudyPostService {
 
 
     @Override
-    public ResponseEntity<String> updatePost(Integer postId, Integer memberId, StudyPostUpdateDTO request) {
+    public ResponseEntity<String> updatePost(int postId, int memberId, StudyPostUpdateDTO request) {
         try {
             // 1. 게시물 존재 여부 확인
             StudyPost post = studyPostRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
 
             // 2. 작성자 권한 확인
-            if (!post.getMemberId().equals(memberId)) {
+            if (post.getMemberId()!=(memberId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("게시물을 수정할 권한이 없습니다.");
             }
@@ -117,14 +117,14 @@ public class StudyPostServiceImpl implements StudyPostService {
     }
 
     @Override
-    public ResponseEntity<String> deletePost(Integer postId, Integer memberId) {
+    public ResponseEntity<String> deletePost(int postId, int memberId) {
         try {
             // 1. 게시물 존재 여부 확인
             StudyPost post = studyPostRepository.findById(postId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
 
             // 2. 작성자 권한 확인
-            if (!post.getMemberId().equals(memberId)) {
+            if (post.getMemberId()!=(memberId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("게시물을 삭제할 권한이 없습니다.");
             }
@@ -142,7 +142,7 @@ public class StudyPostServiceImpl implements StudyPostService {
         }
     }
 
-    private void rollbackUploadedImages(Integer postId) {
+    private void rollbackUploadedImages(int postId) {
         try {
             List<StudyPostImage> uploadedImages = studyPostImageRepository.findByPostId((postId));
             for (StudyPostImage image : uploadedImages) {
@@ -159,7 +159,7 @@ public class StudyPostServiceImpl implements StudyPostService {
     }
 
     @Override
-    public ResponseEntity<String> adminDeletePost(Integer postId, Integer adminId) {
+    public ResponseEntity<String> adminDeletePost(int postId, int adminId) {
         try {
             // 1. 관리자 권한 확인
             if (!isAdmin(adminId)) {
@@ -183,16 +183,16 @@ public class StudyPostServiceImpl implements StudyPostService {
         }
     }
 
-    private boolean isAdmin(Integer memberId) {
+    private boolean isAdmin(int memberId) {
         try {
-            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
-            return roleId != null && roleId == 2;
+            int roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId == 2;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private void validateStudyMemberAccess(Integer studyId, Integer memberId) {
+    private void validateStudyMemberAccess(int studyId, int memberId) {
         StudyMember studyMember = getStudyMember(studyId, memberId);
 
         if (!studyMember.isActive()) {
@@ -200,7 +200,7 @@ public class StudyPostServiceImpl implements StudyPostService {
         }
     }
 
-    private StudyMember getStudyMember(Integer studyId, Integer memberId) {
+    private StudyMember getStudyMember(int studyId, int memberId) {
         return (StudyMember) studyMemberRepository.findByStudyIdAndMemberId(studyId, memberId)
                 .orElseThrow(() -> new IllegalArgumentException("스터디 멤버가 아닙니다."));
     }

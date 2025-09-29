@@ -16,13 +16,13 @@ public class MemberRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    private int memberId;
 
     @Column(name = "role_id", nullable = false)
-    private Integer roleId;
+    private int roleId;
 
     // Member와의 연관관계 (필요한 경우)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,7 +35,7 @@ public class MemberRole {
     private Role role;
 
     // 생성자
-    public MemberRole(Integer memberId, Integer roleId) {
+    public MemberRole(int memberId, int roleId) {
         this.memberId = memberId;
         this.roleId = roleId;
     }

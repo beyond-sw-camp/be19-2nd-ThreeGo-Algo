@@ -27,7 +27,7 @@ public class StudyRoadmapQueryController {
             description = "스터디 그룹의 전체 로드맵 목록을 조회합니다."
     )
     @GetMapping("/{studyId}/roadmaps")
-    public ResponseEntity<List<StudyRoadmapDTO>> findRoadmaps(@PathVariable Integer studyId) {
+    public ResponseEntity<List<StudyRoadmapDTO>> findRoadmaps(@PathVariable int studyId) {
         List<StudyRoadmapDTO> roadmaps = studyRoadmapQueryService.findAllStudyRoadmap(studyId);
         return ResponseEntity.ok(roadmaps);
     }
@@ -37,7 +37,7 @@ public class StudyRoadmapQueryController {
             description = "스터디 로드맵의 상세 정보와 마일스톤 목록을 조회합니다."
     )
     @GetMapping("/roadmaps/{roadmapId}")
-    public ResponseEntity<StudyRoadmapDetailDTO> findRoadmapDetail(@PathVariable Integer roadmapId) {
+    public ResponseEntity<StudyRoadmapDetailDTO> findRoadmapDetail(@PathVariable int roadmapId) {
         StudyRoadmapDetailDTO roadmapDetail = studyRoadmapQueryService.findStudyRoadmapDetail(roadmapId);
         return ResponseEntity.ok(roadmapDetail);
     }

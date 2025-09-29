@@ -13,10 +13,10 @@ public class Study {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "post_id", nullable = false)
-    private Integer recruitPostId; // 원본 모집글 ID
+    private int recruitPostId; // 원본 모집글 ID
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -33,7 +33,7 @@ public class Study {
 
 
     // 생성자
-    public Study(Integer recruitPostId, String name, String description,
+    public Study(int recruitPostId, String name, String description,
                  String startDate, String endDate) {
         this.recruitPostId = recruitPostId;
         this.name = name;

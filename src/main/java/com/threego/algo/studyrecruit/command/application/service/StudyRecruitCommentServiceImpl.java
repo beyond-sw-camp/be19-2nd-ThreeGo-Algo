@@ -28,7 +28,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
     private final MemberRoleRepository memberRoleRepository;
 
     @Override
-    public ResponseEntity<String> createComment(Integer postId, Integer memberId, StudyRecruitCommentCreateDTO request) {
+    public ResponseEntity<String> createComment(int postId, int memberId, StudyRecruitCommentCreateDTO request) {
         try {
             // 1. 회원 존재 여부 확인
             Member member = memberRepository.findById(memberId)
@@ -86,7 +86,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
     }
 
     @Override
-    public ResponseEntity<String> updateComment(Integer commentId, Integer memberId, StudyRecruitCommentUpdateDTO request) {
+    public ResponseEntity<String> updateComment(int commentId, int memberId, StudyRecruitCommentUpdateDTO request) {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitComment comment = studyRecruitCommentRepository
@@ -110,7 +110,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
     }
 
     @Override
-    public ResponseEntity<String> deleteComment(Integer commentId, Integer memberId) {
+    public ResponseEntity<String> deleteComment(int commentId, int memberId) {
         try {
             // 1. 작성자 권한 확인
             StudyRecruitComment comment = studyRecruitCommentRepository
@@ -140,7 +140,7 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
     }
 
     @Override
-    public ResponseEntity<String> adminDeleteComment(Integer commentId, Integer adminId) {
+    public ResponseEntity<String> adminDeleteComment(int commentId, int adminId) {
         try {
             // 1. 관리자 권한 확인
             if (!isAdmin(adminId)) {
@@ -169,10 +169,10 @@ public class StudyRecruitCommentServiceImpl implements StudyRecruitCommentServic
         }
     }
 
-    private boolean isAdmin(Integer memberId) {
+    private boolean isAdmin(int memberId) {
         try {
-            Integer roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
-            return roleId != null && roleId == 2;
+            int roleId = memberRoleRepository.getRoleIdByMemberId(memberId);
+            return roleId == 2;
         } catch (Exception e) {
             return false;
         }

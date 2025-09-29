@@ -16,15 +16,15 @@ public interface StudyRecruitPostMapper {
     List<StudyRecruitPostDTO> selectStudyRecruitList(StudyRecruitSearchDTO searchDto);
 
     /* 설명. 스터디 모집글 상세 조회 */
-    StudyRecruitDetailDTO selectStudyRecruitDetail(Integer postId);
+    StudyRecruitDetailDTO selectStudyRecruitDetail(int postId);
 
     /* 설명. 스터디 모집 신청자 리스트 조회 */
-    List<StudyRecruitMemberDTO> selectStudyRecruitMembers(Integer postId);
+    List<StudyRecruitMemberDTO> selectStudyRecruitMembers(int postId);
 
     /* 설명. 관리자: 숨김 처리된 게시물 리스트 조회 */
     List<StudyRecruitPostDTO> selectStudyRecruitListIncludeHidden(StudyRecruitSearchDTO searchDto);
 
     /* 설명. 관리자: 숨김 처리된 게시물 상세 조회 */
-    StudyRecruitDetailDTO selectStudyRecruitDetailIncludeHidden(Integer postId);
+    StudyRecruitDetailDTO selectStudyRecruitDetailIncludeHidden(int postId);
 
 }

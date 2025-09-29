@@ -28,7 +28,7 @@ public class StudyMemberQueryController {
             description = "스터디 그룹의 전체 멤버 목록을 조회합니다."
     )
     @GetMapping("/{studyId}/members")
-    public ResponseEntity<List<StudyMemberDTO>> findMembers(@PathVariable Integer studyId) {
+    public ResponseEntity<List<StudyMemberDTO>> findMembers(@PathVariable int studyId) {
         List<StudyMemberDTO> members = studyMemberQueryService.findAllStudyMember(studyId);
         return ResponseEntity.ok(members);
     }

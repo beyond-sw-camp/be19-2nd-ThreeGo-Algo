@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class StudyReportCreateDTO {
 
 
-    private Integer categoryId; // 게시물/댓글 구분
+    private int categoryId; // 게시물/댓글 구분
 
-    private Integer typeId;     // 신고 유형 (스팸, 욕설 등)
+    private int typeId;     // 신고 유형 (스팸, 욕설 등)
 
     @NotBlank(message = "신고 사유는 필수입니다.")
     @Size(max = 500, message = "신고 사유는 500자 이하여야 합니다.")

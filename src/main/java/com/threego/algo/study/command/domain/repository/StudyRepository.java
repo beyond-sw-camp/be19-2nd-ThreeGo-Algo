@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface StudyRepository extends JpaRepository<Study, Integer> {
 
     /* 설명. 모집글 ID로 스터디 존재 여부 확인 (중복 생성 방지용) */
-    boolean existsByRecruitPostId(Integer recruitPostId);
+    boolean existsByRecruitPostId(int recruitPostId);
 }

@@ -13,13 +13,13 @@ public class StudyRoadmap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "study_id", nullable = false)
-    private Integer studyId;
+    private int studyId;
 
     @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+    private int memberId;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -35,7 +35,7 @@ public class StudyRoadmap {
 
 
     // 생성자
-    public StudyRoadmap(Integer studyId, Integer memberId, String title, String description, Integer order) {
+    public StudyRoadmap(int studyId, int memberId, String title, String description, Integer order) {
         this.studyId = studyId;
         this.memberId = memberId;  // 추가
         this.title = title;

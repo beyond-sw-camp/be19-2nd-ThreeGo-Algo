@@ -12,12 +12,12 @@ import java.util.Optional;
 public interface StudyRecruitMemberRepository extends JpaRepository<StudyRecruitMember, Integer> {
 
     // 중복 신청 방지 체크
-    boolean existsByStudyRecruitPostIdAndMemberId(Integer postId, Integer memberId);
+    boolean existsByStudyRecruitPostIdAndMemberId(int postId, int memberId);
 
     // 10. 신청 취소용 - 신청자 본인 확인
-    Optional<StudyRecruitMember> findByIdAndMemberId(Integer applicationId, Integer memberId);
+    Optional<StudyRecruitMember> findByIdAndMemberId(int applicationId, int memberId);
 
     // 11, 12. 신청 승인/거절용 - 모집글 작성자 권한 확인
     @Query("SELECT a FROM StudyRecruitMember a WHERE a.id = :applicationId AND a.studyRecruitPost.member.id = :authorId")
-    Optional<StudyRecruitMember> findByIdAndAuthor(@Param("applicationId") Integer applicationId, @Param("authorId") Integer authorId);
+    Optional<StudyRecruitMember> findByIdAndAuthor(@Param("applicationId") int applicationId, @Param("authorId") int authorId);
 }

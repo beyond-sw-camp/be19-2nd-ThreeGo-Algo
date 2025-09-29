@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyMemberDTO {
-    private Integer id;
-    private Integer studyId;
-    private Integer memberId;
+    private int id;
+    private int studyId;
+    private int memberId;
     private String memberNickname;  // Member 테이블에서 가져올 닉네임
     private String memberRank;
     private StudyMemberRole role;  // LEADER, MEMBER, NOT_MEMBER

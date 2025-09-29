@@ -31,13 +31,13 @@ public class StudyPostCommandController {
     @Operation(summary = "스터디 게시물 등록 (텍스트만)", description = "이미지 없이 텍스트만으로 게시물을 등록합니다.")
     public ResponseEntity<String> createPost(
             @Parameter(description = "스터디 ID", required = true, example = "1")
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
 
             @Parameter(description = "게시물 정보", required = true)
             @RequestBody StudyPostCreateDTO postDto,
 
             @Parameter(description = "작성자 멤버 ID", required = true, example = "1")
-            @RequestParam Integer memberId) {
+            @RequestParam int memberId) {
         return studyPostService.createPost(studyId, memberId, postDto, null);
     }
 
@@ -46,7 +46,7 @@ public class StudyPostCommandController {
     @Operation(summary = "스터디 게시물 등록 (이미지 포함)", description = "이미지 파일과 함께 게시물을 등록합니다.")
     public ResponseEntity<String> createPostWithImages(
             @Parameter(description = "스터디 ID", required = true, example = "1")
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
 
             @Parameter(description = "게시물 정보 (JSON)", required = true)
             @RequestPart("post") StudyPostCreateDTO postDto,
@@ -55,7 +55,7 @@ public class StudyPostCommandController {
             @RequestPart("images") List<MultipartFile> images,
 
             @Parameter(description = "작성자 멤버 ID", required = true, example = "1")
-            @RequestParam Integer memberId) {
+            @RequestParam int memberId) {
         return studyPostService.createPost(studyId, memberId, postDto, images);
     }
 
@@ -70,9 +70,9 @@ public class StudyPostCommandController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     public ResponseEntity<String> updatePost(
-            @PathVariable Integer postId,
+            @PathVariable int postId,
             @RequestBody StudyPostUpdateDTO postDto,
-            @RequestParam Integer memberId) {
+            @RequestParam int memberId) {
         return studyPostService.updatePost(postId, memberId, postDto);
     }
 
@@ -86,8 +86,8 @@ public class StudyPostCommandController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     public ResponseEntity<String> deletePost(
-            @PathVariable Integer postId,
-            @RequestParam Integer memberId) {
+            @PathVariable int postId,
+            @RequestParam int memberId) {
         return studyPostService.deletePost(postId, memberId);
     }
 

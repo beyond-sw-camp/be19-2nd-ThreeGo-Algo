@@ -27,7 +27,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
     private final MemberRepository memberRepository;
 
     @Override
-    public ResponseEntity<String> reportPost(Integer postId, Integer reporterId, StudyRecruitReportCreateDTO request) {
+    public ResponseEntity<String> reportPost(int postId, int reporterId, StudyRecruitReportCreateDTO request) {
         try {
             // 1. 신고자 존재 여부 확인
             Member reporter = memberRepository.findById(reporterId)
@@ -45,7 +45,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
             }
 
             // 4. 자기 자신의 글 신고 방지
-            if (studyRecruitPost.getMember().getId().equals(reporterId)) {
+            if (studyRecruitPost.getMember().getId() != (reporterId)) {
                 return ResponseEntity.badRequest().body("본인이 작성한 모집글은 신고할 수 없습니다.");
             }
 
@@ -69,7 +69,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
     }
 
     @Override
-    public ResponseEntity<String> reportComment(Integer commentId, Integer reporterId, StudyRecruitReportCreateDTO request) {
+    public ResponseEntity<String> reportComment(int commentId, int reporterId, StudyRecruitReportCreateDTO request) {
         try {
             // 1. 신고자 존재 여부 확인
             Member reporter = memberRepository.findById(reporterId)
@@ -86,7 +86,7 @@ public class StudyRecruitReportServiceImpl implements StudyRecruitReportService 
             }
 
             // 4. 자기 자신의 댓글 신고 방지
-            if (studyRecruitComment.getMember().getId().equals(reporterId)) {
+            if (studyRecruitComment.getMember().getId() != (reporterId)) {
                 return ResponseEntity.badRequest().body("본인이 작성한 댓글은 신고할 수 없습니다.");
             }
 

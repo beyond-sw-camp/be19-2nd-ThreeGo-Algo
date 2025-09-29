@@ -36,7 +36,7 @@ public class StudyServiceImpl implements StudyService {
 
     /* 설명. 스터디 생성 */
     @Override
-    public ResponseEntity<String> createStudyFromRecruit(Integer authorId, Integer postId, StudyCreateDTO request) {
+    public ResponseEntity<String> createStudyFromRecruit(int authorId, int postId, StudyCreateDTO request) {
         try {
             // 1. 모집글 존재 여부 및 권한 확인
             StudyRecruitPost recruitPost = studyRecruitPostRepository
@@ -96,7 +96,7 @@ public class StudyServiceImpl implements StudyService {
 
     /* 설명. 스터디 정보 수정 */
     @Override
-    public ResponseEntity<String> updateStudy(Integer studyId, Integer leaderId, StudyUpdateDTO request) {
+    public ResponseEntity<String> updateStudy(int studyId, int leaderId, StudyUpdateDTO request) {
         try {
             // 1. 스터디 존재 여부 확인
             Study study = studyRepository.findById(studyId)
@@ -129,7 +129,7 @@ public class StudyServiceImpl implements StudyService {
 
     /* 설명. 스터디 그룹 삭제 */
     @Override
-    public ResponseEntity<String> deleteStudy(Integer studyId, Integer leaderId) {
+    public ResponseEntity<String> deleteStudy(int studyId, int leaderId) {
         try {
             Study study = studyRepository.findById(studyId)
                     .orElseThrow(() -> new IllegalArgumentException("스터디 그룹을 찾을 수 없습니다."));

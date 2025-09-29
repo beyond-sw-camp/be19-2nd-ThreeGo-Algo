@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface StudyRecruitReportRepository extends JpaRepository<StudyRecruitReport, Integer> {
 
     // 중복 신고 방지 - 게시물 신고 여부 확인
-    boolean existsByReporterIdAndStudyRecruitPostId(Integer reporterId, Integer postId);
+    boolean existsByReporterIdAndStudyRecruitPostId(int reporterId, int postId);
 
     // 중복 신고 방지 - 댓글 신고 여부 확인
-    boolean existsByReporterIdAndStudyRecruitCommentId(Integer reporterId, Integer commentId);
+    boolean existsByReporterIdAndStudyRecruitCommentId(int reporterId, int commentId);
 }

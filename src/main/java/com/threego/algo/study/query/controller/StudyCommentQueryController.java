@@ -28,7 +28,7 @@ public class StudyCommentQueryController {
             description = "스터디 게시물의 댓글들을 조회합니다."
     )
     @GetMapping("/posts/{postId}/comments")
-    public ResponseEntity<List<StudyCommentDTO>> findPostComments(@PathVariable Integer postId) {
+    public ResponseEntity<List<StudyCommentDTO>> findPostComments(@PathVariable int postId) {
         List<StudyCommentDTO> comments = studyPostQueryService.findStudyPostComments(postId);
         return ResponseEntity.ok(comments);
     }

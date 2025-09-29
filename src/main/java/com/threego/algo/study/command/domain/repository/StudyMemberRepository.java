@@ -14,13 +14,13 @@ import java.util.Optional;
 public interface StudyMemberRepository extends JpaRepository<StudyMember, Integer> {
 
     /* 설명. 리더 권한 확인 (권한 체크용) */
-    boolean existsByStudyIdAndMemberIdAndRole(Integer studyId, Integer memberId, StudyRole role);
+    boolean existsByStudyIdAndMemberIdAndRole(int studyId, int memberId, StudyRole role);
 
-    boolean existsByStudyIdAndMemberIdAndRoleIn(Integer studyId, Integer memberId, List<StudyRole> list);
+    boolean existsByStudyIdAndMemberIdAndRoleIn(int studyId, int memberId, List<StudyRole> list);
 
     Optional<Object> findByStudyAndMember(Study study, Member leader);
 
     long countByStudyAndMemberNot(Study study, Member leader);
 
-    Optional<Object> findByStudyIdAndMemberId(Integer studyId, Integer memberId);
+    Optional<Object> findByStudyIdAndMemberId(int studyId, int memberId);
 }

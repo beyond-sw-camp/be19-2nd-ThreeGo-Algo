@@ -24,14 +24,14 @@ public class StudyMilestoneServiceImpl implements StudyMilestoneService {
 
     /* 설명. 마일스톤 등록 */
     @Override
-    public ResponseEntity<String> createMilestone(Integer roadmapId, Integer leaderId, StudyMilestoneCreateDTO request) {
+    public ResponseEntity<String> createMilestone(int roadmapId, int leaderId, StudyMilestoneCreateDTO request) {
         try {
             // 1. 로드맵 존재 여부 확인
             StudyRoadmap roadmap = studyRoadmapRepository.findById(roadmapId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 로드맵입니다."));
 
             // 2. 권한 확인 - 로드맵 작성자(스터디장)와 현재 사용자가 같은지 확인
-            if (!roadmap.getMemberId().equals(leaderId)) {
+            if (roadmap.getMemberId() != (leaderId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("마일스톤을 생성할 권한이 없습니다. (그룹장만 가능)");
             }
@@ -58,15 +58,15 @@ public class StudyMilestoneServiceImpl implements StudyMilestoneService {
 
     /* 설명. 마일스톤 수정 */
     @Override
-    public ResponseEntity<String> updateMilestone(Integer milestoneId, Integer leaderId, StudyMilestoneUpdateDTO request) {
+    public ResponseEntity<String> updateMilestone(int milestoneId, int leaderId, StudyMilestoneUpdateDTO request) {
         try {
             // 1. 마일스톤 존재 여부 확인
             StudyMilestone milestone = studyMilestoneRepository.findById(milestoneId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마일스톤입니다."));
 
             // 2. 권한 확인 - 마일스톤 작성자와 현재 사용자가 같은지 확인
-            Integer authorId = getMilestoneAuthorId(milestoneId);
-            if (!authorId.equals(leaderId)) {
+            int authorId = getMilestoneAuthorId(milestoneId);
+            if (authorId != (leaderId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("마일스톤을 수정할 권한이 없습니다. (그룹장만 가능)");
             }
@@ -86,15 +86,15 @@ public class StudyMilestoneServiceImpl implements StudyMilestoneService {
 
     /* 설명. 마일스톤 삭제 */
     @Override
-    public ResponseEntity<String> deleteMilestone(Integer milestoneId, Integer leaderId) {
+    public ResponseEntity<String> deleteMilestone(int milestoneId, int leaderId) {
         try {
             // 1. 마일스톤 존재 여부 확인
             StudyMilestone milestone = studyMilestoneRepository.findById(milestoneId)
                     .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마일스톤입니다."));
 
             // 2. 권한 확인 - 마일스톤 작성자와 현재 사용자가 같은지 확인
-            Integer authorId = getMilestoneAuthorId(milestoneId);
-            if (!authorId.equals(leaderId)) {
+            int authorId = getMilestoneAuthorId(milestoneId);
+            if (authorId != (leaderId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("마일스톤을 삭제할 권한이 없습니다. (그룹장만 가능)");
             }
@@ -113,7 +113,7 @@ public class StudyMilestoneServiceImpl implements StudyMilestoneService {
     }
 
     /* 설명. 마일스톤 작성자 ID 조회 - 로드맵 작성자와 동일 */
-    public Integer getMilestoneAuthorId(Integer milestoneId) {
+    public int getMilestoneAuthorId(int milestoneId) {
         StudyMilestone milestone = studyMilestoneRepository.findById(milestoneId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마일스톤입니다."));
 

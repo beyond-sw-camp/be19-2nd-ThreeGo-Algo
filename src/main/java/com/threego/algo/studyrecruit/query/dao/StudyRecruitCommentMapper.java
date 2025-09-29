@@ -10,12 +10,12 @@ import java.util.List;
 public interface StudyRecruitCommentMapper {
 
     /* 설명. 스터디 모집글 댓글 목록 조회 */
-    List<StudyRecruitCommentDTO> selectStudyRecruitComments(Integer postId);
+    List<StudyRecruitCommentDTO> selectStudyRecruitComments(int postId);
 
     /* 설명. 관리자: 숨김 처리된 댓글 리스트 조회 */
     List<StudyRecruitCommentDTO> selectAllStudyRecruitCommentsIncludeHidden(StudyRecruitSearchDTO searchDto);
 
     /* 설명. 관리자: 숨김 처리된 댓글 조회 */
-    List<StudyRecruitCommentDTO> selectStudyRecruitCommentsIncludeHidden(Integer postId);
+    List<StudyRecruitCommentDTO> selectStudyRecruitCommentsIncludeHidden(int postId);
 
 }

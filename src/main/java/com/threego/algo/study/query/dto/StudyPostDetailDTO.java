@@ -13,13 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudyPostDetailDTO {
-    private Integer id;
-    private Integer studyId;
-    private Integer memberId;
+    private int id;
+    private int studyId;
+    private int memberId;
     private String memberNickname;
     private String title;
     private String content;
-    private Integer commentCount;
+    private int commentCount;
     private String createdAt;
     private String updatedAt;
     private String visibility;
@@ -30,7 +30,7 @@ public class StudyPostDetailDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostImageInfo {
-        private Integer imageId;
+        private int imageId;
         private String imageUrl;
         private String createdAt;
     }

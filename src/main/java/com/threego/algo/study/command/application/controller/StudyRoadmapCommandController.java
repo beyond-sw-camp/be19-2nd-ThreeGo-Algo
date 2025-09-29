@@ -32,9 +32,9 @@ public class StudyRoadmapCommandController {
     @PostMapping("/{studyId}/roadmaps")
     public ResponseEntity<String> createRoadmap(
             @Parameter(description = "스터디 ID", required = true)
-            @PathVariable Integer studyId,
+            @PathVariable int studyId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId,
+            @RequestHeader("Member-Id") int leaderId,
             @Parameter(description = "로드맵 등록 정보", required = true)
             @Valid @RequestBody StudyRoadmapCreateDTO request) {
         return studyRoadmapService.createRoadmap(studyId, leaderId, request);
@@ -51,9 +51,9 @@ public class StudyRoadmapCommandController {
     @PutMapping("/roadmaps/{roadmapId}")
     public ResponseEntity<String> updateRoadmap(
             @Parameter(description = "로드맵 ID", required = true)
-            @PathVariable Integer roadmapId,
+            @PathVariable int roadmapId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId,
+            @RequestHeader("Member-Id") int leaderId,
             @Parameter(description = "로드맵 수정 정보", required = true)
             @Valid @RequestBody StudyRoadmapUpdateDTO request) {
         return studyRoadmapService.updateRoadmap(roadmapId, leaderId, request);
@@ -70,9 +70,9 @@ public class StudyRoadmapCommandController {
     @DeleteMapping("/roadmaps/{roadmapId}")
     public ResponseEntity<String> deleteRoadmap(
             @Parameter(description = "로드맵 ID", required = true)
-            @PathVariable Integer roadmapId,
+            @PathVariable int roadmapId,
             @Parameter(description = "그룹장 ID", required = true)
-            @RequestHeader("Member-Id") Integer leaderId) {
+            @RequestHeader("Member-Id") int leaderId) {
         return studyRoadmapService.deleteRoadmap(roadmapId, leaderId);
     }
 }
