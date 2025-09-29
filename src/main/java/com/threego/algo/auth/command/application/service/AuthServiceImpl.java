@@ -1,6 +1,8 @@
 package com.threego.algo.auth.command.application.service;
 import com.threego.algo.auth.command.application.dto.UserDTO;
 import com.threego.algo.member.command.domain.aggregate.Member;
+import com.threego.algo.member.command.domain.aggregate.MemberRank;
+import com.threego.algo.member.command.domain.repository.MemberRankRepository;
 import com.threego.algo.member.command.domain.repository.MemberRepository;
 import com.threego.algo.member.query.dao.AuthMapper;
 import com.threego.algo.member.query.dto.LoginUserResponseDTO;
@@ -26,10 +28,12 @@ public class AuthServiceImpl implements AuthService {
     ModelMapper modelMapper;
     BCryptPasswordEncoder bCryptPasswordEncoder;
     MemberRepository memberRepository;
+    MemberRankRepository memberRankRepository;
     AuthMapper authMapper;
 
     @Autowired
     public AuthServiceImpl(MemberRepository memberRepository,
+                           MemberRankRepository memberRankRepository,
                            BCryptPasswordEncoder bCryptPasswordEncoder,
                            ModelMapper modelMapper,
                            AuthMapper authMapper
@@ -38,12 +42,15 @@ public class AuthServiceImpl implements AuthService {
         this.memberRepository = memberRepository;
         this.modelMapper = modelMapper;
         this.authMapper = authMapper;
+        this.memberRankRepository = memberRankRepository;
     }
 
     @Override
     public void registUser(UserDTO userDTO) {
+        MemberRank defaultRank = memberRankRepository.findById(1)
+                .orElseThrow(() -> new IllegalArgumentException("기본 Rank 없음"));
 
-        Member member = UserToMember(userDTO);
+        Member member = UserToMember(userDTO, defaultRank);
 
         member.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
 
