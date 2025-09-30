@@ -26,14 +26,14 @@ python -m venv venv
 # Windows
 venv\Scripts\activate
 
+# macOS/Linux
+source venv/bin/activate
+
 # FastAPI 및 Uvicorn 설치
 pip install fastapi uvicorn
 
 # python-dotenv 설치
 pip install python-dotenv
-
-# macOS/Linux
-source venv/bin/activate
 
 # 기본 실행
 uvicorn main:app --reload
