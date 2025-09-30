@@ -104,4 +104,22 @@
     </select>
 
 
+    <select id="selectReportedMember"
+            parameterType="map"
+            resultType="int">
+        SELECT
+            CASE #{categoryId}
+                WHEN 1 THEN (SELECT member_id FROM Study_Recruit_Post WHERE id = #{targetId})
+                WHEN 2 THEN (SELECT member_id FROM Study_Recruit_Comment WHERE id = #{targetId})
+                WHEN 3 THEN (SELECT member_id FROM Study_Post WHERE id = #{targetId})
+                WHEN 4 THEN (SELECT member_id FROM Study_Comment WHERE id = #{targetId})
+                WHEN 5 THEN (SELECT member_id FROM Algo_Post WHERE id = #{targetId})
+                WHEN 6 THEN (SELECT member_id FROM Algo_Comment WHERE id = #{targetId})
+                WHEN 7 THEN (SELECT member_id FROM Coding_Post WHERE id = #{targetId})
+                WHEN 8 THEN (SELECT member_id FROM Coding_Comment WHERE id = #{targetId})
+                WHEN 9 THEN (SELECT member_id FROM Career_Info_Post WHERE id = #{targetId})
+                WHEN 10 THEN (SELECT member_id FROM Career_Info_Comment WHERE id = #{targetId})
+            END
+    </select>
+
 </mapper>
