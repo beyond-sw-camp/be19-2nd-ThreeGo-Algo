@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.threego.algomemberservice.member.query.dao.MemberMapper">
+    <!-- 회원: 정보 조회 -->
+    <select id="selectMemberById" resultType="com.threego.algomemberservice.member.query.dto.MemberDetailResponseDTO">
+        SELECT
+               A.ID
+             , A.EMAIL
+             , A.NICKNAME
+             , B.NAME AS RANKNAME
+             , A.POINT
+             , COUNT(C.ATTEND_AT) AS ATTENDANCECOUNT
+             , A.CREATED_AT AS CREATEDAT
+          FROM MEMBER A
+          JOIN MEMBER_RANK B ON A.RANK_ID = B.ID
+          JOIN MEMBER_ATTENDANCE_HISTORY C ON A.ID = C.MEMBER_ID
+         WHERE A.ID = #{id}
+    </select>
+
+</mapper>
