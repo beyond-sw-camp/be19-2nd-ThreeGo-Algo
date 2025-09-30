@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @Getter
@@ -21,4 +25,5 @@ public class CodingPostRequestDTO {
     @JsonProperty("content")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String content;
+    private List<MultipartFile> images; // 추가
 }

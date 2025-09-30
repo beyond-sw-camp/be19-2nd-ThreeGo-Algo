@@ -99,4 +99,6 @@ public class CodingPost {
         this.aiBad = bad;
         this.aiPlan = plan;
     }
+
+    public void increaseLikeCount() {this.likeCount += 1;}
 }

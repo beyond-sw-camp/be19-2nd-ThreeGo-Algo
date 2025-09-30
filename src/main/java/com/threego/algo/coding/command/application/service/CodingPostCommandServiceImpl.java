@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.Map;
 
 @Service
@@ -88,6 +88,24 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
                 throw new RuntimeException("AI 피드백 요청 실패", e);
             }
         }
+
+        // 이미지 업로드 및 저장
+        if (dto.getImages() != null && !dto.getImages().isEmpty()) {
+            for (MultipartFile image : dto.getImages()) {
+                if (!image.isEmpty()) {
+                    // 이미지 파일 유효성 검사
+                    s3Service.validateImageFile(image);
+
+                    // S3에 업로드
+                    String imageUrl = s3Service.uploadFile(image, "coding-posts");
+
+                    // DB에 저장
+                    CodingPostImage postImage = new CodingPostImage(saved, imageUrl);
+                    codingPostImageRepository.save(postImage);
+                }
+            }
+        }
+        
         // 즉시 동기화: 해당 문제의 postCount 재계산
         problem.syncPostCount(); // problem은 관리 상태이므로 commit 시 반영됨
 
