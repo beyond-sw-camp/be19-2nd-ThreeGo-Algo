@@ -9,9 +9,6 @@ public class ReportRequest {
     @Schema(description = "신고한 회원 ID", example = "1")
     private int memberId;
 
-    @Schema(description = "신고당한 회원 ID", example = "2")
-    private int reportedMemberId;
-
     @Schema(description = "카테고리 ID", example = "1")
     private int categoryId;
 

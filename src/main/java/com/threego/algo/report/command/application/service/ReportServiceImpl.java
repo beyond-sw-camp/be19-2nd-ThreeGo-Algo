@@ -10,8 +10,12 @@ import com.threego.algo.report.command.domain.aggregate.ReportType;
 import com.threego.algo.report.command.domain.repository.ReportCategoryRepository;
 import com.threego.algo.report.command.domain.repository.ReportRepository;
 import com.threego.algo.report.command.domain.repository.ReportTypeRepository;
+import com.threego.algo.report.query.dao.ReportMapper;
+import com.threego.algo.report.query.dto.ReportedMemberResponseDTO;
+import com.threego.algo.report.query.service.AdminReportQueryService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class ReportServiceImpl implements ReportService {
     private final ReportCategoryRepository categoryRepository;
     private final ReportTypeRepository typeRepository;
     private final MemberRepository memberRepository;
+    private final AdminReportQueryService reportService;
 
     @Transactional
     @Override
@@ -34,7 +39,15 @@ public class ReportServiceImpl implements ReportService {
         Member reporter = memberRepository.findById(request.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 신고자입니다."));
 
-        Member reportedMember = memberRepository.findById(request.getReportedMemberId())
+        Integer reportedMemberId = reportService.findReportedMemberId(
+                request.getCategoryId(),
+                request.getTargetId()
+        );
+        if (reportedMemberId == null) {
+            throw new IllegalArgumentException("대상 사용자가 존재하지 않습니다.");
+        }
+
+        Member reportedMember = memberRepository.findById(reportedMemberId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 피신고자입니다."));
 
         // 중복 신고 방지

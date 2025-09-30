@@ -2,6 +2,7 @@ package com.threego.algo.report.query.controller;
 
 import com.threego.algo.member.query.dto.AdminMemberDetailResponseDTO;
 import com.threego.algo.report.query.dto.ReportDetailResponseDTO;
+import com.threego.algo.report.query.dto.ReportedMemberResponseDTO;
 import com.threego.algo.report.query.service.AdminReportQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -55,6 +56,15 @@ public class AdminReportQueryController {
     ) {
         return ResponseEntity.ok(reportService.findReportedListByMemberId(memberId));
     }
+
+    public ResponseEntity<Integer> findReportedMemberId(
+            @PathVariable int categoryCode,
+            @PathVariable int targetId
+    ) {
+        return ResponseEntity.ok(reportService.findReportedMemberId(categoryCode, targetId));
+    }
+
+
 
 
 }
