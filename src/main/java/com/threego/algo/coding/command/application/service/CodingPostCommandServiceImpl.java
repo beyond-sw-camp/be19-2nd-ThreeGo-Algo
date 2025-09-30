@@ -11,6 +11,7 @@ import com.threego.algo.coding.command.domain.repository.CodingCommentRepository
 import com.threego.algo.coding.command.domain.repository.CodingPostImageRepository;
 import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
 import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
+import com.threego.algo.common.service.S3Service;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +32,11 @@ import java.util.Map;
 public class CodingPostCommandServiceImpl implements CodingPostCommandService {
 
     private final CodingPostRepository postRepository;
-    private final CodingPostImageRepository imageRepository;
+    private final CodingPostImageRepository codingPostImageRepository;
     private final CodingCommentRepository commentRepository;
     private final CodingProblemRepository problemRepository;
     private final MemberCommandRepository memberRepository;
+    private final S3Service s3Service;
 
     @Value("${coding.fastapi.url}")
     private String fastApiUrl;
@@ -126,7 +128,7 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
 //        CodingPostImage saved = imageRepository.save(image);
 
         CodingPostImage image = new CodingPostImage(post, dto.getImageUrl());
-        CodingPostImage saved = imageRepository.save(image);
+        CodingPostImage saved = codingPostImageRepository.save(image);
         return saved.getId();
     }
 
