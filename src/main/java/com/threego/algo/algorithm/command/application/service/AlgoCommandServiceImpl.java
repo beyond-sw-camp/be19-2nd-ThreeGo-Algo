@@ -5,8 +5,11 @@ import com.threego.algo.algorithm.command.domain.aggregate.*;
 import com.threego.algo.algorithm.command.domain.repository.*;
 import com.threego.algo.algorithm.query.dao.AlgoMapper;
 import com.threego.algo.common.service.S3Service;
+import com.threego.algo.algorithm.query.service.AlgoQueryService;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
+import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoRoadmapCommandRepository algoRoadmapCommandRepository;
@@ -30,29 +35,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoMapper algoMapper;
     private final S3Service s3Service;
     private final AlgoPostImageCommandRepository algoPostImageRepository;
-
-    @Autowired
-    public AlgoCommandServiceImpl(AlgoRoadmapCommandRepository algoRoadmapCommandRepository
-            , MemberCommandRepository memberCommandRepository
-            , AlgoPostCommandRepository algoPostCommandRepository
-            , AlgoPostImageCommandRepository algoPostImageCommandRepository
-            , AlgoQuizQuestionCommandRepository algoQuizQuestionCommandRepository
-            , AlgoQuizOptionCommandRepository algoQuizOptionCommandRepository
-            , AlgoCommentRepository algoCommentRepository
-            , MemberAlgoCorrectQuizHistoryCommandRepository memberAlgoCorrectQuizHistoryCommandRepository
-            , AlgoMapper algoMapper, S3Service s3Service, AlgoPostImageCommandRepository algoPostImageRepository) {
-        this.algoRoadmapCommandRepository = algoRoadmapCommandRepository;
-        this.memberCommandRepository = memberCommandRepository;
-        this.algoPostCommandRepository = algoPostCommandRepository;
-        this.algoPostImageCommandRepository = algoPostImageCommandRepository;
-        this.algoQuizQuestionCommandRepository = algoQuizQuestionCommandRepository;
-        this.algoQuizOptionCommandRepository = algoQuizOptionCommandRepository;
-        this.algoCommentRepository = algoCommentRepository;
-        this.memberAlgoCorrectQuizHistoryCommandRepository = memberAlgoCorrectQuizHistoryCommandRepository;
-        this.algoMapper = algoMapper;
-        this.s3Service = s3Service;
-        this.algoPostImageRepository = algoPostImageRepository;
-    }
+    private final AlgoQueryService algoQueryService;
 
     @Override
     public AlgoRoadmap createAlgoRoadmap(final AlgoRoadmapRequestDTO request) {
@@ -220,11 +203,13 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
             throw new RuntimeException("이미 등록된 퀴즈 정답 제출 이력입니다.");
         }
 
-        final int correctQuizCount = algoMapper.countMemberCorrectAnswersInRoadmap(memberId,
+        final int correctQuizCount = algoQueryService.countMemberCorrectAnswersInRoadmap(memberId,
                 quizQuestion.getAlgoPost().getAlgoRoadmap().getId());
 
         if (correctQuizCount + 1 == quizQuestion.getAlgoPost().getAlgoRoadmap().getQuestionCount()) {
             // TODO 로드맵 대분류의 퀴즈를 전부 맞힌 경우 포인트 20 증가
+            log.info("{}번 회원이 로드맵 대분류 {}번의 퀴즈를 모두 달성했으므로 20 포인트가 지급되었습니다."
+                    , memberId, quizQuestion.getAlgoPost().getAlgoRoadmap().getId());
         }
     }
 
