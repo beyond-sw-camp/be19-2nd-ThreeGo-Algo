@@ -41,3 +41,17 @@ uvicorn main:app --reload
 # 실행 후 확인 URL
 # http://127.0.0.1:8000
 # Swagger UI (API 문서): http://127.0.0.1:8000/docs
+
+```
+
+## 🤖 Coding-AI 하기 위해 추가
+``` bash
+coding:
+  fastapi:
+    url: 로컬호스트주소 입력
+
+  jackson:
+    deserialization:
+      ACCEPT_CONTROL_CHARACTERS: true
+```
+
