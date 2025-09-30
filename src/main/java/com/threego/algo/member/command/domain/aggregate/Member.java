@@ -62,13 +62,13 @@ public class Member {
         this.createdAt = createdAt;
     }
 
-    public static Member UserToMember(UserDTO dto) {
+    public static Member UserToMember(UserDTO dto, MemberRank defaultRank) {
         return new Member(
-                dto.getEmail(),
-                dto.getPassword(),
-                dto.getNickname(),
-                dto.getMemberRank(),
-                DateTimeUtils.nowDateTime()
+            dto.getEmail(),
+            dto.getPassword(),
+            dto.getNickname(),
+            defaultRank,
+            DateTimeUtils.nowDateTime()
         );
     }
 
