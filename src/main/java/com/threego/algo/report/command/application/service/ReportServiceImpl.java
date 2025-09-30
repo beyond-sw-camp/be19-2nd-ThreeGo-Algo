@@ -58,6 +58,8 @@ public class ReportServiceImpl implements ReportService {
                 DateTimeUtils.nowDateTime()
         );
 
+        reportedMember.increaseReportCount();
+
         reportRepository.save(report);
     }
 }

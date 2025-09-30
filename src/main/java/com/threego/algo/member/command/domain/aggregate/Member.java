@@ -73,6 +73,8 @@ public class Member {
         );
     }
 
-
+    public void increaseReportCount() {
+        this.reportedCount += 1;
+    }
 
 }
