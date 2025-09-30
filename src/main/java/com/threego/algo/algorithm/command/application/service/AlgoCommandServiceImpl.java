@@ -3,7 +3,6 @@ package com.threego.algo.algorithm.command.application.service;
 import com.threego.algo.algorithm.command.application.dto.*;
 import com.threego.algo.algorithm.command.domain.aggregate.*;
 import com.threego.algo.algorithm.command.domain.repository.*;
-import com.threego.algo.algorithm.query.dao.AlgoMapper;
 import com.threego.algo.common.service.S3Service;
 import com.threego.algo.algorithm.query.service.AlgoQueryService;
 import com.threego.algo.likes.command.application.service.LikesCommandService;
@@ -98,7 +97,7 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
 
                     // DB에 저장
                     AlgoPostImage postImage = new AlgoPostImage(imageUrl, algoPost);
-                    algoPostImageRepository.save(postImage);
+                    algoPostImageCommandRepository.save(postImage);
 
                     savedImageUrls.add(imageUrl);
                 }
