@@ -34,7 +34,6 @@ public class Member {
     @Column(columnDefinition = "int default 0")
     private int point;
 
-
     @Column(name = "reported_count", columnDefinition = "int default 0")
     private int reportedCount;
 
@@ -63,16 +62,17 @@ public class Member {
         this.createdAt = createdAt;
     }
 
-    public static Member UserToMember(UserDTO dto) {
+    public static Member UserToMember(UserDTO dto, MemberRank defaultRank) {
         return new Member(
             dto.getEmail(),
             dto.getPassword(),
             dto.getNickname(),
-            dto.getMemberRank(),
+            defaultRank,
             DateTimeUtils.nowDateTime()
         );
     }
 
-
-
+    public void increasePoint(final int point) {
+        this.point += point;
+    }
 }

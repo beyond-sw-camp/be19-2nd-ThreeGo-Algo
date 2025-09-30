@@ -11,6 +11,9 @@ import com.threego.algo.coding.command.domain.repository.CodingCommentRepository
 import com.threego.algo.coding.command.domain.repository.CodingPostImageRepository;
 import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
 import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
+import com.threego.algo.likes.command.application.service.LikesCommandService;
+import com.threego.algo.likes.command.domain.aggregate.enums.Type;
+import com.threego.algo.likes.query.service.LikesQueryService;
 import com.threego.algo.common.service.S3Service;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
@@ -22,9 +25,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import java.util.Map;
 
 @Service
@@ -37,6 +40,9 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
     private final CodingProblemRepository problemRepository;
     private final MemberCommandRepository memberRepository;
     private final S3Service s3Service;
+    private final CodingPostImageRepository codingPostImageRepository;
+    private final LikesCommandService likesCommandService;
+    private final LikesQueryService likesQueryService;
 
     @Value("${coding.fastapi.url}")
     private String fastApiUrl;
@@ -109,7 +115,7 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
         }
         
         // 즉시 동기화: 해당 문제의 postCount 재계산
-        problem.syncPostCount(); // problem은 관리 상태이므로 commit 시 반영됨
+        problem.syncPostCount();
 
         return saved.getId();
     }
@@ -119,13 +125,6 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
     public int addImage(int postId, CodingPostImageRequestDTO dto) {
         CodingPost post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
-
-        // 1. 파일을 S3에 업로드
-//        String imageUrl = s3Uploader.upload(dto.getFile(), "coding-posts");
-
-        // 2. DB에 URL 저장
-//        CodingPostImage image = new CodingPostImage(post, imageUrl);
-//        CodingPostImage saved = imageRepository.save(image);
 
         CodingPostImage image = new CodingPostImage(post, dto.getImageUrl());
         CodingPostImage saved = codingPostImageRepository.save(image);
@@ -229,5 +228,29 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
         if (post != null) {
             post.decreaseCommentCount();
         }
+    }
+
+    @Transactional
+    @Override
+    public void createCodingPostLikes(final int memberId, final int postId) {
+        final Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException(memberId + "번 회원이 존재하지 않습니다."));
+
+        final CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException(memberId + "번 코딩 문제 풀이 게시물이 존재하지 않습니다."));
+
+        if (member == post.getMemberId()) {
+            throw new RuntimeException("자신이 작성한 글은 추천할 수 없습니다.");
+        }
+
+        if (likesQueryService.existsLikesByMemberIdAndPostIdAndPostType(memberId, postId, Type.CODING_POST)) {
+            throw new RuntimeException("이미 추천한 게시물입니다.");
+        }
+
+        likesCommandService.createLikes(member, post, Type.CODING_POST);
+
+        post.getMemberId().increasePoint(1);
+
+        post.increaseLikeCount();
     }
 }
