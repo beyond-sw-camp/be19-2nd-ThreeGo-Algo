@@ -1,6 +1,7 @@
 package com.threego.algo.report.query.controller;
 
 import com.threego.algo.member.query.dto.AdminMemberDetailResponseDTO;
+import com.threego.algo.report.query.dto.ReportContentResponseDTO;
 import com.threego.algo.report.query.dto.ReportDetailResponseDTO;
 import com.threego.algo.report.query.service.AdminReportQueryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "[Admin] Report API", description = "관리자 신고 조회 API")
+@Tag(
+        name = "Report - Report Query",
+        description = "관리자용 신고 API (Query)"
+)
+
 @RestController
 @RequestMapping("/admin")
 public class AdminReportQueryController {
@@ -54,6 +59,17 @@ public class AdminReportQueryController {
             @PathVariable int memberId
     ) {
         return ResponseEntity.ok(reportService.findReportedListByMemberId(memberId));
+    }
+
+    @Operation(
+            summary = "관리자용 신고 당한 게시물/댓글 내용 조회",
+            description = "관리자는  신고 당한 게시물/댓글 내용을 조회할 수 있다."
+    )
+    @GetMapping("/reports/detail/{reportId}")
+    public ResponseEntity<List<ReportContentResponseDTO>> findDetailByReportId(
+            @PathVariable int reportId
+    ) {
+        return ResponseEntity.ok(reportService.findDetailByReportId(reportId));
     }
 
 
