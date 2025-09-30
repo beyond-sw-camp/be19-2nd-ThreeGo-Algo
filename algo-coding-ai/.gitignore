@@ -1,0 +1,38 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# 가상 환경
+venv/
+env/
+ENV/
+.venv/
+.env/
+.env
+
+# IDE 및 편집기 설정
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 로그 파일
+*.log
+
+# 패키지 매니저
+*.egg-info/
+dist/
+build/
+*.egg
+
+# 데이터베이스 파일
+*.sqlite3
+
+# 환경 변수 파일
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# .gitignore
+.env
