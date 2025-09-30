@@ -46,15 +46,38 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     /* DB Driver */
-//    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    runtimeOnly 'com.mysql:mysql-connector-j'	// mysql 사용자 용
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+//    runtimeOnly 'com.mysql:mysql-connector-j'	// mysql 사용자 용
 
     /* Swagger */
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
     implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
+    /* S3 */
+    implementation 'software.amazon.awssdk:s3:2.20.26'
+    implementation 'software.amazon.awssdk:auth:2.20.26'
+    implementation 'software.amazon.awssdk:s3:2.20.89'
+    implementation 'software.amazon.awssdk:auth:2.20.89'
+    implementation 'software.amazon.awssdk:regions:2.20.89'
+    /* Model Mapper */
+    implementation 'org.modelmapper:modelmapper:3.2.0'
+
+    /* Spring Security */
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    /* JWT */
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    /* E-Mail */
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     /* Eureka client */
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // 다른 도메인과 통신할 때 필요한 라이브러리(feat.gateway를 활용한 통신)
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 }
 

@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDetailResponseDTO {
+public class AdminMemberDetailResponseDTO {
     private int id;
     private String email;
     private String nickname;
     private String rank;
+    private String role;
     private int point;
-    private int attendanceCount;
+    private String status;
+    private int reportedCount;
     private String createdAt;
 }
