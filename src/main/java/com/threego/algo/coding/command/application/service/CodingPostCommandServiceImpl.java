@@ -14,11 +14,13 @@ import com.threego.algo.coding.command.domain.repository.CodingProblemRepository
 import com.threego.algo.likes.command.application.service.LikesCommandService;
 import com.threego.algo.likes.command.domain.aggregate.enums.Type;
 import com.threego.algo.likes.query.service.LikesQueryService;
+import com.threego.algo.common.service.S3Service;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,8 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
     private final CodingCommentRepository commentRepository;
     private final CodingProblemRepository problemRepository;
     private final MemberCommandRepository memberRepository;
+    private final S3Service s3Service;
+    private final CodingPostImageRepository codingPostImageRepository;
 
     private final LikesCommandService likesCommandService;
     private final LikesQueryService likesQueryService;
@@ -45,8 +49,25 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
         CodingPost post = CodingPost.create(member, problem, dto.getTitle(), dto.getContent());
         CodingPost saved = postRepository.save(post);
 
+        // 이미지 업로드 및 저장
+        if (dto.getImages() != null && !dto.getImages().isEmpty()) {
+            for (MultipartFile image : dto.getImages()) {
+                if (!image.isEmpty()) {
+                    // 이미지 파일 유효성 검사
+                    s3Service.validateImageFile(image);
+
+                    // S3에 업로드
+                    String imageUrl = s3Service.uploadFile(image, "coding-posts");
+
+                    // DB에 저장
+                    CodingPostImage postImage = new CodingPostImage(saved, imageUrl);
+                    codingPostImageRepository.save(postImage);
+                }
+            }
+        }
+
         // 즉시 동기화: 해당 문제의 postCount 재계산
-        problem.syncPostCount(); // problem은 관리 상태이므로 commit 시 반영됨
+        problem.syncPostCount();
 
         return saved.getId();
     }
@@ -56,13 +77,6 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
     public int addImage(int postId, CodingPostImageRequestDTO dto) {
         CodingPost post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물 없음: " + postId));
-
-        // 1. 파일을 S3에 업로드
-//        String imageUrl = s3Uploader.upload(dto.getFile(), "coding-posts");
-
-        // 2. DB에 URL 저장
-//        CodingPostImage image = new CodingPostImage(post, imageUrl);
-//        CodingPostImage saved = imageRepository.save(image);
 
         CodingPostImage image = new CodingPostImage(post, dto.getImageUrl());
         CodingPostImage saved = imageRepository.save(image);

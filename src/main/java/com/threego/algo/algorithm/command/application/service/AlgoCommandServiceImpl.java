@@ -3,6 +3,8 @@ package com.threego.algo.algorithm.command.application.service;
 import com.threego.algo.algorithm.command.application.dto.*;
 import com.threego.algo.algorithm.command.domain.aggregate.*;
 import com.threego.algo.algorithm.command.domain.repository.*;
+import com.threego.algo.algorithm.query.dao.AlgoMapper;
+import com.threego.algo.common.service.S3Service;
 import com.threego.algo.algorithm.query.service.AlgoQueryService;
 import com.threego.algo.likes.command.application.service.LikesCommandService;
 import com.threego.algo.likes.command.domain.aggregate.enums.Type;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,8 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     private final AlgoQueryService algoQueryService;
     private final LikesCommandService likesCommandService;
     private final LikesQueryService likesQueryService;
+
+    private final S3Service s3Service;
 
     @Override
     public AlgoRoadmap createAlgoRoadmap(final AlgoRoadmapRequestDTO request) {
@@ -71,21 +76,44 @@ public class AlgoCommandServiceImpl implements AlgoCommandService {
     public AlgoPostDetailResponseDTO createAlgoPost(final int memberId, final int roadmapId,
                                                     final AlgoPostRequestDTO request) {
         final Member member = findMemberById(memberId);
-
         final AlgoRoadmap algoRoadmap = findAlgoRoadmapById(roadmapId);
 
         AlgoPost algoPost = new AlgoPost(request.getTitle(), request.getContent(), algoRoadmap, member);
-
         algoPost = algoPostCommandRepository.save(algoPost);
 
         final AlgoPostDetailResponseDTO response = AlgoPostDetailResponseDTO.of(algoPost);
 
-        final List<String> savedAlgoPostImages = saveAlgoPostImages(request.getImageUrls(), algoPost).stream()
-                .map(AlgoPostImage::getImageUrl)
-                .collect(Collectors.toList());
+        // 이미지 처리 로직 수정
+        List<String> savedImageUrls = new ArrayList<>();
 
-        response.setImageUrls(savedAlgoPostImages);
+        // 1. MultipartFile로 받은 이미지 처리 (새로 추가)
+        if (request.getImages() != null && !request.getImages().isEmpty()) {
+            for (MultipartFile image : request.getImages()) {
+                if (!image.isEmpty()) {
+                    // 이미지 파일 유효성 검사
+                    s3Service.validateImageFile(image);
 
+                    // S3에 업로드
+                    String imageUrl = s3Service.uploadFile(image, "algo-posts");
+
+                    // DB에 저장
+                    AlgoPostImage postImage = new AlgoPostImage(imageUrl, algoPost);
+                    algoPostImageRepository.save(postImage);
+
+                    savedImageUrls.add(imageUrl);
+                }
+            }
+        }
+
+        // 2. 기존 imageUrls로 받은 URL 처리 (하위 호환성 유지)
+        if (request.getImageUrls() != null && !request.getImageUrls().isEmpty()) {
+            List<AlgoPostImage> urlImages = saveAlgoPostImages(request.getImageUrls(), algoPost);
+            savedImageUrls.addAll(urlImages.stream()
+                    .map(AlgoPostImage::getImageUrl)
+                    .collect(Collectors.toList()));
+        }
+
+        response.setImageUrls(savedImageUrls);
         return response;
     }
 
