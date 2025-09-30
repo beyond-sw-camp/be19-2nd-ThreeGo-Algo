@@ -92,4 +92,11 @@ public class CodingPost {
     public void decreaseCommentCount() {
         if (this.commentCount > 0) this.commentCount -= 1;
     }
+
+    public void setAiFeedback(String bigO, String good, String bad, String plan) {
+        this.aiBigO = bigO;
+        this.aiGood = good;
+        this.aiBad = bad;
+        this.aiPlan = plan;
+    }
 }

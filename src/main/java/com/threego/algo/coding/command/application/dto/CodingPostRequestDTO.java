@@ -1,5 +1,8 @@
 package com.threego.algo.coding.command.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,5 +17,8 @@ public class CodingPostRequestDTO {
     private int memberId;
     private int problemId;
     private String title;
+
+    @JsonProperty("content")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String content;
 }
