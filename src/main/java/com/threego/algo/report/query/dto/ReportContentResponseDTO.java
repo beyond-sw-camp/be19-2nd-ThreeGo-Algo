@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportContentResponseDTO {
-    int member_id;
+    int memberId;
     String content;
 }
