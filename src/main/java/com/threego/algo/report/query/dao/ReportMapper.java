@@ -1,5 +1,6 @@
 package com.threego.algo.report.query.dao;
 
+import com.threego.algo.report.query.dto.ReportContentResponseDTO;
 import com.threego.algo.report.query.dto.ReportDetailResponseDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,6 @@ public interface ReportMapper {
     List<ReportDetailResponseDTO> selectReportDetailsById(int memberId);
 
     List<ReportDetailResponseDTO> selectReportedDetailsById(int memberId);
+
+    List<ReportContentResponseDTO> selectReportContentDetailsByReportId(int reportId);
 }
