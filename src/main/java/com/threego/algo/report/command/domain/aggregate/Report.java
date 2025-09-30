@@ -5,9 +5,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Entity
+
+@Setter
+@Getter
 @Table(name = "Report")
-@Getter @Setter @NoArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class Report {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id", nullable = false)
     private ReportType type;
+
 
     @Column(name = "target_id", nullable = false)
     private int targetId;
