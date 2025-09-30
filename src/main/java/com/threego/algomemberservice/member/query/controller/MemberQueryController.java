@@ -1,14 +1,20 @@
 package com.threego.algomemberservice.member.query.controller;
 
 import com.threego.algomemberservice.member.query.dto.MemberDetailResponseDTO;
+import com.threego.algomemberservice.member.query.dto.PostSummaryResponseDto;
 import com.threego.algomemberservice.member.query.service.MemberQueryService;
+import com.threego.algomemberservice.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Tag(
         name = "Member - Member Query",
@@ -33,4 +39,13 @@ public class MemberQueryController {
     ){
         return ResponseEntity.ok(memberQueryService.findMemberById(id));
     }
+
+    @GetMapping("/me/career-posts")
+    public ResponseEntity<List<PostSummaryResponseDto>> getMyCareerPosts(
+            @AuthenticationPrincipal CustomUserDetails user
+    ) {
+        int memberId = user.getMemberId();
+        return ResponseEntity.ok(memberQueryService.getMyPosts(memberId));
+    }
+
 }
