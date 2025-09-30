@@ -11,6 +11,9 @@ import com.threego.algo.coding.command.domain.repository.CodingCommentRepository
 import com.threego.algo.coding.command.domain.repository.CodingPostImageRepository;
 import com.threego.algo.coding.command.domain.repository.CodingPostRepository;
 import com.threego.algo.coding.command.domain.repository.CodingProblemRepository;
+import com.threego.algo.likes.command.application.service.LikesCommandService;
+import com.threego.algo.likes.command.domain.aggregate.enums.Type;
+import com.threego.algo.likes.query.service.LikesQueryService;
 import com.threego.algo.common.service.S3Service;
 import com.threego.algo.member.command.domain.aggregate.Member;
 import com.threego.algo.member.command.domain.repository.MemberCommandRepository;
@@ -30,6 +33,9 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
     private final MemberCommandRepository memberRepository;
     private final S3Service s3Service;
     private final CodingPostImageRepository codingPostImageRepository;
+
+    private final LikesCommandService likesCommandService;
+    private final LikesQueryService likesQueryService;
 
     @Override
     @Transactional
@@ -174,5 +180,29 @@ public class CodingPostCommandServiceImpl implements CodingPostCommandService {
         if (post != null) {
             post.decreaseCommentCount();
         }
+    }
+
+    @Transactional
+    @Override
+    public void createCodingPostLikes(final int memberId, final int postId) {
+        final Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException(memberId + "번 회원이 존재하지 않습니다."));
+
+        final CodingPost post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException(memberId + "번 코딩 문제 풀이 게시물이 존재하지 않습니다."));
+
+        if (member == post.getMemberId()) {
+            throw new RuntimeException("자신이 작성한 글은 추천할 수 없습니다.");
+        }
+
+        if (likesQueryService.existsLikesByMemberIdAndPostIdAndPostType(memberId, postId, Type.CODING_POST)) {
+            throw new RuntimeException("이미 추천한 게시물입니다.");
+        }
+
+        likesCommandService.createLikes(member, post, Type.CODING_POST);
+
+        post.getMemberId().increasePoint(1);
+
+        post.increaseLikeCount();
     }
 }

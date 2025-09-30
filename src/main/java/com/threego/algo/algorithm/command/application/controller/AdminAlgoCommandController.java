@@ -6,7 +6,7 @@ import com.threego.algo.algorithm.command.domain.aggregate.AlgoRoadmap;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +16,10 @@ import java.util.List;
 
 @Tag(name = "Admin Algorithm - Command", description = "관리자용 알고리즘 학습 API (Command)")
 @RequestMapping("/admin/algo")
+@RequiredArgsConstructor
 @RestController
 public class AdminAlgoCommandController {
     private final AlgoCommandService algoCommandService;
-
-    @Autowired
-    public AdminAlgoCommandController(AlgoCommandService algoCommandService) {
-        this.algoCommandService = algoCommandService;
-    }
 
     @Operation(summary = "알고리즘 학습 로드맵 등록", description = "관리자가 알고리즘 학습 로드맵을 등록하는 API입니다.")
     @PostMapping("/roadmaps")
