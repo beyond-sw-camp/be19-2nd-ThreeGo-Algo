@@ -15,4 +15,4 @@ app = FastAPI()
 @app.post("/feedback", response_model=FeedbackResponse)
 def feedback(req: FeedbackRequest):
     ai_response = generate_feedback(req.title, req.content, req.problem)
-    return json.loads(ai_response)
+    return ai_response
