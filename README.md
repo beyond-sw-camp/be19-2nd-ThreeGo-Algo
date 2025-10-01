@@ -193,7 +193,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 
 🖥️ 운영체제 & 개발환경
 
-<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/><img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/><img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white"><img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
+<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white"> <img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
 
 🗃️ 데이터베이스 
 
@@ -205,7 +205,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 
 📝 작업 툴
 
-<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" /><img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" /><img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
+<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" /> <img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
 
 ---
 
