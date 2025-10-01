@@ -6,7 +6,7 @@
 
 ## 목차
 
---
+---
 
 ## 1. 프로젝트 소개
 
@@ -37,7 +37,7 @@
 <img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=for-the-badge&logo=intellij-idea&logoColor=white" />
 <img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" /> 
 
---
+---
 
 ## 2. 설계 문서
 
@@ -47,7 +47,7 @@
 
 ### DDD
 
---
+---
 
 ## 3. DB 모델링
 
@@ -56,19 +56,19 @@
 ### 물리 모델링
 
 
---
+---
 
 ## 4. 시스템 아키텍쳐
 
 ### MSA
 
 
---
+---
 
 ## 5. API 명세서 (Swagger)
 
 
---
+---
 
 ## 6. 테스트
 
@@ -76,7 +76,7 @@
 
 ### 통합 테스트
 
---
+---
 
 ## 7. 동료 평가
 
