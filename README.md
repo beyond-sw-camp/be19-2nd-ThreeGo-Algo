@@ -307,9 +307,22 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
   이 외에도 각 게시판의 성격에 맞게 이미지 첨부 기능을 제공하여 사용자 경험을 향상시켰습니다.
 </details>
 
-### FastAPI + OpenAI
+### <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" />FastAPI + <img width="25" height="25" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />OpenAI
+<details>
+  <summary>FastAPI + OpenAI</summary>
+  
+- FastAPI
+  - 파이썬 기반의 고성능 웹 프레임워크
+  - 비동기 처리 지원으로 빠른 API 응답 속도 제공합니다.
+  - RESTful API 설계 및 확장성 있는 서버 구축에 사용합니다.
 
----
+- OpenAI API
+  - 최신 AI 모델을 활용한 자연어 처리 기능 제공합니다.
+  - 챗봇, 텍스트 요약, 코드 생성 등 지능형 기능을 제공합니다.
+  - FastAPI 서버와 연동하여 실시간 AI 응답 서비스 기능을 제공합니다.
+
+- 정리하면 **FastAPI**로 경량화된 서버를 구현하고, **OpenAI API**를 연동하여 **AI 기반 기능** 을 제공하여 게시물 등록시 AI피드백이 바로 나옴으로써 사용사의 코딩풀이에 도움을 주는 역할을 합니다.
+</details>
 
 ## 5. 시스템 아키텍처
 
