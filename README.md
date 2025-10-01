@@ -65,40 +65,78 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 
 ✔언어
 
-<img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"/>
-<img src="https://img.shields.io/badge/python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/python-3776AB?style=flat&logo=python&logoColor=white"/>
+
 🖥️ 운영체제 & 개발환경
 
-<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/>
-<img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white">
-<img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
+<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/><img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/><img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white"><img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
+
 🗃️ 데이터베이스 
 
-<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=flat&logo=mariadb&logoColor=white"/> 
-<img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
+<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=flat&logo=mariadb&logoColor=white"/> <img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
+
 📦 버전 관리 & 협업
 
-<img src="https://img.shields.io/badge/github-%23181717.svg?&style=flat&logo=github&logoColor=white" /> 
-<img src="https://img.shields.io/badge/notion-%23000000.svg?&style=flat&logo=notion&logoColor=white" />
+<img src="https://img.shields.io/badge/github-%23181717.svg?&style=flat&logo=github&logoColor=white" /> <img src="https://img.shields.io/badge/notion-%23000000.svg?&style=flat&logo=notion&logoColor=white" />
 
 📝 작업 툴
 
-<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> 
-<img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" />
-<img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" />
-<img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> 
-<img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> 
-<img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
+<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" /><img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" /><img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
+
 ---
 
 ## 2. 설계 문서
 
 ### WBS
+<details>
+  <summary>WBS</summary>
+  <img width="1377" height="1012" alt="image" src="https://github.com/user-attachments/assets/acb10d36-d052-4c88-96ec-784b351c1c07" />
+</details>
+
 
 ### 요구사항 명세서
+<details>
+  <summary>요구사항 명세서</summary>
+  <h3>회원 정보</h3>
+  <img width="2030" height="752" alt="image" src="https://github.com/user-attachments/assets/477599fe-b2b4-4f51-a1a8-683a734fa6ec" />
+
+  <h3>알고리즘 학습</h3>
+  <img width="2030" height="555" alt="image" src="https://github.com/user-attachments/assets/fbe3fdc5-c3e7-4850-8a90-ea12fbe00428" />
+
+  <h3>기업별 정보 공유</h3>
+  <img width="2024" height="457" alt="image" src="https://github.com/user-attachments/assets/f5cd4c85-764b-4ec2-8462-f221dbc36c6a" />
+
+  <h3>스터디</h3>
+  <img width="2029" height="1058" alt="image" src="https://github.com/user-attachments/assets/acd4b228-542a-41c4-b3c5-3a4bd036179f" />
+  <img width="2022" height="294" alt="image" src="https://github.com/user-attachments/assets/34543529-7120-4251-8ba8-a9e3964a3d30" />
+
+  <h3>AI 코딩풀이</h3>
+  <img width="2045" height="600" alt="image" src="https://github.com/user-attachments/assets/3a265d27-75e2-4c8e-b883-23b54f9275d5" />
+
+  <h3>시스템</h3>
+  <img width="2026" height="411" alt="image" src="https://github.com/user-attachments/assets/e70561f7-1593-414e-9ac4-e90b8a039428" />
+
+</details>
 
 ### DDD
+<details>
+  <summary>DDD</summary>
+<h3>회원 관리 및 신고 처리</h3>
+<img width="979" height="395" alt="회원관리및 신고" src="https://github.com/user-attachments/assets/977de6fc-cbb2-4fd0-8c1e-540e53fefc4c" />
+<h3>알고리즘 학습</h3>
+<img width="924" height="468" alt="알고리즘 학습" src="https://github.com/user-attachments/assets/1957c330-2998-47b7-929e-3196c8f582b9" />
+
+<h3>문제풀이 및 AI피드백</h3>
+<img width="939" height="469" alt="AI문제풀이" src="https://github.com/user-attachments/assets/c5f2a3bc-4c5e-4711-8838-aebe34ac86e9" />
+
+<h3>기업별 정보 공유</h3>
+<img width="616" height="433" alt="기업별정보공유" src="https://github.com/user-attachments/assets/982133f7-1a55-4df2-ba66-57d3dad44f47" />
+
+<h3>스터디</h3>
+<img width="737" height="431" alt="스터디" src="https://github.com/user-attachments/assets/2bd07c42-6fc8-4226-b851-cbfaad9a27f8" />
+
+</details>
+
 
 ---
 
