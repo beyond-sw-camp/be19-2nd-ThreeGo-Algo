@@ -396,6 +396,12 @@ MSA 구조 설명
 </details>
 
 <details>
+  <summary>알고리즘 학습 테스트</summary>
+   <img width="821" height="349" alt="image" src="https://github.com/user-attachments/assets/e7011444-5b0a-4ef5-aaec-964ec5a48c3e" />
+
+</details>
+
+<details>
   <summary>코딩풀이 테스트</summary>
   <img width="830" height="576" alt="Image" src="https://github.com/user-attachments/assets/ee9de99c-e3cb-4ebc-953b-e823d2634573" />
   
