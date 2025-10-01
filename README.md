@@ -166,6 +166,25 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 ### SMTP
 
 ### S3
+<details>
+  <summary>S3</summary>
+  <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
+
+
+  AWS S3를 활용하여 이미지 및 파일 저장소를 구축했습니다. 
+  
+  특히 기업별 정보 공유 게시판에서 코딩테스트 후기나 
+  
+  면접 후기의 신뢰성을 높이기 위해 합격 메일, 참여 인증서 등의 증빙 자료를 업로드할 수 있도록 했습니다. 
+  
+  Spring Boot에서 MultipartFile로 전달받은 파일을 검증한 후, 
+  
+  UUID 기반의 고유한 파일명을 생성하여 S3 버킷에 업로드하고, 
+  
+  반환된 URL을 데이터베이스에 저장합니다.
+  
+  이 외에도 각 게시판의 성격에 맞게 이미지 첨부 기능을 제공하여 사용자 경험을 향상시켰습니다.
+</details>
 
 ### FastAPI + OpenAI
 
