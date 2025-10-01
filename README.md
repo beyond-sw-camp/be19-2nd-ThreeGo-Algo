@@ -16,27 +16,33 @@
 
 ### 기술 스택
 
+✔언어
+
+<img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"/>
+<img src="https://img.shields.io/badge/python-3776AB?style=flat&logo=python&logoColor=white"/>
 🖥️ 운영체제 & 개발환경
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"/>
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"/>
-<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
-<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 
+<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/>
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/>
+<img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white">
+<img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
 🗃️ 데이터베이스 
-<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=for-the-badge&logo=mariadb&logoColor=white" /> 
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
 
+<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=flat&logo=mariadb&logoColor=white"/> 
+<img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
 📦 버전 관리 & 협업
-<img src="https://img.shields.io/badge/github-%23181717.svg?&style=for-the-badge&logo=github&logoColor=white" /> 
-<img src="https://img.shields.io/badge/notion-%23000000.svg?&style=for-the-badge&logo=notion&logoColor=white" />
+
+<img src="https://img.shields.io/badge/github-%23181717.svg?&style=flat&logo=github&logoColor=white" /> 
+<img src="https://img.shields.io/badge/notion-%23000000.svg?&style=flat&logo=notion&logoColor=white" />
 
 📝 작업 툴
-<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=for-the-badge&logo=cloud&logoColor=white" /> 
-<img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=for-the-badge&logo=diagram&logoColor=white" />
-<img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=for-the-badge&logo=intellij-idea&logoColor=white" />
-<img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" /> 
 
+<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> 
+<img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" />
+<img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" />
+<img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> 
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> 
+<img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
 ---
 
 ## 2. 설계 문서
