@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
         name = "Auth - Mail",
         description = "사용자 이메일 인증 API"
 )
+@RestController
 @RequestMapping("/auth")
 public class MailController {
 
