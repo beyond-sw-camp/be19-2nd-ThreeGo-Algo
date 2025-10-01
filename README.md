@@ -1,2 +1,136 @@
 # be19-2nd-ThreeGo-Algo
 강지륜 🐹 김민지 🦦 배태용 🦁 정유진 🥟 허창훈 🐱
+
+
+## 📖 목차
+
+
+---
+
+
+
+## 📌 **프로젝트 소개**
+
+
+
+----
+
+## 🧷 프로젝트 배경
+
+---
+
+## 😊 조원 소개
+
+
+---
+
+## ⭐ 주요 기능
+
+
+
+
+---
+
+## 📡 기술 스택
+🖥️ 운영체제 & 개발환경
+
+
+🗃️ 데이터베이스 
+<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=for-the-badge&logo=mariadb&logoColor=white" /> 
+
+📦 버전 관리 & 협업
+<img src="https://img.shields.io/badge/github-%23181717.svg?&style=for-the-badge&logo=github&logoColor=white" /> <img src="https://img.shields.io/badge/notion-%23000000.svg?&style=for-the-badge&logo=notion&logoColor=white" />
+
+📝 작업 툴
+<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=for-the-badge&logo=cloud&logoColor=white" /> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=for-the-badge&logo=diagram&logoColor=white" /><img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=for-the-badge&logo=intellij-idea&logoColor=white" /><img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" /> 
+
+
+
+
+
+---
+
+## 📊 요구사항 명세서
+
+
+
+---
+
+## 📋 테스트 CASE
+
+
+
+
+
+
+---
+
+## 📊 DB 설계
+
+
+## 논리 모델링
+
+
+
+---
+
+## 물리 모델링
+
+
+<br/>
+
+---
+
+## 📑 테이블 정의서
+
+
+
+
+---
+
+## 🔭 동료 평가
+
+## 🏇 강지륜
+
+| 평가자 | 내용 |
+|--------|------|
+| 김민지 |  |
+| 배태용 |  |
+| 정유진 |  |
+| 허창훈 |  |
+
+## 🏂 김민지
+
+| 평가자 | 내용 |
+|--------|------|
+| 강지륜 |  |
+| 배태용 |  |
+| 정유진 |  |
+| 허창훈 |  |
+
+## 🏌️ 배태용
+
+| 평가자 | 내용 |
+|--------|------|
+| 강지륜 |  |
+| 김민지 |  |
+| 정유진 |  |
+| 허창훈 |  |
+
+## 🏄‍♂️ 정유진
+
+| 평가자 | 내용 |
+|--------|------|
+| 강지륜 |  |
+| 김민지 |  |
+| 배태용 |  |
+| 허창훈 |  |
+
+## 🤾‍♂️ 허창훈
+
+| 평가자 | 내용 |
+|--------|------|
+| 강지륜 |  |
+| 김민지 |  |
+| 배태용 |  |
+| 정유진 |  |
