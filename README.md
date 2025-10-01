@@ -58,9 +58,12 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 
 누구나 알고리즘을 쉽게 배우고 꾸준히 성장할 수 있는 환경을 제공합니다.
 
+---
 
 ### 주요 기능
 
+
+---
 ### 기술 스택
 
 ✔언어
@@ -143,8 +146,17 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 ## 3. DB 모델링
 
 ### 논리 모델링
+<details>
+  <summary>Da#</summary>
+  <img width="1701" height="1202" alt="논리모델링" src="https://github.com/user-attachments/assets/91ba18b5-e473-49ee-a16f-397d465410be" />
+
+</details>
 
 ### 물리 모델링
+<details>
+  <summary>ERD</summary>
+  <img width="5390" height="2362" alt="물리모델링" src="https://github.com/user-attachments/assets/6ba58e3b-bc76-44d7-b847-0abf06101447" />
+</details>
 
 
 ---
