@@ -54,4 +54,5 @@ coding:
     deserialization:
       ACCEPT_CONTROL_CHARACTERS: true
 ```
-
+## 📈 흐름 아키텍처
+<img width="1536" height="1024" alt="ChatGPT Image 2025년 10월 1일 오전 09_38_23" src="https://github.com/user-attachments/assets/91073e27-9a38-4e81-bd9e-839beae80a17" />
