@@ -62,6 +62,127 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 
 ### 주요 기능
 
+### 🎯 회원가입 및 로그인
+
+<details>
+<summary><b> &nbsp; 회원가입 </b></summary>
+<div markdown=1>
+
+- 사용자는 이메일과 비밀번호, 닉네임을 이용하여 회원가입을 할 수 있다.
+- 가입 전 이메일은 인증번호를 통해 검증 절차를 거쳐야 한다.
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; 로그인 </b></summary>
+<div markdown=1>
+
+- 사용자는 가입할 때 사용한 이메일과 비밀번호를 통해 로그인 할 수 있다.
+  
+</div>
+</details>
+
+
+### 📰 알고리즘 개념 학습
+
+<details>
+<summary><b>&nbsp;알고리즘 개념 학습 로드맵, 게시물, 개념문제 등록</b></summary>
+<div markdown=1>
+
+- 관리자만이 로드맵, 게시물, 개념문제를 등록할 수 있다.
+- 로드맵 생성 시 내용, 설명, 우선순위를 지정할 수 있다.
+- 개념문제유형은 3지 선다형 혹은 O/X 형으로 구성되어 있다.
+
+</div>
+</details>
+
+
+### 🤖 코딩 문제 풀이
+
+<details>
+<summary><b> &nbsp; 회원문제 풀이 제출 </b></summary>
+<div markdown=1>
+
+- 관리자만이 코딩문제를 생성, 수정, 삭제를 할 수 있다.
+- 회원이 관리자가 등록한 코딩 문제를 풀어 게시물을 등록할 수 있다.
+
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; OpenAI 분석 및 피드백 제공 </b></summary>
+<div markdown=1>
+
+- 게시물 등록 시제출한 코드를 분석하여 시간 복잡도를 평가, 잘한 점, 문제점, 개선방안을 제시한다.
+
+</div>
+</details>
+
+### 🏫 스터디
+
+<details>
+<summary><b> &nbsp; 스터디 모집 </b></summary>
+<div markdown=1>
+
+- 제목, 내용, 모집인원, 모집마감일, 스터디 시작/종료일을 설정하여 모집 게시물을 등록할 수 있다.
+- 회원은 모집글에 참가신청 할 수 있고, 모집장이 승인 또는 거절 할 수 있다.
+- 모집장이 마감을 하면 스터디 그룹이 생성된다.
+
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; 스터디 </b></summary>
+<div markdown=1>
+
+- 리더(모집장)는 로드맵과 마일스톤을 등록할 수 있다.
+- 스터디원은 게시글, 댓글을 작성할 수 있다.
+
+</div>
+</details>
+
+### 🚨 신고 및 추천
+
+<details>
+<summary><b> &nbsp; 신고 </b></summary>
+<div markdown=1>
+
+- 회원은 게시물이나 댓글을 신고할 수 있다.
+- 신고할 시, 피신고자의 누적 신고 횟수가 자동으로 증가된다.
+
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; 게시물 추천 </b></summary>
+<div markdown=1>
+
+- 회원은 게시물을 추천할 수 있다.
+- 추천 받은 게시물의 작성자는 1포인트가 자동으로 증가한다.
+
+</div>
+</details>
+
+### 🏢 기업별 정보 공유
+
+<details>
+<summary><b> &nbsp; 기업별 정보 공유 게시물 등록 </b></summary>
+<div markdown=1>
+
+- 회원은 취업과 관련된 정보 게시물을 등록할 수 있다.
+
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; 신뢰성 증가 </b></summary>
+<div markdown=1>
+
+- 게시물 등록 시 회원은 코딩 테스트 또는 면접 인증사진을 업로드 할 수 있으며, 인증사진이 첨부된 게시물은 **인증대기** 상태로 전환된다.
+- 이후 관리자의 승인을 거쳐 **인증 뱃지**가 부여된다
+
+</div>
+</details>
 
 ---
 ### 기술 스택
