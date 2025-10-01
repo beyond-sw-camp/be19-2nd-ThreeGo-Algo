@@ -205,6 +205,12 @@ MSA 구조 설명
 ## 7. 테스트
 
 ### 단위 테스트
+<details>
+  <summary>스터디 테스트</summary>
+  <img width="1790" height="698" alt="image" src="https://github.com/user-attachments/assets/003f04f6-290d-4560-a404-b638b36b21ab" />
+  <img width="529" height="696" alt="image" src="https://github.com/user-attachments/assets/5e722b51-4089-4ee8-b762-e0bbe7a9a9d2" />
+ 
+</details>
 
 ### 통합 테스트
 
