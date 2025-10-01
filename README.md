@@ -344,7 +344,44 @@ MSA 구조 설명
 ---
 
 ## 6. API 명세서 (Swagger)
+<details>
+  <summary>회원 API</summary>
+  <img width="872" height="602" alt="image" src="https://github.com/user-attachments/assets/8ccdec71-0528-421e-aa2d-c415cd6b13c3" />
+  <img width="870" height="352" alt="image" src="https://github.com/user-attachments/assets/b1926cfb-ad4f-41cb-97ea-5fc5ed8df488" />
+  <img width="862" height="114" alt="image" src="https://github.com/user-attachments/assets/e0aa038c-7750-45c2-bdfd-c110abdafdb3" />
 
+</details>
+
+<details>
+  <summary>알고리즘 학습 API</summary>
+  <img width="871" height="685" alt="image" src="https://github.com/user-attachments/assets/60769181-f385-40a5-b4db-ddf09a02fa8b" />
+  <img width="873" height="682" alt="image" src="https://github.com/user-attachments/assets/68b7be32-fa3f-4064-8e4e-79919aa9e0cd" />
+  <img width="869" height="282" alt="image" src="https://github.com/user-attachments/assets/a9ef84c9-57fe-4c75-b9d1-1e2eac788bf8" />
+</details>
+
+<details>
+  <summary>스터디 API</summary>
+  <img width="872" height="647" alt="image" src="https://github.com/user-attachments/assets/9ff52235-b6f7-4e2f-b1ae-d7cf3029ed85" />
+  <img width="878" height="527" alt="image" src="https://github.com/user-attachments/assets/14901b96-8629-4320-9c00-9bb35c1aecd0" />
+  <img width="874" height="400" alt="image" src="https://github.com/user-attachments/assets/a9937d72-56b2-425a-ac79-6df96ccd4b3f" />
+  <img width="865" height="694" alt="image" src="https://github.com/user-attachments/assets/1aa5f198-0e16-4f3a-8d31-5bc940007d2a" />
+  <img width="873" height="711" alt="image" src="https://github.com/user-attachments/assets/f11a6f06-b17f-42de-8a4d-8e3fef9b171f" />
+  <img width="872" height="655" alt="image" src="https://github.com/user-attachments/assets/9f93b77e-89ac-4e6f-b5f5-06d8417cfba1" />
+  <img width="870" height="298" alt="image" src="https://github.com/user-attachments/assets/8bf82f18-4ce5-439d-a6c6-9ce67328e850" />
+</details>
+
+<details>
+  <summary>코딩 문제 풀이 API</summary>
+  <img width="871" height="681" alt="image" src="https://github.com/user-attachments/assets/cae99353-0904-4392-8c76-5a336aa963e4" />
+  <img width="873" height="715" alt="image" src="https://github.com/user-attachments/assets/7feab2ce-3cf5-4494-8d14-9303748a988b" />
+  <img width="873" height="299" alt="image" src="https://github.com/user-attachments/assets/d9c26b66-8e85-4278-b47a-669153753cab" />
+</details>
+
+<details>
+  <summary>기업별 정보 공유 API</summary>
+  <img width="872" height="695" alt="image" src="https://github.com/user-attachments/assets/c8a04a95-9f9e-4b96-b6bf-6ce372b035b3" />
+  <img width="874" height="471" alt="image" src="https://github.com/user-attachments/assets/6e68311c-600c-4ad4-a1ee-08355b865c12" />
+</details>
 
 ---
 
