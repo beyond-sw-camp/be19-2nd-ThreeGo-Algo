@@ -1,0 +1,23 @@
+package com.threego.algo.study.query.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class StudyPostDTO {
+    private int id;
+    private int studyId;
+    private int memberId;
+    private String memberNickname;
+    private String title;
+    private String content;
+    private int commentCount;
+    private String createdAt;
+    private String updatedAt;
+    private String visibility;
+}

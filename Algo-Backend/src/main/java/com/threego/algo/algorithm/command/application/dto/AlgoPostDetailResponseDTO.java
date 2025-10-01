@@ -1,0 +1,69 @@
+package com.threego.algo.algorithm.command.application.dto;
+
+import com.threego.algo.algorithm.command.domain.aggregate.AlgoPost;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.*;
+
+import java.util.List;
+
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class AlgoPostDetailResponseDTO {
+    @Schema(description = "알고리즘 학습 게시물 ID")
+    private int postId;
+
+    @Schema(description = "알고리즘 학습 로드맵 ID")
+    private int roadmapId;
+
+    @Schema(description = "알고리즘 학습 게시물 작성자 ID")
+    private int memberId;
+
+    @Schema(description = "알고리즘 학습 게시물 작성자 닉넥임")
+    private String nickname;
+
+    @Schema(description = "알고리즘 학습 게시물 제목")
+    private String title;
+
+    @Schema(description = "알고리즘 학습 게시물 내용")
+    private String content;
+
+    @Schema(description = "알고리즘 학습 게시물 생성일시")
+    private String createdAt;
+
+    @Schema(description = "알고리즘 학습 게시물 수정일시")
+    private String updatedAt;
+
+    @Schema(description = "알고리즘 학습 게시물 추천 수")
+    private int likeCount;
+
+    @Schema(description = "알고리즘 학습 게시물 댓글 수")
+    private int commentCount;
+
+    @Schema(description = "알고리즘 학습 게시물 삭제 여부")
+    private String visibility;
+
+    @Schema(description = "알고리즘 학습 게시물 퀴즈 리스트")
+    private List<AlgoQuizQuestionResponseDTO> quizzes;
+
+    @Schema(description = "알고리즘 학습 게시물 이미지 url 리스트")
+    private List<String> imageUrls;
+
+    public static AlgoPostDetailResponseDTO of(final AlgoPost algoPost) {
+        return AlgoPostDetailResponseDTO.builder()
+                .postId(algoPost.getId())
+                .roadmapId(algoPost.getAlgoRoadmap().getId())
+                .memberId(algoPost.getMember().getId())
+                .nickname(algoPost.getMember().getNickname())
+                .title(algoPost.getTitle())
+                .content(algoPost.getContent())
+                .createdAt(algoPost.getCreatedAt())
+                .updatedAt(algoPost.getUpdatedAt())
+                .likeCount(algoPost.getLikeCount())
+                .commentCount(algoPost.getCommentCount())
+                .visibility(algoPost.getVisibility())
+                .build();
+    }
+}
