@@ -15,14 +15,14 @@
 
 ## 목차
 
-[1. 프로젝트 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%86%8C%EA%B0%9C)<br>
-[2. 설계 문서](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#2-%EC%84%A4%EA%B3%84-%EB%AC%B8%EC%84%9C)<br>
-[3. DB 모델링](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#3-db-%EB%AA%A8%EB%8D%B8%EB%A7%81)<br>
-[4. 기술 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#4-%EA%B8%B0%EC%88%A0-%EC%86%8C%EA%B0%9C)<br>
-[5. 시스템 아키텍처](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#5-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)<br>
-[6. API 명세서 (Swagger)](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#6-api-%EB%AA%85%EC%84%B8%EC%84%9C-swagger)<br>
-[7. 테스트](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#7-%ED%85%8C%EC%8A%A4%ED%8A%B8)<br>
-[8. 동료 평가](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo/blob/main/README.md#8-%EB%8F%99%EB%A3%8C-%ED%8F%89%EA%B0%80)<br>
+[1. 프로젝트 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%86%8C%EA%B0%9C)<br>
+[2. 섥계 문서](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#2-%EC%84%A4%EA%B3%84-%EB%AC%B8%EC%84%9C)<br>
+[3. DB 모델링](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#3-db-%EB%AA%A8%EB%8D%B8%EB%A7%81)<br>
+[4. 시스템 아키텍처](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)<br>
+[5. 세부 기술 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#5-%EC%84%B8%EB%B6%80-%EA%B8%B0%EC%88%A0-%EC%86%8C%EA%B0%9C)<br>
+[6. API 명세서](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#6-api-%EB%AA%85%EC%84%B8%EC%84%9C-swagger)<br>
+[7. 테스트](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#7-%ED%85%8C%EC%8A%A4%ED%8A%B8)<br>
+[8. 동료 평가](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#8-%EB%8F%99%EB%A3%8C-%ED%8F%89%EA%B0%80)<br>
 
 ---
 
@@ -203,10 +203,9 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 
 ## 5. 세부 기술 소개
 
-#### 인증/인가, Spring Security
 <details>
-  <summary>Spring Security</summary>
-
+  <summary>인증/인가를 위한, Spring Security</summary>
+  <br>
   JWT 기반의 **Spring Security**를 적용하여 인증/인가를 처리했습니다.  
 
   - **구현 방식**
@@ -228,10 +227,9 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 </details>
 
 
-#### 명령과 조회의 분리, CQRS
 <details>
-  <summary>CQRS</summary>
-
+  <summary>명령과 조회의 분리, CQRS</summary>
+  <br>
   Algo는 **CQRS(Command Query Responsibility Segregation)** 패턴을 도입하여  
   **쓰기(Command)**와 **읽기(Query)** 로직을 명확히 분리했습니다.  
 
@@ -252,11 +250,9 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 </details>
 
 
-#### 코딩 풀이 AI 피드백 (FastAPI + OpenAI)
-
 <details>
-  <summary>FastAPI + OpenAI</summary>
-
+  <summary>코딩 풀이 AI 피드백 (FastAPI + OpenAI)</summary>
+  <br>
   > <img width="130" height="130" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" /> <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />
 
   - **FastAPI 서버**  
@@ -291,11 +287,9 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 
 </details>
 
-#### 이메일 인증을 위한, SMTP
-
 <details>
-  <summary>SMTP</summary>
-
+  <summary>이메일 인증을 위한, SMTP</summary>
+  <br>
   Google Gmail SMTP를 사용하여 이메일 인증 기능을 구현했습니다.
 
   - 인증된 이메일로만 회원가입 가능  
@@ -306,11 +300,9 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 
 </details>
 
-#### 이미지/파일 저장소, AWS S3
-
 <details>
-  <summary>AWS S3</summary>
-
+  <summary>이미지/파일 저장소, AWS S3</summary>
+  <br>
   > <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
 
   AWS S3를 활용하여 이미지/파일 저장소를 구축했습니다.
