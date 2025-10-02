@@ -385,6 +385,8 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 
 ### 통합 테스트
 
+[📹 POSTMAN 통합 테스트 시연 영상 바로가기](https://youtu.be/J_UvU0YhNTI?si=tVVRt1VVzQoX1N-t)
+
 ---
 
 ## 8. 동료 평가
