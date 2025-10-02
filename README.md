@@ -28,54 +28,17 @@
 
 
 ## 1. 프로젝트 소개
-### 📌 프로젝트 배경
-**문제 인식**
 
-<img width="301" height="227" alt="111" src="https://github.com/user-attachments/assets/72e1e9f0-c3ba-43a4-9536-d354650afaa1" />
-<img width="320" height="178" alt="캡처2" src="https://github.com/user-attachments/assets/3be6084c-0402-42a2-a8d1-10c5c368c3d9" />
+### 프로젝트 배경
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0810521b-a22d-4134-9b76-5dd430da9aa2" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6c023324-6530-473e-9335-ce80ebcaa824" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/10850a96-18e5-4c19-9a79-d58c8aaa586f" />
 
-
-개발자 취업을 준비하며 가장 먼저 마주하는 벽은 알고리즘입니다.
-
-수천 개의 문제 중 어디서부터 시작해야 할지 막막함과
-
-문제를 풀어도 내 풀이가 좋은 코드인지 알 수 없거나,
-
-혼자 공부하면 쉽게 지치고 포기하게 됩니다.
-
-게다가 실전 코딩테스트 정보는 카페와 블로그에 산재되어 있고 신뢰하기 어렵습니다.
-
-### ✨우리의 해결책
-
-## **`"몰라도 된다, 알고 있으면 되니까!"`**
-Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
-
-단순한 문제 풀이 사이트가 아닌, 
-
-함께 성장하고 실전 정보를 공유하는 커뮤니티를 만들고자 했습니다.
-
-### **핵심 가치**
-**🤝 함께 성장** - 스터디 그룹으로 협업 학습
-
-**🤖 즉각적 피드백** - AI 코드 리뷰로 빠른 성장
-
-**📚 체계적 학습** - 단계별 알고리즘 학습 파트
-
-**💼 실전 정보** - 검증된 기업 후기 공유
-
-**🎮 지속 동기부여** - Gamification 시스템
-
-### 🎯 프로젝트 목표
-알고리즘 학습부터 취업 준비까지, 함께 성장하는 올인원 플랫폼을 구축하여
-
-누구나 알고리즘을 쉽게 배우고 꾸준히 성장할 수 있는 환경을 제공합니다.
-
----
 
 ### 주요 기능
 
-### 🎯 회원가입 및 로그인
+#### ✔️ 회원가입 및 로그인
 
 <details>
 <summary><b> &nbsp; 회원가입 </b></summary>
@@ -96,7 +59,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 </details>
 
 
-### 📰 알고리즘 개념 학습
+#### ✔️ 알고리즘 개념 학습
 
 <details>
 <summary><b>&nbsp;알고리즘 개념 학습 로드맵, 게시물, 개념문제 등록</b></summary>
@@ -110,7 +73,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 </details>
 
 
-### 🤖 코딩 문제 풀이
+#### ✔️ 코딩 문제 풀이
 
 <details>
 <summary><b> &nbsp; 회원문제 풀이 제출 </b></summary>
@@ -131,7 +94,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 </div>
 </details>
 
-### 🏫 스터디
+#### ✔️ 스터디
 
 <details>
 <summary><b> &nbsp; 스터디 모집 </b></summary>
@@ -154,7 +117,28 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 </div>
 </details>
 
-### 🚨 신고 및 추천
+#### ✔️ 기업별 정보 공유
+
+<details>
+<summary><b> &nbsp; 기업별 정보 공유 게시물 등록 </b></summary>
+<div markdown=1>
+
+- 회원은 취업과 관련된 정보 게시물을 등록할 수 있다.
+
+</div>
+</details>
+
+<details>
+<summary><b> &nbsp; 신뢰성 증가 </b></summary>
+<div markdown=1>
+
+- 게시물 등록 시 회원은 코딩 테스트 또는 면접 인증사진을 업로드 할 수 있으며, 인증사진이 첨부된 게시물은 **인증대기** 상태로 전환된다.
+- 이후 관리자의 승인을 거쳐 **인증 뱃지**가 부여된다
+
+</div>
+</details>
+
+#### ✔️ 신고 및 추천
 
 <details>
 <summary><b> &nbsp; 신고 </b></summary>
@@ -176,28 +160,8 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
 </div>
 </details>
 
-### 🏢 기업별 정보 공유
+<br>
 
-<details>
-<summary><b> &nbsp; 기업별 정보 공유 게시물 등록 </b></summary>
-<div markdown=1>
-
-- 회원은 취업과 관련된 정보 게시물을 등록할 수 있다.
-
-</div>
-</details>
-
-<details>
-<summary><b> &nbsp; 신뢰성 증가 </b></summary>
-<div markdown=1>
-
-- 게시물 등록 시 회원은 코딩 테스트 또는 면접 인증사진을 업로드 할 수 있으며, 인증사진이 첨부된 게시물은 **인증대기** 상태로 전환된다.
-- 이후 관리자의 승인을 거쳐 **인증 뱃지**가 부여된다
-
-</div>
-</details>
-
----
 ### 기술 스택
 
 ✔언어
