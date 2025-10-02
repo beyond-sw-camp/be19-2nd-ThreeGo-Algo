@@ -4,6 +4,7 @@
 
 > 개발자 취업 준비생, 지금 우리에게 필요한 건? Algo!
 
+
 <br>
 
 ## ThreeGo 팀원 소개
@@ -12,11 +13,15 @@
 |:----------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------:|
 | [**강지륜**](https://github.com/rosieisor) | [**김민지**](https://github.com/ghi512) | [**배태용**](https://github.com/HoodRyan) | [**정유진**](https://github.com/YujinJeong1006) | [**허창훈**](https://github.com/huni2) |
 
+## 기술 요약
+
+<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=openjdk&logoColor=white"/> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"/> <img src="https://img.shields.io/badge/Spring%20Cloud%20Gateway-339933?style=for-the-badge&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/JPA-59666C?style=for-the-badge&logo=hibernate&logoColor=white"/> <img src="https://img.shields.io/badge/MyBatis-000000?style=for-the-badge&logo=databricks&logoColor=white"/> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"/> <img src="https://img.shields.io/badge/Eureka-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"/> <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white"/> <img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=for-the-badge&logo=icloud&logoColor=white"/> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=for-the-badge&logo=diagram&logoColor=white"/> <img src="https://img.shields.io/badge/Lombok-CA2C92?style=for-the-badge&logo=lombok&logoColor=white"/> <img src="https://img.shields.io/badge/ModelMapper-FFDD00?style=for-the-badge&logo=databricks&logoColor=black"/> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black"/> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"/> <img src="https://img.shields.io/badge/SMTP-FF6C37?style=for-the-badge&logo=minutemailer&logoColor=white"/> <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white"/> <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"/> <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=junit5&logoColor=white"/> <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white"/> <img src="https://img.shields.io/badge/IntelliJ%20IDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white"/> 
+
 
 ## 목차
 
 [1. 프로젝트 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%86%8C%EA%B0%9C)<br>
-[2. 섥계 문서](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#2-%EC%84%A4%EA%B3%84-%EB%AC%B8%EC%84%9C)<br>
+[2. 설계 문서](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#2-%EC%84%A4%EA%B3%84-%EB%AC%B8%EC%84%9C)<br>
 [3. DB 모델링](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#3-db-%EB%AA%A8%EB%8D%B8%EB%A7%81)<br>
 [4. 시스템 아키텍처](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98)<br>
 [5. 세부 기술 소개](https://github.com/Team-ThreeGo/be19-2nd-ThreeGo-Algo?tab=readme-ov-file#5-%EC%84%B8%EB%B6%80-%EA%B8%B0%EC%88%A0-%EC%86%8C%EA%B0%9C)<br>
@@ -92,25 +97,16 @@
 
 ### 기술 스택
 
-✔언어
-
-<img src="https://img.shields.io/badge/java-007396?style=flat&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/python-3776AB?style=flat&logo=python&logoColor=white"/>
-
-🖥️ 운영체제 & 개발환경
-
-<img src="https://img.shields.io/badge/spring-6DB33F?style=flat&logo=spring&logoColor=white"/> <img src="https://img.shields.io/badge/springboot-6DB33F?style=flat&logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white"> <img src="https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white"/>
-
-🗃️ 데이터베이스 
-
-<img src="https://img.shields.io/badge/mariadb-%23003545.svg?&style=flat&logo=mariadb&logoColor=white"/> <img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
-
-📦 버전 관리 & 협업
-
-<img src="https://img.shields.io/badge/github-%23181717.svg?&style=flat&logo=github&logoColor=white" /> <img src="https://img.shields.io/badge/notion-%23000000.svg?&style=flat&logo=notion&logoColor=white" />
-
-📝 작업 툴
-
-<img src="https://img.shields.io/badge/ERD_Cloud-4A90E2?style=flat&logo=cloud&logoColor=white" /> <img src="https://img.shields.io/badge/DA%23MODELER-1D3557?style=flat&logo=diagram&logoColor=white" /> <img src="https://img.shields.io/badge/IntelliJIDEA-4CAF50.svg?style=flat&logo=intellij-idea&logoColor=white" /> <img src="https://img.shields.io/badge/HeidiSQL-4479A1?style=flat&logo=mysql&logoColor=white" /> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white" /> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white" /> 
+| 구분 | 기술 스택 |
+|------|-----------|
+| **언어** | Java 17 |
+| **프레임워크 & 런타임 환경** | Spring Boot 3.5.6 · Spring Cloud Gateway 2025.0.0 · Spring Cloud Netflix Eureka Client 2025.0.0 |
+| **데이터 접근** | Spring Data JPA 3.5.6 · MyBatis 3.0.5 |
+| **빌드 & 의존성 관리** | Gradle 8.x |
+| **외부 서비스 연동** | AWS S3 SDK 2.20.x · Spring Cloud AWS 2.2.6.RELEASE · SMTP (Spring Boot Starter Mail) 3.5.6 |
+| **보안 & 인증** | Spring Security 3.5.6 · JJWT 0.11.5 |
+| **작업 툴 & 협업** | IntelliJ IDEA · ERD Cloud · DA# Modeler · Postman · Swagger · GitHub · Notion |
+| **테스트** | JUnit |
 
 ---
 
@@ -194,10 +190,10 @@
 
 Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**를 도입하여 구현했습니다.
 
-- 클라이언트의 모든 요청은 **Spring Cloud Gateway**를 통해 진입하며, **Eureka Server**에서 서비스 정보를 확인하고 각 서비스로 라우팅합니다.  
+- 클라이언트의 모든 요청은 Spring Cloud Gateway를 통해 진입하며, Eureka Server에서 서비스 정보를 확인하고 각 서비스로 라우팅합니다.  
 - 서비스는 `ALGO-MEMBER-SERVICE`와 `ALGO-CORE-SERVICE`로 나누어져 있으며, 각각 포트 0으로 실행되어 Eureka에 등록되고 Gateway를 통해 로드밸런싱됩니다.  
-- 데이터는 **단일 MariaDB**를 공유하여 관리합니다.  
-- 외부 시스템으로는 **FastAPI(OpenAI 연동)**과 **AWS S3**를 연결하여, AI 피드백 제공 및 이미지/파일 저장을 지원합니다.  
+- 데이터는 단일 MariaDB를 공유하여 관리합니다.  
+- 외부 시스템으로는 FastAPI(OpenAI 연동)과 AWS S3를 연결하여, AI 피드백 제공 및 이미지/파일 저장을 지원합니다.  
 
 ---
 
@@ -206,7 +202,7 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 <details>
   <summary>인증/인가를 위한, Spring Security</summary>
   <br>
-  JWT 기반의 **Spring Security**를 적용하여 인증/인가를 처리했습니다.  
+  JWT 기반의 Spring Security를 적용하여 인증/인가를 처리했습니다.  
 
   - **구현 방식**
     - `JwtAuthenticationProvider`를 통해 토큰 검증
@@ -230,8 +226,8 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 <details>
   <summary>명령과 조회의 분리, CQRS</summary>
   <br>
-  Algo는 **CQRS(Command Query Responsibility Segregation)** 패턴을 도입하여  
-  **쓰기(Command)**와 **읽기(Query)** 로직을 명확히 분리했습니다.  
+  Algo는 CQRS(Command Query Responsibility Segregation) 패턴을 도입하여  
+  쓰기(Command)와 읽기(Query) 로직을 명확히 분리했습니다.  
 
 - **Command 영역**
   - **JPA**를 사용하여 엔티티 기반의 데이터 생성, 수정, 삭제 처리
@@ -253,7 +249,6 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 <details>
   <summary>코딩 풀이 AI 피드백 (FastAPI + OpenAI)</summary>
   <br>
-  > <img width="130" height="130" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" /> <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />
 
   - **FastAPI 서버**  
     - 사용자가 제출한 코드 풀이를 OpenAI API에 전달  
@@ -274,7 +269,7 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
         "aiPlan": "개선 방안"
       }
       ```  
-    - 규칙:  
+    - 규칙
       - 시간복잡도는 Big-O 표기만  
       - 잘한 점은 1~3개 간단히 요약  
       - 불필요한 언급은 배제  
@@ -303,7 +298,6 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 <details>
   <summary>이미지/파일 저장소, AWS S3</summary>
   <br>
-  > <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
 
   AWS S3를 활용하여 이미지/파일 저장소를 구축했습니다.
 
