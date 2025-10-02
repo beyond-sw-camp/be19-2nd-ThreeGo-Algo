@@ -189,62 +189,79 @@
 
 ## 4. 기술 소개
 
-### SMTP
-<details>
-  <summary>SMTP</summary>
+### 이메일 인증을 위한, SMTP
 
-  Google의 Gmail SMTP를 사용하여 이메일 인증 기능을 구축하였습니다.  
+Google Gmail SMTP를 사용하여 이메일 인증 기능을 구현했습니다.
 
-  - 인증된 이메일로만 회원 가입 가능  
-    - 사용자가 이메일을 입력 후 인증 버튼을 클릭하면 해당 이메일로 인증번호가 전송됨  
-    - 받은 인증번호와 사용자가 입력한 인증번호가 일치할 경우 인증 완료  
+- 인증된 이메일로만 회원가입 가능
+  - 사용자가 이메일을 입력 후 인증 버튼을 클릭하면 해당 이메일로 인증번호가 전송됨
+  - 받은 인증번호와 사용자가 입력한 인증번호가 일치할 경우 인증 완료
+- 인증번호 전송 및 입력값 검증으로 보안 강화
+- 추후 개선 방안: Redis + TTL 기반 인증번호 만료 처리
 
-  - 추후 개선 방안: Redis와 TTL을 사용하여 인증번호 유효기간 설정
-</details>
+<br>
+
+### 이미지/파일 저장소, AWS S3
+
+> <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
+
+AWS S3를 활용하여 이미지/파일 저장소를 구축했습니다.
+
+- 다양한 게시판에서 이미지/파일 업로드 가능
+  - 각 게시판 특성에 맞는 이미지 첨부 기능 제공함으로써 사용자 경험 향상
+  - ex) 기업별 정보 공유 게시판에서 합격 메일, 인증서 등 증빙자료 업로드 가능
+- 과정
+  1. Spring Boot 서버에서 `MultipartFile`로 전달받은 파일 검증 진행
+  2. UUID 기반의 파일명을 생성해 S3 버킷에 업로드
+  3. 이후 반환된 URL을 DB에 저장
 
 
-### S3
-<details>
-  <summary>S3</summary>
-  <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
+### 코딩 풀이 AI 피드백 (FastAPI + OpenAI)
 
+> <img width="130" height="130" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" /> <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />
 
-  AWS S3를 활용하여 이미지 및 파일 저장소를 구축했습니다. 
-  
-  특히 기업별 정보 공유 게시판에서 코딩테스트 후기나 
-  
-  면접 후기의 신뢰성을 높이기 위해 합격 메일, 참여 인증서 등의 증빙 자료를 업로드할 수 있도록 했습니다. 
-  
-  Spring Boot에서 MultipartFile로 전달받은 파일을 검증한 후, 
-  
-  UUID 기반의 고유한 파일명을 생성하여 S3 버킷에 업로드하고, 
-  
-  반환된 URL을 데이터베이스에 저장합니다.
-  
-  이 외에도 각 게시판의 성격에 맞게 이미지 첨부 기능을 제공하여 사용자 경험을 향상시켰습니다.
-</details>
+- **FastAPI 서버**
+  - 사용자가 제출한 코드 풀이를 OpenAI API에 전달
+  - 응답을 받아 JSON 형식으로 가공 후 백엔드로 전달
 
-### FastAPI + OpenAI
-<details>
-  <summary>FastAPI + OpenAI</summary>
-  
-- <img width="17" height="17" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" />FastAPI
-  - 파이썬 기반의 고성능 웹 프레임워크
-  - 비동기 처리 지원으로 빠른 API 응답 속도 제공합니다.
-  - RESTful API 설계 및 확장성 있는 서버 구축에 사용합니다.
+- **OpenAI (gpt-4o-mini)**
+  - 경량 모델 `gpt-4o-mini`를 활용하여 빠른 응답 제공
+  - 제출된 코드 풀이를 분석하고, 시간복잡도/장점/문제점/개선방안을 JSON으로 반환
 
-- <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />OpenAI API
-  - 최신 AI 모델을 활용한 자연어 처리 기능 제공합니다.
-  - 챗봇, 텍스트 요약, 코드 생성 등 지능형 기능을 제공합니다.
-  - FastAPI 서버와 연동하여 실시간 AI 응답 서비스 기능을 제공합니다.
+- **프롬프트 설계**
+  - 역할: 코딩 테스트 문제 풀이를 평가하는 AI 코치
+  - 출력 형식(JSON 고정)
+    ```json
+    {
+      "aiBigO": "O(N*M)",
+      "aiGood": "잘한 점 요약",
+      "aiBad": "문제점 요약",
+      "aiPlan": "개선 방안"
+    }
+    ```
+  - 규칙:
+    - 시간복잡도는 Big-O 표기만
+    - 잘한 점은 1~3개 간단히 요약
+    - 불필요한 언급은 배제
+    - 이전 기록 무시, 현재 제출만 평가
 
-- 정리하면 **FastAPI**로 경량화된 서버를 구현하고, **OpenAI API**를 연동하여 **AI 기반 기능** 을 제공하여 게시물 등록시 AI피드백이 바로 나옴으로써 사용사의 코딩풀이에 도움을 주는 역할을 합니다.
-</details>
+- 적용 효과
+  - 사용자가 문제 풀이 제출 → FastAPI 서버가 OpenAI 호출  
+  - 즉시 Big-O 분석 + 장점/문제점/개선방안 JSON 응답 
+  - 단순 정답 검증을 넘어 실질적인 개선 방향을 제시하여 학습 효과 강화
+
 
 ## 5. 시스템 아키텍처
 
-MSA 구조 설명
 
+<img width="1024" src="https://github.com/user-attachments/assets/c4005c3b-9a1a-4750-b238-2b8bf954f5f6" />
+
+Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**를 도입하여 구현했습니다.
+
+- 클라이언트의 모든 요청은 **Spring Cloud Gateway**를 통해 진입하며, **Eureka Server**에서 서비스 정보를 확인하고 각 서비스로 라우팅합니다.  
+- 서비스는 `ALGO-MEMBER-SERVICE`와 `ALGO-CORE-SERVICE`로 나누어져 있으며, 각각 포트 0으로 실행되어 Eureka에 등록되고 Gateway를 통해 로드밸런싱됩니다.  
+- 데이터는 **단일 MariaDB**를 공유하여 관리합니다.  
+- 외부 시스템으로는 **FastAPI(OpenAI 연동)**과 **AWS S3**를 연결하여, AI 피드백 제공 및 이미지/파일 저장을 지원합니다.  
 
 ---
 
@@ -287,6 +304,8 @@ MSA 구조 설명
   <img width="872" height="695" alt="image" src="https://github.com/user-attachments/assets/c8a04a95-9f9e-4b96-b6bf-6ce372b035b3" />
   <img width="874" height="471" alt="image" src="https://github.com/user-attachments/assets/6e68311c-600c-4ad4-a1ee-08355b865c12" />
 </details>
+
+
 
 ---
 
