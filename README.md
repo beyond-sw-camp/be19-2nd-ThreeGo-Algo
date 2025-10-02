@@ -328,7 +328,7 @@ Algo는 알고리즘이 두렵고 막막한 사람들을 위한 공간입니다.
   이 외에도 각 게시판의 성격에 맞게 이미지 첨부 기능을 제공하여 사용자 경험을 향상시켰습니다.
 </details>
 
-### <img width="17" height="17" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" />FastAPI + <img width="20" height="20" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />OpenAI
+### FastAPI + OpenAI
 <details>
   <summary>FastAPI + OpenAI</summary>
   
