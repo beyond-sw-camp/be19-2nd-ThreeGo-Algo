@@ -187,71 +187,7 @@
 
 ---
 
-## 4. 기술 소개
-
-### 이메일 인증을 위한, SMTP
-
-Google Gmail SMTP를 사용하여 이메일 인증 기능을 구현했습니다.
-
-- 인증된 이메일로만 회원가입 가능
-  - 사용자가 이메일을 입력 후 인증 버튼을 클릭하면 해당 이메일로 인증번호가 전송됨
-  - 받은 인증번호와 사용자가 입력한 인증번호가 일치할 경우 인증 완료
-- 인증번호 전송 및 입력값 검증으로 보안 강화
-- 추후 개선 방안: Redis + TTL 기반 인증번호 만료 처리
-
-<br>
-
-### 이미지/파일 저장소, AWS S3
-
-> <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
-
-AWS S3를 활용하여 이미지/파일 저장소를 구축했습니다.
-
-- 다양한 게시판에서 이미지/파일 업로드 가능
-  - 각 게시판 특성에 맞는 이미지 첨부 기능 제공함으로써 사용자 경험 향상
-  - ex) 기업별 정보 공유 게시판에서 합격 메일, 인증서 등 증빙자료 업로드 가능
-- 과정
-  1. Spring Boot 서버에서 `MultipartFile`로 전달받은 파일 검증 진행
-  2. UUID 기반의 파일명을 생성해 S3 버킷에 업로드
-  3. 이후 반환된 URL을 DB에 저장
-
-
-### 코딩 풀이 AI 피드백 (FastAPI + OpenAI)
-
-> <img width="130" height="130" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" /> <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />
-
-- **FastAPI 서버**
-  - 사용자가 제출한 코드 풀이를 OpenAI API에 전달
-  - 응답을 받아 JSON 형식으로 가공 후 백엔드로 전달
-
-- **OpenAI (gpt-4o-mini)**
-  - 경량 모델 `gpt-4o-mini`를 활용하여 빠른 응답 제공
-  - 제출된 코드 풀이를 분석하고, 시간복잡도/장점/문제점/개선방안을 JSON으로 반환
-
-- **프롬프트 설계**
-  - 역할: 코딩 테스트 문제 풀이를 평가하는 AI 코치
-  - 출력 형식(JSON 고정)
-    ```json
-    {
-      "aiBigO": "O(N*M)",
-      "aiGood": "잘한 점 요약",
-      "aiBad": "문제점 요약",
-      "aiPlan": "개선 방안"
-    }
-    ```
-  - 규칙:
-    - 시간복잡도는 Big-O 표기만
-    - 잘한 점은 1~3개 간단히 요약
-    - 불필요한 언급은 배제
-    - 이전 기록 무시, 현재 제출만 평가
-
-- 적용 효과
-  - 사용자가 문제 풀이 제출 → FastAPI 서버가 OpenAI 호출  
-  - 즉시 Big-O 분석 + 장점/문제점/개선방안 JSON 응답 
-  - 단순 정답 검증을 넘어 실질적인 개선 방향을 제시하여 학습 효과 강화
-
-
-## 5. 시스템 아키텍처
+## 4. 시스템 아키텍처
 
 
 <img width="1024" src="https://github.com/user-attachments/assets/c4005c3b-9a1a-4750-b238-2b8bf954f5f6" />
@@ -262,6 +198,132 @@ Algo는 **Spring Cloud 기반의 MSA(Microservice Architecture) 1세대 구조**
 - 서비스는 `ALGO-MEMBER-SERVICE`와 `ALGO-CORE-SERVICE`로 나누어져 있으며, 각각 포트 0으로 실행되어 Eureka에 등록되고 Gateway를 통해 로드밸런싱됩니다.  
 - 데이터는 **단일 MariaDB**를 공유하여 관리합니다.  
 - 외부 시스템으로는 **FastAPI(OpenAI 연동)**과 **AWS S3**를 연결하여, AI 피드백 제공 및 이미지/파일 저장을 지원합니다.  
+
+---
+
+## 5. 세부 기술 소개
+
+#### 인증/인가, Spring Security
+<details>
+  <summary>Spring Security</summary>
+
+  JWT 기반의 **Spring Security**를 적용하여 인증/인가를 처리했습니다.  
+
+  - **구현 방식**
+    - `JwtAuthenticationProvider`를 통해 토큰 검증
+    - `AuthenticationFilter`와 `JwtFilter`를 추가하여 요청마다 JWT 유효성 확인
+    - `WebSecurity` 설정에서 API 접근 권한을 세부적으로 분리
+
+  - **주요 정책**
+    - Swagger 문서 및 Health Check는 모든 사용자 접근 허용
+    - `/auth/**`, `/signup/**`, `/login/**` 등 인증 절차 관련 엔드포인트는 허용
+    - `/admin/**` 경로는 관리자(`ROLE_ADMIN`)만 접근 가능
+    - 이외의 모든 요청은 JWT 기반 인증 필요
+
+  - **효과**
+    - 모든 API 요청이 JWT 기반으로 검증되어 무상태(Stateless) 구조 유지
+    - 사용자/관리자 권한을 세분화하여 보안성 강화
+    - MSA 구조에서도 서비스 간 안전하게 토큰을 전달하고 검증 가능
+
+</details>
+
+
+#### 명령과 조회의 분리, CQRS
+<details>
+  <summary>CQRS</summary>
+
+  Algo는 **CQRS(Command Query Responsibility Segregation)** 패턴을 도입하여  
+  **쓰기(Command)**와 **읽기(Query)** 로직을 명확히 분리했습니다.  
+
+- **Command 영역**
+  - **JPA**를 사용하여 엔티티 기반의 데이터 생성, 수정, 삭제 처리
+  - 도메인 모델을 통해 데이터 변경의 일관성 보장
+
+- **Query 영역**
+  - **MyBatis**를 사용하여 조회 전용 API 구현
+  - 복잡한 SQL을 직접 다루어 성능 최적화 및 필요한 데이터만 반환
+
+- **장점**
+  - 읽기/쓰기 책임이 분리되어 서비스 구조가 명확해짐
+  - 조회 성능 최적화가 가능하고, 불필요한 데이터 로딩을 줄일 수 있음
+  - 유지보수와 확장이 용이해져 도메인별 서비스 관리가 수월해짐
+  - 이후 MSA로 서비스 분리 시 구조적으로 확장하기 유리
+
+</details>
+
+
+#### 코딩 풀이 AI 피드백 (FastAPI + OpenAI)
+
+<details>
+  <summary>FastAPI + OpenAI</summary>
+
+  > <img width="130" height="130" alt="image" src="https://github.com/user-attachments/assets/573174e6-afc2-4a47-b69d-83a20dd41c93" /> <img width="150" height="150" alt="image" src="https://github.com/user-attachments/assets/ac64300e-398f-4a57-8c08-d27018a2a774" />
+
+  - **FastAPI 서버**  
+    - 사용자가 제출한 코드 풀이를 OpenAI API에 전달  
+    - 응답을 받아 JSON 형식으로 가공 후 백엔드로 전달  
+
+  - **OpenAI (gpt-4o-mini)**  
+    - 경량 모델 `gpt-4o-mini`를 활용하여 빠른 응답 제공  
+    - 제출된 코드 풀이를 분석하고, 시간복잡도/장점/문제점/개선방안을 JSON으로 반환  
+
+  - **프롬프트 설계**  
+    - 역할: 코딩 테스트 문제 풀이를 평가하는 AI 코치  
+    - 출력 형식(JSON 고정)  
+      ```json
+      {
+        "aiBigO": "O(N*M)",
+        "aiGood": "잘한 점 요약",
+        "aiBad": "문제점 요약",
+        "aiPlan": "개선 방안"
+      }
+      ```  
+    - 규칙:  
+      - 시간복잡도는 Big-O 표기만  
+      - 잘한 점은 1~3개 간단히 요약  
+      - 불필요한 언급은 배제  
+      - 이전 기록 무시, 현재 제출만 평가  
+
+  - **적용 효과**  
+    - 사용자가 문제 풀이 제출 → FastAPI 서버가 OpenAI 호출  
+    - 즉시 Big-O 분석 + 장점/문제점/개선방안 JSON 응답  
+    - 단순 정답 검증을 넘어 실질적인 개선 방향을 제시하여 학습 효과 강화  
+
+</details>
+
+#### 이메일 인증을 위한, SMTP
+
+<details>
+  <summary>SMTP</summary>
+
+  Google Gmail SMTP를 사용하여 이메일 인증 기능을 구현했습니다.
+
+  - 인증된 이메일로만 회원가입 가능  
+    - 사용자가 이메일을 입력 후 인증 버튼을 클릭하면 해당 이메일로 인증번호가 전송됨  
+    - 받은 인증번호와 사용자가 입력한 인증번호가 일치할 경우 인증 완료  
+  - 인증번호 전송 및 입력값 검증으로 보안 강화  
+  - 추후 개선 방안: Redis + TTL 기반 인증번호 만료 처리  
+
+</details>
+
+#### 이미지/파일 저장소, AWS S3
+
+<details>
+  <summary>AWS S3</summary>
+
+  > <img width="383" height="132" alt="image" src="https://github.com/user-attachments/assets/ab64a49a-8e58-484a-8409-f3c22f9d75d5" />
+
+  AWS S3를 활용하여 이미지/파일 저장소를 구축했습니다.
+
+  - 다양한 게시판에서 이미지/파일 업로드 가능  
+    - 각 게시판 특성에 맞는 이미지 첨부 기능 제공함으로써 사용자 경험 향상  
+    - ex) 기업별 정보 공유 게시판에서 합격 메일, 인증서 등 증빙자료 업로드 가능  
+  - 과정  
+    1. Spring Boot 서버에서 `MultipartFile`로 전달받은 파일 검증 진행  
+    2. UUID 기반의 파일명을 생성해 S3 버킷에 업로드  
+    3. 이후 반환된 URL을 DB에 저장  
+
+</details>
 
 ---
 
