@@ -1,6 +1,10 @@
 # Algo
-<img width="428" height="396" alt="캡처" src="https://github.com/user-attachments/assets/b2df95a4-5981-48bf-b033-c57d1ba6d983" />
 
+<img width="1799" height="544" alt="image" src="https://github.com/user-attachments/assets/5c2ff665-8728-4025-9dca-c1aa16d209f7" />
+
+> 개발자 취업 준비생, 지금 우리에게 필요한 건? Algo!
+
+<br>
 
 ## ThreeGo 팀원 소개
 
